@@ -430,6 +430,16 @@ footer .links { display:flex; gap:18px; flex-wrap:wrap; margin-top:10px; } foote
   .stats { grid-template-columns:repeat(3,1fr); } .gallery,.gallery.toys { grid-template-columns:repeat(2,1fr); } .loops { grid-template-columns:1fr; } .recipes { grid-template-columns:1fr; } }
 @media (max-width:560px) { body { font-size:16px; } .wrap { padding:0 16px; } .cards,.devices,.dials { grid-template-columns:1fr; } .recipe { grid-template-columns:1fr; }
   .gallery.toys { grid-template-columns:1fr 1fr; } .brand span { display:none; } .stat b { font-size:30px; } .device { transform:none; } }
+/* Keep the Worlds example and download filenames readable on narrow screens. */
+.feature > * { min-width:0; }
+.code { max-width:100%%; overflow-x:auto; }
+@media (max-width:560px) {
+  #download table { table-layout:fixed; width:100%%; }
+  #download th:first-child, #download td:first-child { width:38%%; }
+  #download th:nth-child(2), #download td:nth-child(2) { width:62%%; }
+  #download td, #download a { overflow-wrap:anywhere; }
+}
+
 """
 
 TOUCH_SVG = """<svg viewBox="0 0 800 360" role="img" aria-label="%(alt)s"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#12233a"/><stop offset="1" stop-color="#0a1220"/></linearGradient></defs>
