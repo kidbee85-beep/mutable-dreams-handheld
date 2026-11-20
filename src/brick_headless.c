@@ -622,6 +622,10 @@ int main(int argc, char **argv)
                 printf("  ok playing %d\n", bk_playing());
         } else if (!strcmp(cmd, "light")) {        /* light 1/0: the light picture */
             bk_set_light(atoi(a));
+        } else if (!strcmp(cmd, "sticks")) {      /* sticks LX LY RX RY: the analogue sticks held at these values (-32768..32767), 0 0 0 0 lets go (1.5.10) */
+            int v[4] = {0, 0, 0, 0};
+            sscanf(line, "%*s %d %d %d %d", &v[0], &v[1], &v[2], &v[3]);
+            bk_sticks(v[0], v[1], v[2], v[3]);
         } else if (!strcmp(cmd, "sidehalf")) {    /* sidehalf 1/0: the columns every other frame in the light picture (1.5.8) */
             bk_set_side_half(atoi(a));
         } else if (!strcmp(cmd, "sidecheck")) {   /* sidecheck: four frames at one moment, the pixels that differ told

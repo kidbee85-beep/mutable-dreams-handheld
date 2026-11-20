@@ -6,13 +6,15 @@
 #     proportion (640 x 480; 720 x 720 and 720 x 480: a 4:3 picture in the middle);
 #   - no F1, F2 or FN: the hints point to the quick bar (L2) and SELECT opens the menu (QUIT at its end);
 #   - nobody has run it on an H700 yet (1.5.9): the picture goes straight into the window first, as on the Brick;
-#     if no first frame comes within 20 s the program is stopped and started once more through SDL's renderer.
+#     if no first frame comes within 20 s the program is stopped and started once more through SDL's renderer. On a screen
+#     the stage does not fill (720 x 720, 720 x 480) the first try is the screen-fitting one (1.5.10): a window of the
+#     screen's own size, the stage in proportion in the middle, instead of asking the driver for a mode of the stage's size.
 #     The way that worked is kept in mutabledreams/video-mode.txt.
 # Switch files in mutabledreams/ (content does not matter):
 #   keytest.on   every button pressed written to log.txt     selftest.on  plays 30 s by itself, measures, quits
 #   nosplash.on  no animated start screen                    light.on     the light picture from the start
 #   calm.on      CALM MOTION from the start                  nofast.on    the CPU governor left alone
-#   surface.on / nosurface.on   only the window's own pixels / only SDL's renderer (no trying)
+#   surface.on / nosurface.on / fit.on   only the window's own pixels / only SDL's renderer / only the screen-fitting way (no trying)
 #   gpu.on       SDL's accelerated (GL) renderer             usbaudio.off the sound stays on the handheld
 # H7_ROOT (tests only): a folder standing in for / when reading /sys and /proc.
 HERE="${BASH_SOURCE[0]%/*}"
@@ -48,7 +50,7 @@ done
 if [ -z "$SW" ] && [ -r "$R/sys/class/graphics/fb0/virtual_size" ]; then
     V=$(cat "$R/sys/class/graphics/fb0/virtual_size" 2>/dev/null)   # "640,960": width, height of both pages
     SW="${V%%,*}"; SH="${V#*,}"
-    [ -n "$SW" ] && [ -n "$SH" ] && [ "$SH" -ge $((SW * 3 / 2)) ] 2>/dev/null && SH=$((SH / 2))
+    [ -n "$SW" ] && [ -n "$SH" ] && [ "$SH" -gt "$SW" ] 2>/dev/null && SH=$((SH / 2))   # (taller than wide: two pages of a landscape or square panel)
 fi
 case "$SW$SH" in *[!0-9]*|"") SW=640; SH=480; echo "screen: size not found, taking 640 x 480";; esac
 OW=$SW; OH=$((SW * 3 / 4))                       # the largest 4:3 picture on it
@@ -98,13 +100,20 @@ done
 
 # --- the picture's way: tried in order, the one that worked first next time ---
 MODEFILE="$GAMEDIR/video-mode.txt"
+FITFIRST=0
+{ [ "$OW" -ne "$SW" ] || [ "$OH" -ne "$SH" ]; } && FITFIRST=1
+if [ "$FITFIRST" = 1 ]; then DEFMODES=(fit surface renderer); else DEFMODES=(surface renderer fit); fi
 if [ -f "$GAMEDIR/surface.on" ]; then MODES=(surface); FORCED=1
 elif [ -f "$GAMEDIR/nosurface.on" ]; then MODES=(renderer); FORCED=1
+elif [ -f "$GAMEDIR/fit.on" ]; then MODES=(fit); FORCED=1
 else
     FORCED=0
     LAST=""
     [ -f "$MODEFILE" ] && [ ! -L "$MODEFILE" ] && IFS= read -r -n 16 LAST < "$MODEFILE"
-    case "$LAST" in renderer) MODES=(renderer surface);; *) MODES=(surface renderer);; esac
+    case "$LAST" in
+        fit) MODES=(fit surface renderer);; surface) MODES=(surface renderer fit);; renderer) MODES=(renderer surface fit);;
+        *) MODES=("${DEFMODES[@]}");;
+    esac
 fi
 WAIT="${H7_FIRST_FRAME_SECONDS:-20}"
 CHILD=""
@@ -122,7 +131,8 @@ trap 'stop_child; exit 143' TERM INT HUP
 chmod +x -- "$GAMEDIR/mutable-dreams" 2>/dev/null
 RC=124
 for MODE in "${MODES[@]}"; do
-    if [ "$MODE" = surface ]; then export MD_PRESENT=window; else unset MD_PRESENT; fi
+    if [ "$MODE" = fit ]; then export MD_SCREEN=1; unset MD_PRESENT
+    else unset MD_SCREEN; if [ "$MODE" = surface ]; then export MD_PRESENT=window; else unset MD_PRESENT; fi; fi
     echo "video: trying the picture's way: $MODE"
     MARK=$(grep -c 'startup: first frame presented' "$LOG" 2>/dev/null)
     sync

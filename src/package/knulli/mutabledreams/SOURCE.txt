@@ -1,4 +1,4 @@
-Mutable Dreams for Trimui Brick - release 1.5.9 (20.11.2026), by Kid Bunka.
+Mutable Dreams for Trimui Brick - release 1.5.10 (20.11.2026), by Kid Bunka.
 
 This program is free software under the GNU General Public License version 3 only (GPL-3.0-only), see LICENSE.txt.
 It is built from the unchanged Mutable Dreams 2.1 sources (build 2467CC38):

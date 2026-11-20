@@ -721,6 +721,92 @@ static void audio_switch(const char *name)
 #ifdef MD_HAVE_TOUCH
 static const char *touch_shot;                   /* MD_TOUCH_SHOT=FILE.bmp: the window as shown, once, after 40 frames (tests) */
 #endif
+
+#if defined(__APPLE__)
+/* (1.5.10) MD_VPAD_TEST=1: a virtual game controller (SDL 2.0.14+, the Mac's SDL only) pushed through the very event path a
+   handheld's controller takes - SDL_CONTROLLERBUTTONDOWN / AXISMOTION, pad_control, the sticks' hand-over to the core -
+   to see the Trimui Smart Pro's keys do what they should: the sticks' clicks (L3, R3) open the Sound Lab and the mixer
+   (F1, F2), SELECT taps open the menu, the MENU button too, the left stick turns the first dial. Prints "vpad: ..." lines
+   and "vpad: PASS" (else "vpad: FAIL n"); start with MD_KEYS=handheld MD_AUTOPLAY=1 MD_NO_SPLASH=1 */
+static SDL_Joystick *vpad_js;
+static int vpad_failed, vpad_checks, vpad_step;
+static void vpad_attach(void)
+{
+    SDL_VirtualJoystickDesc d;
+    int idx;
+    SDL_zero(d);
+    d.version = SDL_VIRTUAL_JOYSTICK_DESC_VERSION;
+    d.type = SDL_JOYSTICK_TYPE_GAMECONTROLLER;
+    d.naxes = SDL_CONTROLLER_AXIS_MAX;
+    d.nbuttons = SDL_CONTROLLER_BUTTON_MAX;
+    d.name = "Virtual Smart Pro";
+    idx = SDL_JoystickAttachVirtualEx(&d);
+    if (idx >= 0)
+        vpad_js = SDL_JoystickOpen(idx);
+    fprintf(stderr, "vpad: a virtual controller %s\n", vpad_js ? "attached" : "NOT attached");
+}
+static void vpad_btn(int b, int v) { SDL_JoystickSetVirtualButton(vpad_js, b, (Uint8)v); }
+static int vpad_rel = -1;                        /* the button to let go of, once the program has seen it pressed (a press and a release
+                                                    inside one event poll would be one change, no event) */
+static uint32_t vpad_rel_at;
+static void vpad_tap(int b) { vpad_btn(b, 1); vpad_rel = b; vpad_rel_at = SDL_GetTicks() + 150u; }
+static void vpad_check(const char *what, int ok)
+{
+    vpad_checks++;
+    if (!ok)
+        vpad_failed++;
+    fprintf(stderr, "vpad: %-4s %s\n", ok ? "ok" : "FAIL", what);
+}
+/* one step per call, called by the main loop; the steps wait for the program in between */
+static int vpad_tick(SDL_mutex *lock, uint32_t ms)
+{
+    static uint32_t next = 2500u;
+    int gv, mv, m0;
+    if (vpad_rel >= 0 && SDL_GetTicks() >= vpad_rel_at)
+        vpad_btn(vpad_rel, 0), vpad_rel = -1;
+    if (!vpad_js || ms < next || vpad_step < 0)
+        return 0;
+    SDL_LockMutex(lock);
+    gv = bk_garden_visible(), mv = bk_menu_shown(), m0 = bk_macro(0);
+    SDL_UnlockMutex(lock);
+    switch (vpad_step++) {
+    case 0: vpad_check("the garden is there to begin with", gv); vpad_tap(SDL_CONTROLLER_BUTTON_LEFTSTICK); next = ms + 900; break;
+    case 1: vpad_check("L3 (the left stick's click) = F1: the Sound Lab opens, the garden goes", !gv); vpad_tap(SDL_CONTROLLER_BUTTON_B); next = ms + 900; break;
+    case 2: vpad_check("B goes back: the garden again", gv); vpad_tap(SDL_CONTROLLER_BUTTON_RIGHTSTICK); next = ms + 900; break;
+    case 3: vpad_check("R3 (the right stick's click) = F2: the mixer opens, the garden goes", !gv); vpad_tap(SDL_CONTROLLER_BUTTON_B); next = ms + 900; break;
+    case 4: vpad_check("B goes back: the garden again", gv); vpad_tap(SDL_CONTROLLER_BUTTON_BACK); next = ms + 900; break;
+    case 5: vpad_check("SELECT (back) tapped opens the menu (a handheld without MENU)", mv); vpad_tap(SDL_CONTROLLER_BUTTON_BACK); next = ms + 900; break;
+    case 6: vpad_check("SELECT tapped again closes it", !mv); vpad_tap(SDL_CONTROLLER_BUTTON_GUIDE); next = ms + 900; break;
+    case 7: vpad_check("the MENU button (guide) opens the menu too", mv); vpad_tap(SDL_CONTROLLER_BUTTON_B); next = ms + 900; break;
+    case 8: vpad_check("B closes the menu", !mv);
+            vpad_check("the first dial is at its start (500)", m0 == 500);
+            SDL_JoystickSetVirtualAxis(vpad_js, SDL_CONTROLLER_AXIS_LEFTX, 3000); next = ms + 1200; break;   /* a stick almost at rest */
+    case 9: vpad_check("a small push of the left stick turns nothing", m0 == 500);
+            SDL_JoystickSetVirtualAxis(vpad_js, SDL_CONTROLLER_AXIS_LEFTX, 32000); next = ms + 1500; break;
+    case 10: vpad_check("the left stick pushed right turns the first dial up", m0 > 620);
+             SDL_JoystickSetVirtualAxis(vpad_js, SDL_CONTROLLER_AXIS_LEFTX, 0); next = ms + 400; break;
+    default:
+        fprintf(stderr, "vpad: %s (%d checks%s)\n", vpad_failed ? "FAIL" : "PASS", vpad_checks, vpad_failed ? ", some failed" : "");
+        vpad_step = -1;
+        return 1;
+    }
+    return 0;
+}
+#endif
+static const char *md_shot;                      /* (1.5.10) MD_SHOT=FILE.bmp: the window as shown through the renderer, once, after 40 frames (tests) */
+static void window_shot(SDL_Renderer *ren)
+{
+    int w = 0, h = 0, lw = 0, lh = 0;
+    SDL_Surface *sf;
+    SDL_GetRendererOutputSize(ren, &w, &h);
+    SDL_RenderGetLogicalSize(ren, &lw, &lh);
+    SDL_RenderSetLogicalSize(ren, 0, 0);         /* (a read inside the logical size gives only the stage: the whole window wanted) */
+    sf = SDL_CreateRGBSurfaceWithFormat(0, w, h, 32, SDL_PIXELFORMAT_ARGB8888);
+    if (sf && SDL_RenderReadPixels(ren, 0, SDL_PIXELFORMAT_ARGB8888, sf->pixels, sf->pitch) == 0)
+        SDL_SaveBMP(sf, md_shot), fprintf(stderr, "video: window %d x %d saved to %s\n", w, h, md_shot);
+    SDL_FreeSurface(sf);
+    SDL_RenderSetLogicalSize(ren, lw, lh);
+}
 static void present_frame(SDL_Window *win, SDL_Surface *win_surf, SDL_Renderer *ren, SDL_Texture *tex, const uint32_t *px, uint32_t n)
 {
     if (win_surf) {
@@ -749,6 +835,8 @@ static void present_frame(SDL_Window *win, SDL_Surface *win_surf, SDL_Renderer *
 #endif
         SDL_RenderClear(ren);
         SDL_RenderCopy(ren, tex, 0, 0);
+        if (md_shot && n == 40)
+            window_shot(ren);
         SDL_RenderPresent(ren);
     }
 }
@@ -1057,7 +1145,7 @@ static int read_battery(void)
 int main(int argc, char **argv)
 {
     const char *save = 0, *ahead_env = getenv("MD_AUDIO_AHEAD"), *fps_env = getenv("MD_FPS");
-    int windowed = 0, running = 1, desktop = 0;
+    int windowed = 0, running = 1, desktop = 0, fit_screen = 0, test_w = 0, test_h = 0;
     uint32_t fps = fps_env ? (uint32_t)atoi(fps_env) : 30u;
     SDL_Thread *render_thread = 0;
     char base[1024] = ".";
@@ -1164,16 +1252,32 @@ int main(int argc, char **argv)
         const char *dk = getenv("MD_DESKTOP");
         desktop = dk && *dk == '1';
     }
-    if (desktop)
+    {   /* (1.5.10) MD_SCREEN=1: a handheld whose screen is not the stage's size (the Trimui Smart Pro, 1280 x 720; the
+           H700s): the window is the screen's own size (the driver's desktop mode, no mode switch to the stage's size),
+           the renderer draws the stage in proportion in the middle - 1:1, black beside it, when the launcher made the
+           stage fit the screen's height (MD_OUT). MD_SCREEN=WxH: the same in a window of that size (tests on a Mac) */
+        const char *sc = getenv("MD_SCREEN");
+        if (sc && *sc && strcmp(sc, "0")) {
+            fit_screen = 1;
+            if (sscanf(sc, "%dx%d", &test_w, &test_h) != 2)
+                test_w = test_h = 0;
+            fprintf(stderr, "video: the screen's own size, the stage in proportion in the middle%s\n", test_w ? " (a test window)" : "");
+        }
+        md_shot = getenv("MD_SHOT");
+    }
+    if (desktop || fit_screen)
         SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
     {
         int ww = out_w, wh = out_h;
+        if (test_w > 0)
+            ww = test_w, wh = test_h;
 #ifdef MD_HAVE_TOUCH
         if (touch_on && getenv("MD_TOUCH_WIN"))  /* (tests: a phone's or a tablet's shape, e.g. 2400x1080) */
             sscanf(getenv("MD_TOUCH_WIN"), "%dx%d", &ww, &wh);
 #endif
     win = SDL_CreateWindow("Mutable Dreams", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, ww, wh,
                            desktop ? (windowed ? SDL_WINDOW_RESIZABLE : SDL_WINDOW_FULLSCREEN_DESKTOP) :
+                           fit_screen ? (test_w > 0 ? 0 : SDL_WINDOW_FULLSCREEN_DESKTOP) :
 #ifdef __linux__
                            windowed ? 0 : SDL_WINDOW_FULLSCREEN
 #else
@@ -1185,7 +1289,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "SDL_CreateWindow: %s\n", SDL_GetError());
         return 1;
     }
-    if (!desktop && env_is("MD_PRESENT", "window")) {
+    if (!desktop && !fit_screen && env_is("MD_PRESENT", "window")) {
         /* MD_PRESENT=window (surface.on): the picture straight into the window's own pixels, no texture and no
            renderer in between - two copies of the frame fewer. Only where the window is exactly the picture's size
            and 32-bit RGB; else the renderer as always */
@@ -1280,6 +1384,10 @@ int main(int argc, char **argv)
     }
     fflush(stderr);
 
+#if defined(__APPLE__)
+    if (env_is("MD_VPAD_TEST", "1"))
+        vpad_attach();
+#endif
     for (int i = 0; i < SDL_NumJoysticks(); i++) {
         if (SDL_IsGameController(i) && !pad)
             pad = SDL_GameControllerOpen(i);
@@ -1394,6 +1502,11 @@ int main(int argc, char **argv)
     while (running && !bk_quit_requested()) {
         SDL_Event e;
         uint32_t held;
+        static int stick_new;
+#if defined(__APPLE__)
+        if (vpad_js && vpad_tick(core_lock, SDL_GetTicks() - started))
+            running = 0;
+#endif
         (void)underruns;
         while (SDL_PollEvent(&e)) {
             int c = -1, down = 0;
@@ -1471,11 +1584,9 @@ int main(int argc, char **argv)
                     held_pad = e.caxis.value > 16000 ? held_pad | 1u << BK_L2 : held_pad & ~(1u << BK_L2);
                 else if (e.caxis.axis == SDL_CONTROLLER_AXIS_TRIGGERRIGHT)
                     held_pad = e.caxis.value > 16000 ? held_pad | 1u << BK_R2 : held_pad & ~(1u << BK_R2);
-                else if (pad)
-                    bk_sticks(SDL_GameControllerGetAxis(pad, SDL_CONTROLLER_AXIS_LEFTX),
-                              SDL_GameControllerGetAxis(pad, SDL_CONTROLLER_AXIS_LEFTY),
-                              SDL_GameControllerGetAxis(pad, SDL_CONTROLLER_AXIS_RIGHTX),
-                              SDL_GameControllerGetAxis(pad, SDL_CONTROLLER_AXIS_RIGHTY));
+                else if (pad)                            /* (1.5.10) noted here, given to the core once a turn of this loop, under its lock:
+                                                            a stick sends a hundred events a second, the core's lock may be held by a frame */
+                    stick_new = 1;
                 break;
             case SDL_JOYBUTTONDOWN: case SDL_JOYBUTTONUP:
 #ifdef MD_HAVE_TOUCH
@@ -1521,6 +1632,11 @@ int main(int argc, char **argv)
         SDL_AtomicSet(&input_waiting, 1);        /* (1.1) the stage steps aside for the buttons */
         SDL_LockMutex(core_lock);
         SDL_AtomicSet(&input_waiting, 0);
+        if (stick_new && pad) {
+            bk_sticks(SDL_GameControllerGetAxis(pad, SDL_CONTROLLER_AXIS_LEFTX), SDL_GameControllerGetAxis(pad, SDL_CONTROLLER_AXIS_LEFTY),
+                      SDL_GameControllerGetAxis(pad, SDL_CONTROLLER_AXIS_RIGHTX), SDL_GameControllerGetAxis(pad, SDL_CONTROLLER_AXIS_RIGHTY));
+            stick_new = 0;
+        }
         bk_input(held);
         SDL_UnlockMutex(core_lock);
 

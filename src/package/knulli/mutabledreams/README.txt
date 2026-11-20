@@ -1,4 +1,4 @@
-MUTABLE DREAMS FOR TRIMUI BRICK - release 1.5.9 - by Kid Bunka
+MUTABLE DREAMS FOR TRIMUI BRICK - release 1.5.10 - by Kid Bunka
 
 Install (Knulli): copy "Mutable Dreams.sh" and the folder "mutabledreams" into roms/ports on the SD card,
 then update the game list. Start "Mutable Dreams" from Ports. Quit: MENU > QUIT.
@@ -172,6 +172,12 @@ CALM MOTION (the quick bar's last entry): what only moves for decoration holds s
   Under the tempo the transport is written out: PLAYING or RESTING.
 LIGHT PICTURE (the quick bar's second-to-last entry): less decoration (no spores, no mirror in the pond, no grain), a
   faster stage. It comes on by itself when the stage stays slow; mutabledreams/light.on starts with it.
+NEW IN 1.5.10: the Trimui Smart Pro (Knulli). Its screen is 1280 x 720: the stage is made 960 x 720 and drawn 1:1 in the
+  middle, black beside it (the launcher reads the screen's size; MD_SCREEN=1 in the program: a window of the screen's own
+  size, the stage in proportion, instead of asking for a mode of the stage's size). The two sticks turn the four dials
+  (left K1 and K2, right K3 and K4; deflection is speed), their clicks are F1 and F2; SELECT taps open the menu. The
+  H700 launcher uses the same way on screens the stage does not fill (720 x 720, 720 x 480), and a framebuffer of two
+  pages on a 16:9 screen is read correctly now. Not yet run on a Smart Pro: please send mutabledreams/log.txt.
 NEW IN 1.5.9: the menu on one key. On the handhelds without a MENU key (Miyoo Mini, Mini Plus, Mini Flip, RGB20S,
   Android with a gamepad) SELECT tapped opens the menu - every place, OPTIONS, and QUIT at the end (UP once from the
   top); SELECT or B closes it, SELECT held is still the button map. The hint line says SELECT MENU right after the

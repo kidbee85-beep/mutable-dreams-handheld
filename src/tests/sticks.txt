@@ -1,0 +1,31 @@
+# 1.5.10, the Trimui Smart Pro's two analogue sticks (and the Brick Pro's): left X turns K1 (FIREFLIES), left Y K2 (WIND),
+# right X K3 (GLOW), right Y K4 (MIST); the further a stick is pushed the faster; a small push (a stick at rest) does nothing.
+# In the garden the dials run 0..1000: FIREFLIES 500, WIND 0, GLOW 460, MIST 360 at the start.
+handheld 1
+wait 4000
+tap START
+wait 1500
+sticks 3000 0 0 0
+wait 1200
+expect_macro_below 0 520
+expect_macro_above 0 480
+sticks 32000 0 0 0
+wait 1500
+expect_macro_above 0 620
+sticks 0 0 0 0
+wait 300
+sticks 0 -32000 0 0
+wait 1500
+expect_macro_above 1 80
+sticks 0 0 0 0
+wait 300
+sticks 0 0 -32000 0
+wait 1500
+expect_macro_below 2 380
+sticks 0 0 0 0
+wait 300
+sticks 0 0 0 32000
+wait 1500
+expect_macro_below 3 300
+sticks 0 0 0 0
+wait 400

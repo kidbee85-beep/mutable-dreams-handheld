@@ -8,7 +8,7 @@
  * (Included by brick_stage.inc after the drawing primitives.) */
 #include "splash_font.h"
 
-#define BK_VERSION "1.5.9"
+#define BK_VERSION "1.5.10"
 #define SP_FADE_MS 700u
 #define SP_AUTO_MS 10000u
 #ifndef SP_BG_MS

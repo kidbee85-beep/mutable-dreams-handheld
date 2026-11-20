@@ -25,7 +25,7 @@ new_case() {
     cat > "$d/mutabledreams/mutable-dreams" <<'FAKE'
 #!/bin/bash
 # FAKE: "<way>:<what>,...": hang (no frame), crash3 (exit 3 before a frame), ok<N> (a frame, then exit N).
-way=surface; [ -z "${MD_PRESENT:-}" ] && way=renderer
+way=surface; [ -z "${MD_PRESENT:-}" ] && way=renderer; [ -n "${MD_SCREEN:-}" ] && way=fit
 what=""
 for pair in ${FAKE//,/ }; do [ "${pair%%:*}" = "$way" ] && what="${pair#*:}"; done
 gov=$(cat "$H7_ROOT/sys/devices/system/cpu/cpufreq/policy0/scaling_governor")
@@ -52,15 +52,15 @@ check "640x480: the surface way kept" "$(mode "$d")" surface
 check "the governor given back afterwards" "$(cat "$d/sys/devices/system/cpu/cpufreq/policy0/scaling_governor")" schedutil
 check "the log names the screen" "$(grep -c 'screen: 640 x 480, the stage at 640 x 480' "$d/mutabledreams/log.txt")" 1
 
-d=$(new_case cube drm:720x720); run "$d" "surface:ok0" > /dev/null
+d=$(new_case cube drm:720x720); run "$d" "fit:ok0,surface:ok0" > /dev/null
 check "720x720 (CubeXX): a 4:3 stage of 720 x 536" "$(trace "$d" | sed 's/.*out=\([0-9x]*\).*/\1/')" 720x536
-d=$(new_case rg34 drm:720x480); run "$d" "surface:ok0" > /dev/null
+d=$(new_case rg34 drm:720x480); run "$d" "fit:ok0,surface:ok0" > /dev/null
 check "720x480 (RG34XX): a 4:3 stage of 640 x 480" "$(trace "$d" | sed 's/.*out=\([0-9x]*\).*/\1/')" 640x480
 d=$(new_case fbonly fb:640,960); run "$d" "surface:ok0" > /dev/null
 check "no DRM, framebuffer 640,960 (two pages): 640 x 480" "$(trace "$d" | sed 's/.*out=\([0-9x]*\).*/\1/')" 640x480
-d=$(new_case nothing none); run "$d" "surface:ok0" > /dev/null
+d=$(new_case nothing none); run "$d" "surface:ok0,fit:ok0" > /dev/null
 check "no size found: 640 x 480" "$(trace "$d" | sed 's/.*out=\([0-9x]*\).*/\1/')" 640x480
-d=$(new_case big drm:1024x768); run "$d" "surface:ok0" > /dev/null
+d=$(new_case big drm:1024x768); run "$d" "fit:ok0,surface:ok0" > /dev/null
 check "1024x768: the stage as drawn, no scaling" "$(trace "$d" | sed 's/.*out=\([0-9a-z]*\).*/\1/')" none
 
 d=$(new_case fallback drm:640x480); rc=$(run "$d" "surface:hang,renderer:ok0")
@@ -73,7 +73,7 @@ check "second start: only the renderer" "$(tail -n 1 "$d/trace.txt" | cut -d' ' 
 
 d=$(new_case crash drm:640x480); rc=$(run "$d" "surface:crash3,renderer:ok0")
 check "the surface way crashes before a picture: the renderer, status 0" "$rc" 0
-d=$(new_case none-work drm:640x480); rc=$(run "$d" "surface:hang,renderer:hang")
+d=$(new_case none-work drm:640x480); rc=$(run "$d" "surface:hang,renderer:hang,fit:hang")
 check "no way works: status 124, nothing kept" "$rc/$(mode "$d")" "124/none"
 check "no way works: governor given back" "$(cat "$d/sys/devices/system/cpu/cpufreq/policy0/scaling_governor")" schedutil
 
@@ -81,6 +81,16 @@ d=$(new_case forced drm:640x480); : > "$d/mutabledreams/nosurface.on"; rc=$(run 
 check "nosurface.on: only the renderer, nothing kept" "$(trace "$d" | cut -d' ' -f1)/$(mode "$d")" "renderer/none"
 d=$(new_case nofast drm:640x480); : > "$d/mutabledreams/nofast.on"; run "$d" "surface:ok0" > /dev/null
 check "nofast.on: the governor left alone" "$(trace "$d" | sed 's/.*gov=//')" schedutil
+
+# (1.5.10) a screen the stage does not fill: the screen-fitting way first, kept when it works; the old ways behind it
+d=$(new_case fitfirst drm:720x720); rc=$(run "$d" "fit:ok0,surface:ok0")
+check "720x720: the screen-fitting way first (the stage 720 x 536 in the middle), status 0, kept" "$(trace "$d" | cut -d' ' -f1-3)/$(mode "$d")" "fit ok0 out=720x536/fit"
+d=$(new_case fitfail drm:720x720); rc=$(run "$d" "fit:hang,surface:ok0")
+check "720x720: no picture the fitting way: the window surface next" "$(trace "$d" | sed 's/ out=[^|]*//g')/$rc" "fit hang|surface ok0/0"
+d=$(new_case fit-forced drm:640x480); : > "$d/mutabledreams/fit.on"; run "$d" "fit:ok0,surface:ok0,renderer:ok0" > /dev/null
+check "fit.on: only the fitting way, nothing kept" "$(trace "$d" | cut -d' ' -f1)/$(mode "$d")" "fit/none"
+d=$(new_case full drm:640x480); run "$d" "surface:ok0,fit:ok0" > /dev/null
+check "640x480 (the stage fills it): the window surface first, as before" "$(trace "$d" | cut -d' ' -f1)" surface
 
 rm -rf "$ROOT"
 echo

@@ -31,6 +31,8 @@ tools/reg.sh .                       # all tests in tests/ with the headless run
 tools/asan.sh                        # the same under AddressSanitizer and UndefinedBehaviorSanitizer
 MD_SMALL=1 zsh tools/textscan.sh     # texts that were shortened or run off the screen (640x480 mode)
 bash tools/test_h700_launcher.sh     # the H700 launcher with a stand-in program: H700_LAUNCHER_PASS
+bash tools/test_smartpro_launcher.sh # the Smart Pro launcher likewise: SMARTPRO_LAUNCHER_PASS
+tools/test_vpad.sh                   # (Mac) a virtual game controller through the SDL controller path: "vpad: PASS"; ASAN=1 under the sanitizers
 python3 tools/flicker_scan.py FILM.raw   # flicker check on frames written by the runner's "film" command
 ```
 
@@ -39,7 +41,7 @@ Do not run two of the first three at the same time: they share output folders. T
 ## 4. Package
 
 ```sh
-python3 tools/make_packages.py OUTDIR            # RGB20S, Miyoo Mini Plus, Miyoo Mini, H700 (needs the builds above)
+python3 tools/make_packages.py OUTDIR            # RGB20S, Miyoo Mini Plus, Miyoo Mini, H700, Trimui Smart Pro (needs the builds above; "smartpro", "h700" … name one)
 python3 tools/make_linux_os.py x86_64            # Linux PC package ("Dream Garden")
 python3 tools/build_android.py                   # Android debug and unsigned release APKs
 python3 tools/make_manual.py OUTDIR              # the manual (HTML and PDF, German and English; PDF needs Google Chrome)

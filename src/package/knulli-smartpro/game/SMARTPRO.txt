@@ -1,0 +1,33 @@
+MUTABLE DREAMS ON THE TRIMUI SMART PRO (Knulli) - by Kid Bunka
+
+A community test (1.5.10): it is the Trimui Brick's program (the same aarch64 build, the same A133P, Knulli's own SDL2),
+with a launcher for the Smart Pro's 1280 x 720 screen. Not yet run on a real Smart Pro by us: please send
+mutabledreams/log.txt back if something does not work.
+
+INSTALL
+  Unpack the zip and copy "Mutable Dreams.sh" and the folder mutabledreams into roms/ports on the SD card (the SHARE
+  partition). Update the game list in Knulli's menu, then start Mutable Dreams under Ports.
+
+THE SCREEN
+  The Smart Pro's screen is 16:9; the garden is 4:3. The launcher reads the screen's size and makes the stage 960 x 720,
+  drawn 1:1 in the middle with black beside it. log.txt says what it found ("screen: ...") and which way worked.
+  The first try is a window of the screen's own size with the stage in proportion in the middle; if no picture comes
+  within 20 s the launcher starts it once more the Brick's way (the stage's own size, straight into the window) and keeps
+  the way that worked (mutabledreams/video-mode.txt).
+
+THE BUTTONS
+  D-pad, A B X Y, L1 R1 L2 R2, START, SELECT as on the Brick. The two sticks turn the four dials: the left stick K1 and
+  K2, the right stick K3 and K4 (the further it is pushed, the faster). Clicking the sticks (L3, R3) is F1 (Sound Lab) and
+  F2 (mixer). There is no FN switch: tap L2 for the quick bar (PLAY MODE is in it), and SELECT for the menu (every place,
+  the options, and QUIT at its end: press UP once there, then A); hold SELECT for the help. Every version starts in English.
+
+SWITCH FILES (in mutabledreams/, content does not matter)
+  light.on      the light picture from the start (it also comes by itself when the stage is slow)
+  calm.on       CALM MOTION from the start
+  nosplash.on   no animated start screen
+  selftest.on   plays 30 s by itself and writes its measurements (frame rate, sound) to log.txt
+  keytest.on    every button pressed is written to log.txt (to check L3, R3, the sticks and the menu button)
+  fit.on / brick.on   only the screen-fitting way / only the Brick's way (no trying)
+  gpu.on        SDL's accelerated (GL) renderer
+  nofast.on     the CPU governor left alone (else "performance" while it runs, the old one put back after; no overclock)
+  usbaudio.off  the sound stays on the handheld even with a USB-C sound card plugged in

@@ -10,9 +10,15 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "docs"
-VERSION = "1.5.9"
+VERSION = "1.5.10"
+OLD = "1.5.9"                                   # the packages that did not change stay in the 1.5.9 release
 REPO = "kidbee85-beep/mutable-dreams-handheld"
 REL = f"https://github.com/{REPO}/releases/download/v{VERSION}/"
+REL_OLD = f"https://github.com/{REPO}/releases/download/v{OLD}/"
+
+
+def rel(name):                                  # where a file is: the packages of 1.5.9 that did not change, else the newest release
+    return (REL_OLD if f"-{OLD}." in name else REL) + name
 SITE = "https://kidbee85-beep.github.io/mutable-dreams-handheld/"
 FM1 = "https://github.com/kidbee85-beep/mutable-dreams"
 SIZES = {}                                      # file name -> bytes, from release-files.txt if present
@@ -38,12 +44,12 @@ T = {
  "en": {
   "lang": "en", "dir": "", "other": ("de/", "Deutsch"), "root": "",
   "title": f"Mutable Dreams {VERSION} for handhelds – a garden of sound",
-  "desc": "Mutable Dreams turns a handheld into a dream garden of sound: six tracks, 272 Biomes, 96 worlds, a Sound Lab with Mutable Instruments modules and ten musical toys. For Trimui Brick, Miyoo Mini, RGB20S, H700, Android and Linux. Free, GPL-3.0.",
+  "desc": "Mutable Dreams turns a handheld into a dream garden of sound: six tracks, 272 Biomes, 96 worlds, a Sound Lab with Mutable Instruments modules and ten musical toys. For Trimui Brick and Smart Pro, Miyoo Mini, RGB20S, H700, Android and Linux. Free, GPL-3.0.",
   "nav": [("garden", "The garden"), ("features", "Features"), ("devices", "Devices"), ("controls", "Controls"), ("ideas", "Ideas"), ("download", "Download")],
   "kicker": "For handhelds · by Kid Bunka",
   "sub": "A garden of sound that makes music by itself – and answers you.",
   "cta1": "Download", "cta2": "Manual (PDF)", "cta3": "Source on GitHub",
-  "meta": f"Version {VERSION} · first public release · GPL-3.0 · English and German",
+  "meta": f"Version {VERSION} · GPL-3.0 · English and German",
   "stats": [("6", "tracks, six plants"), ("272", "Biomes"), ("96", "worlds"), ("18", "Sound Lab modules"), ("10", "musical toys"), ("24", "Plaits models")],
   "pillars_h": "Tend it, and it answers",
   "pillars_p": "Mutable Dreams is a generative instrument. It plays by itself, the way a garden grows by itself. You do not need to read music or program anything: turn a dial, choose another Biome or play a note, and the music changes in a way you can hear and see.",
@@ -67,6 +73,7 @@ T = {
     ("Miyoo Mini Plus", "Onion OS · 640×480", "Plus", "ok", "Earlier device builds ran at about 15 fps. 1.5.9 requests 20 fps; measured drawing work per frame is 22–30% lower. Exact-build device confirmation is pending."),
     ("Miyoo Mini · Mini Flip", "Onion OS · 640×480", "Mini", "ok", "The Flip is recognised and speaker audio was confirmed on an earlier build. USB-C adapter audio remains unverified."),
     ("Powkiddy RGB20S", "AmberELEC · 640×480", "RGB20S", "ok", "1.5.9 confirmed on the device. Earlier 1.5.7 measurements: 20 fps and one audio underrun in 60 seconds."),
+    ("Trimui Smart Pro", "Knulli · 1280×720 · two sticks", "SmartPro", "test", "Community test (new in 1.5.10): the garden sits in the middle of the 16:9 screen; the sticks turn the dials. Not yet run on a real Smart Pro."),
     ("Anbernic H700", "Knulli · RG35XX, RG40XX, CubeXX, RG34XX", "H700", "test", "Community test: the launcher fits the stage to the screen. Not yet run on a real H700."),
     ("Android", "Phones, tablets, gamepads", "Android", "ok", "1.5.9 confirmed on a device. Touch buttons beside the stage, several fingers at once; or play with a gamepad."),
     ("Linux PC", "x86_64 and aarch64", "Linux", "new", "Packages built for x86_64 and aarch64, with a “Dream Garden” start-menu entry. No real-PC run confirmed in this review; feedback welcome."),
@@ -77,6 +84,9 @@ T = {
   "rules": [f"{k('B')} always goes one step back, the way you came.", f"Holding {k('B')} takes you home to the garden from anywhere."],
   "hand_h": "No MENU key? One tap on SELECT.",
   "hand_p": f"On the Miyoo handhelds, the RGB20S, the H700 and Android gamepads, tap {k('SELECT')} for the menu with every place, the options and <strong>Quit</strong> (press {k('UP')} once, then {k('A')}). Hold {k('SELECT')} for the help. Tap {k('L2')} for the quick bar, which also switches play mode on and off. The hint line at the bottom names {k('SELECT')} MENU right after the place's name.",
+  "sp_cap": "The Trimui Smart Pro's 16:9 screen: the garden (4:3) sits 1:1 in the middle, black beside it.",
+  "sp_h": "Trimui Smart Pro: the sticks",
+  "sp_p": f"The two sticks turn the four dials: the left stick {k('K1')} and {k('K2')}, the right stick {k('K3')} and {k('K4')}. The further a stick is pushed, the faster the dial turns; a stick at rest does nothing. Clicking the sticks ({k('L3')}, {k('R3')}) is {k('F1')} (Sound Lab) and {k('F2')} (mixer). There is no FN switch: play mode is in the quick bar ({k('L2')}).",
   "touch_h": "Touch on Android",
   "touch_p": f"The Brick's buttons lie beside the stage: D-pad, {k('L1')}, {k('L2')} and {k('SELECT')} on the left; {k('A')} {k('B')} {k('X')} {k('Y')}, {k('R1')}, {k('R2')}, {k('START')} and {k('MENU')} on the right. Several fingers at once and sliding work, so held buttons and combinations behave as on the device. The back key is {k('B')}. Press a gamepad button and the touch buttons step aside for a larger stage.",
   "map_cap": "Hold SELECT and the help appears: a drawn Brick shows every button and what it does. L1/R1 turn through five pages.",
@@ -97,11 +107,12 @@ T = {
     ("Playing live", "06-playmode", [f"Switch on play mode: the {k('FN')} switch on the Brick, or PLAY MODE in the quick bar ({k('L2')}).", f"The D-pad and {k('A')} {k('B')} {k('X')} {k('Y')} now play the Biome's scale, so nothing can sound wrong; {k('L1')}/{k('R1')} change the track.", f"Let a sequence run with {k('START')} and play over it; hold {k('R2')} for chords."]),
     ("On the go", "05-menu", [f"Tap {k('SELECT')} for the menu and pick a place; on a phone, use the touch buttons.", f"Tap {k('L2')} for the quick bar: PLAY MODE, LIGHT PICTURE and DEUTSCH / ENGLISH are at its end.", f"To stop, tap {k('SELECT')}, press {k('UP')} once to reach <strong>Quit</strong>, then {k('A')}. The Sound Lab and your settings are kept."]),
   ],
-  "dl_h": "Download", "dl_p": f"Version {VERSION} · every file is in the GitHub release. Checksums are in SHA256SUMS.txt.",
+  "dl_h": "Download", "dl_p": f"Version {VERSION} · the files are in the GitHub releases {VERSION} (new) and {OLD} (unchanged packages). Checksums are in SHA256SUMS.txt of each release.",
   "dl_cols": ["For", "File"], "dl_all": "All files and checksums on GitHub",
   "inst_h": "Installing", "inst_p": "You can copy a new version over an older one: your saved Biomes, settings, tale progress and samples stay as they are.",
   "inst": [
     ("Trimui Brick (Knulli)", f"Unpack the zip. Copy <b>Mutable Dreams.sh</b> and the folder <b>mutabledreams</b> into <b>roms/ports</b> on the SD card. Update the game list in the Knulli menu and start <strong>Mutable Dreams</strong> from <em>Ports</em>."),
+    ("Trimui Smart Pro (Knulli) – community test", "Copy <b>Mutable Dreams.sh</b> and <b>mutabledreams</b> into <b>roms/ports</b>. The screen is 16:9: the garden sits in the middle with black beside it. The sticks turn the four dials (the further, the faster), clicking them is F1 and F2, <b>SELECT</b> opens the menu. <b>SMARTPRO.txt</b> lists switch files; if something is wrong, please send <b>mutabledreams/log.txt</b>."),
     ("Miyoo Mini Plus, Mini, Mini Flip (Onion OS)", "Unpack the zip for your device and copy its folders <b>App</b> and <b>Roms</b> onto the SD card, merging them with the ones there. Start <strong>Mutable Dreams</strong> under <em>Ports</em> or <em>Apps</em>. <b>MIYOO.txt</b> beside the program lists switch files (for example <b>fps15.on</b>)."),
     ("Powkiddy RGB20S (AmberELEC)", "Unpack the zip into <b>roms/ports</b>, update the game list and start <strong>Mutable Dreams</strong> under <em>Ports</em>."),
     ("Anbernic H700 (Knulli) – community test", "Copy <b>Mutable Dreams.sh</b> and <b>mutabledreams</b> into <b>roms/ports</b>. The launcher reads the screen size and fits the stage to it. If something is wrong, please send <b>mutabledreams/log.txt</b>."),
@@ -130,12 +141,12 @@ T = {
  "de": {
   "lang": "de", "dir": "de/", "other": ("../", "English"), "root": "../",
   "title": f"Mutable Dreams {VERSION} für Handhelds – ein Garten aus Klang",
-  "desc": "Mutable Dreams macht den Handheld zu einem Traumgarten aus Klang: sechs Spuren, 272 Biome, 96 Welten, ein Klanglabor mit Modulen nach Mutable Instruments und zehn musikalische Spielzeuge. Für Trimui Brick, Miyoo Mini, RGB20S, H700, Android und Linux. Frei, GPL-3.0.",
+  "desc": "Mutable Dreams macht den Handheld zu einem Traumgarten aus Klang: sechs Spuren, 272 Biome, 96 Welten, ein Klanglabor mit Modulen nach Mutable Instruments und zehn musikalische Spielzeuge. Für Trimui Brick und Smart Pro, Miyoo Mini, RGB20S, H700, Android und Linux. Frei, GPL-3.0.",
   "nav": [("garden", "Der Garten"), ("features", "Funktionen"), ("devices", "Geräte"), ("controls", "Tasten"), ("ideas", "Ideen"), ("download", "Download")],
   "kicker": "Für Handhelds · von Kid Bunka",
   "sub": "Ein Garten aus Klang, der von selbst Musik macht – und dir antwortet.",
   "cta1": "Download", "cta2": "Handbuch (PDF)", "cta3": "Quellen auf GitHub",
-  "meta": f"Version {VERSION} · erste öffentliche Version · GPL-3.0 · Deutsch und Englisch",
+  "meta": f"Version {VERSION} · GPL-3.0 · Deutsch und Englisch",
   "stats": [("6", "Spuren, sechs Pflanzen"), ("272", "Biome"), ("96", "Welten"), ("18", "Module im Klanglabor"), ("10", "musikalische Spielzeuge"), ("24", "Plaits-Modelle")],
   "pillars_h": "Pflege ihn, und er antwortet",
   "pillars_p": "Mutable Dreams ist ein generatives Instrument. Es spielt von selbst, so wie ein Garten von selbst wächst. Du musst keine Noten lesen und nichts programmieren: Dreh an einem Regler, wähle ein anderes Biom oder spiel eine Note, und die Musik verändert sich hörbar und sichtbar.",
@@ -159,6 +170,7 @@ T = {
     ("Miyoo Mini Plus", "Onion OS · 640×480", "Plus", "ok", "Frühere Geräte-Builds liefen mit etwa 15 fps. 1.5.9 fordert 20 fps an; gemessen sind 22–30% weniger Zeichenarbeit pro Bild. Eine Gerätebestätigung dieses Builds steht noch aus."),
     ("Miyoo Mini · Mini Flip", "Onion OS · 640×480", "Mini", "ok", "Der Flip wird erkannt, Lautsprecherton wurde mit einem früheren Build bestätigt. USB-C-Adapterton bleibt ungeprüft."),
     ("Powkiddy RGB20S", "AmberELEC · 640×480", "RGB20S", "ok", "1.5.9 am Gerät bestätigt. Frühere Messung mit 1.5.7: 20 fps und ein Audio-Aussetzer in 60 Sekunden."),
+    ("Trimui Smart Pro", "Knulli · 1280×720 · zwei Sticks", "SmartPro", "test", "Community-Test (neu in 1.5.10): Der Garten sitzt in der Mitte des 16:9-Bildschirms; die Sticks drehen die Regler. Auf einem echten Smart Pro noch nicht gelaufen."),
     ("Anbernic H700", "Knulli · RG35XX, RG40XX, CubeXX, RG34XX", "H700", "test", "Community-Test: Der Starter passt die Bühne dem Bildschirm an. Auf einem echten H700 noch nicht gelaufen."),
     ("Android", "Handys, Tablets, Gamepads", "Android", "ok", "1.5.9 am Gerät bestätigt. Touch-Tasten neben der Bühne, mehrere Finger gleichzeitig; oder mit Gamepad spielen."),
     ("Linux-PC", "x86_64 und aarch64", "Linux", "new", "Pakete für x86_64 und aarch64 mit „Dream Garden“ im Startmenü sind gebaut. Kein echter PC-Lauf in dieser Prüfung bestätigt; Rückmeldungen willkommen."),
@@ -169,6 +181,9 @@ T = {
   "rules": [f"{k('B')} geht immer einen Schritt zurück, auf dem Weg, den du gekommen bist.", f"{k('B')} gehalten bringt dich von überall nach Hause in den Garten."],
   "hand_h": "Keine MENU-Taste? Ein Tipp auf SELECT.",
   "hand_p": f"Auf den Miyoo-Geräten, dem RGB20S, dem H700 und bei Android-Gamepads öffnet ein Tipp auf {k('SELECT')} das Menü mit allen Orten, den Optionen und <strong>Beenden</strong> (einmal {k('UP')}, dann {k('A')}). {k('SELECT')} gehalten zeigt die Hilfe. Ein Tipp auf {k('L2')} öffnet die Schnellleiste, die auch den Spielmodus ein- und ausschaltet. Die Hinweiszeile unten nennt {k('SELECT')} MENÜ gleich nach dem Namen des Ortes.",
+  "sp_cap": "Der 16:9-Bildschirm des Trimui Smart Pro: Der Garten (4:3) sitzt 1:1 in der Mitte, daneben bleibt es schwarz.",
+  "sp_h": "Trimui Smart Pro: die Sticks",
+  "sp_p": f"Die beiden Sticks drehen die vier Regler: der linke Stick {k('K1')} und {k('K2')}, der rechte {k('K3')} und {k('K4')}. Je weiter ein Stick gedrückt wird, desto schneller dreht der Regler; ein ruhender Stick tut nichts. Ein Klick auf die Sticks ({k('L3')}, {k('R3')}) ist {k('F1')} (Klanglabor) und {k('F2')} (Mixer). Es gibt keinen FN-Schalter: Der Spielmodus liegt in der Schnellleiste ({k('L2')}).",
   "touch_h": "Touch auf Android",
   "touch_p": f"Die Tasten des Brick liegen neben der Bühne: links Steuerkreuz, {k('L1')}, {k('L2')} und {k('SELECT')}; rechts {k('A')} {k('B')} {k('X')} {k('Y')}, {k('R1')}, {k('R2')}, {k('START')} und {k('MENU')}. Mehrere Finger gleichzeitig und Wischen gehen, gehaltene Tasten und Kombinationen verhalten sich also wie am Gerät. Die Zurück-Taste ist {k('B')}. Drückst du eine Gamepad-Taste, treten die Touch-Tasten für eine größere Bühne zur Seite.",
   "map_cap": "SELECT gehalten: Die Hilfe erscheint. Ein gezeichneter Brick zeigt jede Taste mit ihrer Bedeutung. L1/R1 blättern durch fünf Seiten.",
@@ -189,11 +204,12 @@ T = {
     ("Live spielen", "06-playmode", [f"Schalte den Spielmodus ein: am Brick mit dem {k('FN')}-Schalter, sonst mit SPIELMODUS in der Schnellleiste ({k('L2')}).", f"Steuerkreuz und {k('A')} {k('B')} {k('X')} {k('Y')} spielen jetzt die Tonleiter des Bioms, es kann also nichts falsch klingen; {k('L1')}/{k('R1')} wechseln die Spur.", f"Lass mit {k('START')} eine Sequenz laufen und spiel darüber; {k('R2')} gehalten spielt Akkorde."]),
     ("Unterwegs", "05-menu", [f"Ein Tipp auf {k('SELECT')} öffnet das Menü, such dir einen Ort aus; auf dem Handy nimmst du die Touch-Tasten.", f"Ein Tipp auf {k('L2')} öffnet die Schnellleiste: SPIELMODUS, LEICHTES BILD und DEUTSCH / ENGLISH liegen an ihrem Ende.", f"Zum Aufhören {k('SELECT')} tippen, einmal {k('UP')} zu <strong>Beenden</strong>, dann {k('A')}. Klanglabor und Einstellungen bleiben erhalten."]),
   ],
-  "dl_h": "Download", "dl_p": f"Version {VERSION} · alle Dateien liegen im GitHub-Release. Die Prüfsummen stehen in SHA256SUMS.txt.",
+  "dl_h": "Download", "dl_p": f"Version {VERSION} · die Dateien liegen in den GitHub-Releases {VERSION} (neu) und {OLD} (unveränderte Pakete). Die Prüfsummen stehen in der SHA256SUMS.txt jedes Releases.",
   "dl_cols": ["Für", "Datei"], "dl_all": "Alle Dateien und Prüfsummen auf GitHub",
   "inst_h": "Installieren", "inst_p": "Eine ältere Version darfst du einfach überschreiben: Deine gespeicherten Biome, Einstellungen, die Traumgeschichte und deine Samples bleiben erhalten.",
   "inst": [
     ("Trimui Brick (Knulli)", "Entpacke das Zip. Kopiere <b>Mutable Dreams.sh</b> und den Ordner <b>mutabledreams</b> auf der SD-Karte nach <b>roms/ports</b>. Aktualisiere im Knulli-Menü die Spieleliste und starte <strong>Mutable Dreams</strong> unter <em>Ports</em>."),
+    ("Trimui Smart Pro (Knulli) – Community-Test", "Kopiere <b>Mutable Dreams.sh</b> und <b>mutabledreams</b> nach <b>roms/ports</b>. Der Bildschirm ist 16:9: Der Garten sitzt in der Mitte, daneben bleibt es schwarz. Die Sticks drehen die vier Regler (je weiter, desto schneller), ein Klick darauf ist F1 und F2, <b>SELECT</b> öffnet das Menü. <b>SMARTPRO.txt</b> nennt die Schalterdateien; wenn etwas nicht stimmt, schick bitte <b>mutabledreams/log.txt</b>."),
     ("Miyoo Mini Plus, Mini, Mini Flip (Onion OS)", "Entpacke das Zip für dein Gerät und kopiere seine Ordner <b>App</b> und <b>Roms</b> auf die SD-Karte, zusammengeführt mit den vorhandenen. Gestartet wird <strong>Mutable Dreams</strong> unter <em>Ports</em> oder <em>Apps</em>. <b>MIYOO.txt</b> neben dem Programm nennt Schalterdateien (zum Beispiel <b>fps15.on</b>)."),
     ("Powkiddy RGB20S (AmberELEC)", "Entpacke das Zip nach <b>roms/ports</b>, aktualisiere die Spieleliste und starte <strong>Mutable Dreams</strong> unter <em>Ports</em>."),
     ("Anbernic H700 (Knulli) – Community-Test", "Kopiere <b>Mutable Dreams.sh</b> und <b>mutabledreams</b> nach <b>roms/ports</b>. Der Starter liest die Bildschirmgröße und passt die Bühne an. Wenn etwas nicht stimmt, schick bitte <b>mutabledreams/log.txt</b>."),
@@ -377,6 +393,7 @@ strong,b { color:#fff; } b { font-weight:700; }
 .card div { padding:14px 18px 18px; } .card h3 { font-size:21px; color:var(--moss); } .card p { margin:6px 0 0; color:var(--dim); font-size:15.5px; line-height:1.5; }
 .shot { display:block; } .shot img { width:100%%; display:block; border-radius:16px; box-shadow:0 18px 50px #000b,0 0 0 1px #ffffff12; transition:transform .25s; }
 .shot:hover img { transform:scale(1.012); }
+figure.sp { max-width:760px; margin:26px auto 0; } figure.sp figcaption { text-align:center; border-left:0; padding-left:0; }
 .loops { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:30px; }
 figure { margin:0; } figure.loop img { width:100%%; border-radius:16px; box-shadow:0 18px 50px #000b,0 0 0 1px #ffffff12; display:block; }
 figcaption { color:var(--dim); font-size:14.5px; margin-top:9px; padding-left:13px; border-left:3px solid var(--leaf); line-height:1.45; }
@@ -485,7 +502,7 @@ def build(L):
     # hero
     A('<div class="hero" id="top"><canvas id="kit" aria-hidden="true"></canvas><div class="wrap"><div>')
     A(f'<div class="kicker">{t["kicker"]}</div><h1>Mutable Dreams</h1><p class="sub">{t["sub"]}</p><div class="cta">')
-    A(f'<a class="btn main" href="#download">{t["cta1"]}</a><a class="btn" href="{REL}Mutable-Dreams-{"Manual-EN" if L == "en" else "Handbuch-DE"}.pdf">{t["cta2"]}</a>'
+    A(f'<a class="btn main" href="#download">{t["cta1"]}</a><a class="btn" href="{rel("Mutable-Dreams-" + ("Manual-EN" if L == "en" else "Handbuch-DE") + ".pdf")}">{t["cta2"]}</a>'
       f'<a class="btn" href="https://github.com/{REPO}">{t["cta3"]}</a></div><p class="meta">{t["meta"]}</p></div>')
     A(f'<div class="device"><div class="screen"><picture><source media="(prefers-reduced-motion: reduce)" srcset="{r}assets/img/loops/{L}/garden-poster.webp">'
       f'<img src="{r}assets/img/loops/{L}/garden-loop.webp" width="768" height="576" alt="Mutable Dreams: the garden" fetchpriority="high"></picture></div>'
@@ -494,15 +511,15 @@ def build(L):
     tour_h = "A garden in your hands · the full film" if L == "en" else "Ein Garten in deinen Händen · der ganze Film"
     tour_p = "6:40 of the garden, Sound Lab, played melodies, SELECT menu and Android touch layout." if L == "en" else "6:40 mit Garten, Klanglabor, gespielten Melodien, SELECT-Menü und Android-Touch-Ansicht."
     tour_note = "Actual macOS app performance and original engine music. Synthetic English narration; English and German subtitles. The touch layout is a labelled still from the Mac preview." if L == "en" else "Echte App-Performance auf dem Mac mit Originalmusik. Englische synthetische Stimme; deutsche und englische Untertitel. Die Touch-Ansicht ist ein beschriftetes Standbild aus der Mac-Vorschau."
-    tour_file = REL + "Mutable-Dreams-1.5.9-Feature-Tour.mp4"
-    cover_file = REL + "Mutable-Dreams-1.5.9-Feature-Tour-Cover.jpg"
+    tour_file = REL_OLD + "Mutable-Dreams-1.5.9-Feature-Tour.mp4"
+    cover_file = REL_OLD + "Mutable-Dreams-1.5.9-Feature-Tour-Cover.jpg"
     en_default = " default" if L == "en" else ""
     de_default = " default" if L == "de" else ""
     A(f'<main><section id="tour"><div class="wrap reveal"><h2>{tour_h}</h2><p class="lead">{tour_p}</p>')
     A(f'<video controls playsinline preload="none" poster="{cover_file}" style="display:block;width:100%;aspect-ratio:16/9;background:#071018;border-radius:18px"><source src="{tour_file}" type="video/mp4">')
     A(f'<track kind="subtitles" src="{r}assets/video/feature-tour-en.vtt" srclang="en" label="English"{en_default}><track kind="subtitles" src="{r}assets/video/feature-tour-de.vtt" srclang="de" label="Deutsch"{de_default}>')
     A(f'<a href="{tour_file}">{tour_h}</a></video><p>{tour_note}</p>')
-    A(f'<p><a href="https://youtu.be/dMS1GqUwWYo">{"Watch on YouTube" if L == "en" else "Auf YouTube ansehen"}</a> · <a href="https://youtube.com/shorts/AWsBLmDVJhY">YouTube Short</a> · <a href="{tour_file}">{"Download the full film" if L == "en" else "Film herunterladen"}</a> · <a href="{REL}Mutable-Dreams-1.5.9-Release-Reel.mp4">{"60-second reel" if L == "en" else "60-Sekunden-Reel"}</a></p></div></section>')
+    A(f'<p><a href="https://youtu.be/dMS1GqUwWYo">{"Watch on YouTube" if L == "en" else "Auf YouTube ansehen"}</a> · <a href="https://youtube.com/shorts/AWsBLmDVJhY">YouTube Short</a> · <a href="{tour_file}">{"Download the full film" if L == "en" else "Film herunterladen"}</a> · <a href="{REL_OLD}Mutable-Dreams-1.5.9-Release-Reel.mp4">{"60-second reel" if L == "en" else "60-Sekunden-Reel"}</a></p></div></section>')
     # pillars
     A(f'<section id="garden"><div class="wrap reveal"><h2>{t["pillars_h"]}</h2><p class="lead">{t["pillars_p"]}</p>')
     A('<div class="stats">' + "".join(f'<div class="stat"><b>{a}</b><span>{b}</span></div>' for a, b in t["stats"]) + "</div>")
@@ -522,15 +539,18 @@ def build(L):
     A("</div></section>")
     # devices
     A(f'<section id="devices"><div class="wrap reveal"><h2>{t["devices_h"]}</h2><p class="lead">{t["devices_p"]}</p><div class="devices">')
-    cols = {"Brick": "#aecfb6", "Plus": "#dcc694", "Mini": "#86c2b4", "RGB20S": "#a5bed9", "H700": "#face8c", "Android": "#c8b1d8", "Linux": "#cca091"}
+    cols = {"SmartPro": "#8fd3ff", "Brick": "#aecfb6", "Plus": "#dcc694", "Mini": "#86c2b4", "RGB20S": "#a5bed9", "H700": "#face8c", "Android": "#c8b1d8", "Linux": "#cca091"}
     for name, sysname, key, st, txt in t["dev"]:
         A(f'<div class="dev" style="--c:{cols[key]}"><h3>{name}</h3><div class="sys">{sysname}</div><p>{txt}</p><span class="badge {st}">{t["badge"][st]}</span></div>')
-    A("</div></div></section>")
+    A("</div>")
+    A(f'<figure class="sp"><a class="shot" href="{r}assets/img/smartpro.webp" target="_blank" rel="noopener"><img src="{r}assets/img/smartpro.webp" width="1280" height="720" loading="lazy" alt="{t["sp_cap"]}"></a><figcaption>{t["sp_cap"]}</figcaption></figure>')
+    A("</div></section>")
     # controls
     A(f'<section id="controls"><div class="wrap reveal"><h2>{t["controls_h"]}</h2><p class="lead">{t["controls_p"]}</p><ul class="ticks">' + "".join(f"<li>{x}</li>" for x in t["rules"]) + "</ul>")
     A(f'<div class="controls"><div><figure>{img(L, "50-help", t["controls_h"])}<figcaption>{t["map_cap"]}</figcaption></figure></div><div>')
     A("<table><tr>" + "".join(f"<th>{h}</th>" for h in t["table_h"]) + "</tr>" + "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in t["table"]) + "</table></div></div>")
     A(f'<div class="tip"><h4>{t["hand_h"]}</h4><p style="margin:4px 0 0">{t["hand_p"]}</p></div>')
+    A(f'<h3 style="color:var(--moss);font-size:24px;margin-top:30px">{t["sp_h"]}</h3><p>{t["sp_p"]}</p>')
     A(f'<h3 style="color:var(--moss);font-size:24px;margin-top:30px">{t["touch_h"]}</h3><div class="touch">{TOUCH_SVG % {"alt": t["touch_h"]}}</div><p>{t["touch_p"]}</p></div></section>')
     # ideas
     A(f'<section id="ideas"><div class="wrap reveal"><h2>{t["ideas_h"]}</h2><p class="lead">{t["ideas_p"]}</p><div class="recipes">')
@@ -538,14 +558,15 @@ def build(L):
         A(f'<div class="recipe">{img(L, im, title)}<div class="body"><h3>{title}</h3><ol>' + "".join(f"<li>{s}</li>" for s in steps) + "</ol></div></div>")
     A("</div></div></section>")
     # download
-    files = [("Trimui Brick (Knulli)", f"Mutable-Dreams-Brick-{VERSION}.zip"), ("Miyoo Mini Plus (Onion OS)", f"Mutable-Dreams-Miyoo-Mini-Plus-Onion-{VERSION}.zip"),
-             ("Miyoo Mini · Mini Flip (Onion OS)", f"Mutable-Dreams-Miyoo-Mini-Onion-{VERSION}.zip"), ("Powkiddy RGB20S (AmberELEC)", f"Mutable-Dreams-RGB20S-AmberELEC-{VERSION}.zip"),
-             ("Anbernic H700 (Knulli) · " + t["badge"]["test"], f"Mutable-Dreams-Anbernic-H700-Knulli-{VERSION}.zip"), ("Android (APK)", f"Mutable-Dreams-Android-{VERSION}.apk"),
-             ("Linux PC x86_64", f"Mutable-Dreams-Linux-OS-x86_64-{VERSION}.zip"), ("Linux aarch64", f"Mutable-Dreams-Linux-OS-aarch64-{VERSION}.zip"),
+    files = [("Trimui Brick (Knulli)", f"Mutable-Dreams-Brick-{OLD}.zip"), ("Trimui Smart Pro (Knulli) · " + t["badge"]["test"], f"Mutable-Dreams-Trimui-Smart-Pro-Knulli-{VERSION}.zip"),
+             ("Miyoo Mini Plus (Onion OS)", f"Mutable-Dreams-Miyoo-Mini-Plus-Onion-{OLD}.zip"),
+             ("Miyoo Mini · Mini Flip (Onion OS)", f"Mutable-Dreams-Miyoo-Mini-Onion-{OLD}.zip"), ("Powkiddy RGB20S (AmberELEC)", f"Mutable-Dreams-RGB20S-AmberELEC-{OLD}.zip"),
+             ("Anbernic H700 (Knulli) · " + t["badge"]["test"], f"Mutable-Dreams-Anbernic-H700-Knulli-{VERSION}.zip"), ("Android (APK)", f"Mutable-Dreams-Android-{OLD}.apk"),
+             ("Linux PC x86_64", f"Mutable-Dreams-Linux-OS-x86_64-{OLD}.zip"), ("Linux aarch64", f"Mutable-Dreams-Linux-OS-aarch64-{OLD}.zip"),
              (t["manual"] + " (English)", "Mutable-Dreams-Manual-EN.pdf"), (t["manual"] + " (Deutsch)", "Mutable-Dreams-Handbuch-DE.pdf"),
              (t["src"] + " (GPL-3.0)", f"Mutable-Dreams-Handheld-Source-{VERSION}.zip"), ("SHA-256", "SHA256SUMS.txt")]
     A(f'<section id="download"><div class="wrap reveal"><h2>{t["dl_h"]}</h2><p class="lead">{t["dl_p"]}</p><table class="dl"><tr><th>{t["dl_cols"][0]}</th><th>{t["dl_cols"][1]}</th></tr>')
-    A("".join(f'<tr><td>{a}</td><td><a href="{REL}{f}">{f}</a> <span>{mb(f).strip(" ·")}</span></td></tr>' for a, f in files))
+    A("".join(f'<tr><td>{a}</td><td><a href="{rel(f)}">{f}</a> <span>{mb(f).strip(" ·")}</span></td></tr>' for a, f in files))
     A(f'</table><p><a class="btn" href="https://github.com/{REPO}/releases/tag/v{VERSION}">{t["dl_all"]}</a></p>')
     A(f'<h3 style="color:var(--moss);font-size:26px;margin:34px 0 4px">{t["inst_h"]}</h3><p class="lead" style="margin-top:0">{t["inst_p"]}</p>')
     A("".join(f"<details><summary>{a}</summary><div>{b}</div></details>" for a, b in t["inst"]) + "</div></section>")

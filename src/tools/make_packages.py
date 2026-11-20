@@ -25,6 +25,8 @@ PROFILES = {
     "miyoo-mini": ("miyoo", "onion-mini", "Miyoo-Mini-Onion", "", "Roms/PORTS/Games/MutableDreams"),
     # (1.5.9) the Anbernic H700 handhelds with Knulli: the Brick's own program, their own launcher (screen, keys)
     "h700": ("brick", "knulli-h700", "Anbernic-H700-Knulli", "", "mutabledreams"),
+    # (1.5.10) the Trimui Smart Pro (TG5040 like the Brick, 1280 x 720, two sticks): the Brick's program, its own launcher
+    "smartpro": ("brick", "knulli-smartpro", "Trimui-Smart-Pro-Knulli", "", "mutabledreams"),
 }
 
 

@@ -15,25 +15,27 @@ Mutable Dreams is a generative instrument for handhelds. It plays by itself, the
 
 ## Download
 
-Everything is in the [latest release](https://github.com/kidbee85-beep/mutable-dreams-handheld/releases/latest):
+The newest files are in the [latest release](https://github.com/kidbee85-beep/mutable-dreams-handheld/releases/latest) (1.5.10: the Trimui Smart Pro, the H700 package, manuals, sources). The packages that did not change stay in [release 1.5.9](https://github.com/kidbee85-beep/mutable-dreams-handheld/releases/tag/v1.5.9):
 
 | Device | File |
 |---|---|
-| Trimui Brick (Knulli) | `Mutable-Dreams-Brick-1.5.9.zip` |
+| Trimui Brick (Knulli) | `Mutable-Dreams-Brick-1.5.9.zip` (1.5.9) |
+| Trimui Smart Pro (Knulli), *community test* | `Mutable-Dreams-Trimui-Smart-Pro-Knulli-1.5.10.zip` (1.5.10) |
 | Miyoo Mini Plus (Onion OS) | `Mutable-Dreams-Miyoo-Mini-Plus-Onion-1.5.9.zip` |
 | Miyoo Mini and Mini Flip (Onion OS) | `Mutable-Dreams-Miyoo-Mini-Onion-1.5.9.zip` |
 | Powkiddy RGB20S (AmberELEC) | `Mutable-Dreams-RGB20S-AmberELEC-1.5.9.zip` |
-| Anbernic H700 (Knulli), *community test* | `Mutable-Dreams-Anbernic-H700-Knulli-1.5.9.zip` |
+| Anbernic H700 (Knulli), *community test* | `Mutable-Dreams-Anbernic-H700-Knulli-1.5.10.zip` (1.5.10) |
 | Android | `Mutable-Dreams-Android-1.5.9.apk` |
 | Linux PC | `Mutable-Dreams-Linux-OS-x86_64-1.5.9.zip`, `…-aarch64-1.5.9.zip` |
-| Manual (English, German) | `Mutable-Dreams-Manual-EN.pdf`, `Mutable-Dreams-Handbuch-DE.pdf` |
+| Manual (English, German) | `Mutable-Dreams-Manual-EN.pdf`, `Mutable-Dreams-Handbuch-DE.pdf` (1.5.10) |
 
-Checksums: `SHA256SUMS.txt`. The H700 package has not been run on a real H700 yet: if you try it, please send `mutabledreams/log.txt`.
+Checksums: `SHA256SUMS.txt`. The H700 and Smart Pro packages have not been run on real devices yet: if you try them, please send `mutabledreams/log.txt`.
 
 ## Controls in one minute
 
 - `B` goes one step back; hold `B` to go home. `START` plays and stops.
-- **On handhelds without a MENU key** (Miyoo, RGB20S, H700, Android gamepads): tap `SELECT` for the menu (every place, the options, **Quit**); hold `SELECT` for the help; tap `L2` for the quick bar.
+- **On the Trimui Smart Pro** the two sticks turn the four dials; clicking them is F1 (Sound Lab) and F2 (mixer).
+- **On handhelds without a MENU key** (Miyoo, RGB20S, H700, Smart Pro, Android gamepads): tap `SELECT` for the menu (every place, the options, **Quit**); hold `SELECT` for the help; tap `L2` for the quick bar.
 - On Android without a gamepad, the Brick's buttons are on the screen beside the stage.
 
 ## This repository
@@ -62,7 +64,7 @@ Mutable Dreams ist ein generatives Instrument für Handhelds. Es spielt von selb
 
 **Webseite mit allen Funktionen in Bildern: <https://kidbee85-beep.github.io/mutable-dreams-handheld/de/>**
 
-**Download:** siehe [neuestes Release](https://github.com/kidbee85-beep/mutable-dreams-handheld/releases/latest) (Tabelle oben). Das H700-Paket ist ein Community-Test: Es lief noch auf keinem echten H700; wer es probiert, schickt bitte `mutabledreams/log.txt`.
+**Download:** siehe [neuestes Release](https://github.com/kidbee85-beep/mutable-dreams-handheld/releases/latest) und [Release 1.5.9](https://github.com/kidbee85-beep/mutable-dreams-handheld/releases/tag/v1.5.9) (Tabelle oben). Die Pakete für Trimui Smart Pro und H700 sind Community-Tests: Sie liefen noch auf keinem echten Gerät; wer sie probiert, schickt bitte `mutabledreams/log.txt`. Auf dem Smart Pro drehen die beiden Sticks die vier Regler, ein Klick darauf ist F1 und F2.
 
 **Tasten:** `B` geht zurück, `B` gehalten nach Hause. Auf Geräten ohne MENU-Taste öffnet ein Tipp auf `SELECT` das Menü (alle Orte, Optionen, **Beenden**), `SELECT` gehalten zeigt die Hilfe, `L2` öffnet die Schnellleiste. Auf Android ohne Gamepad liegen die Tasten neben der Bühne auf dem Bildschirm.
 
