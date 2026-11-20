@@ -502,7 +502,7 @@ def build(L):
     A(f'<video controls playsinline preload="none" poster="{cover_file}" style="display:block;width:100%;aspect-ratio:16/9;background:#071018;border-radius:18px"><source src="{tour_file}" type="video/mp4">')
     A(f'<track kind="subtitles" src="{r}assets/video/feature-tour-en.vtt" srclang="en" label="English"{en_default}><track kind="subtitles" src="{r}assets/video/feature-tour-de.vtt" srclang="de" label="Deutsch"{de_default}>')
     A(f'<a href="{tour_file}">{tour_h}</a></video><p>{tour_note}</p>')
-    A(f'<p><a href="{tour_file}">{"Download the full film" if L == "en" else "Film herunterladen"}</a> · <a href="{REL}Mutable-Dreams-1.5.9-Release-Reel.mp4">{"60-second reel" if L == "en" else "60-Sekunden-Reel"}</a></p></div></section>')
+    A(f'<p><a href="https://youtu.be/dMS1GqUwWYo">{"Watch on YouTube" if L == "en" else "Auf YouTube ansehen"}</a> · <a href="https://youtube.com/shorts/AWsBLmDVJhY">YouTube Short</a> · <a href="{tour_file}">{"Download the full film" if L == "en" else "Film herunterladen"}</a> · <a href="{REL}Mutable-Dreams-1.5.9-Release-Reel.mp4">{"60-second reel" if L == "en" else "60-Sekunden-Reel"}</a></p></div></section>')
     # pillars
     A(f'<section id="garden"><div class="wrap reveal"><h2>{t["pillars_h"]}</h2><p class="lead">{t["pillars_p"]}</p>')
     A('<div class="stats">' + "".join(f'<div class="stat"><b>{a}</b><span>{b}</span></div>' for a, b in t["stats"]) + "</div>")
