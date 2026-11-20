@@ -434,6 +434,14 @@ footer .links { display:flex; gap:18px; flex-wrap:wrap; margin-top:10px; } foote
 .feature > * { min-width:0; }
 .code { max-width:100%%; overflow-x:auto; }
 @media (max-width:560px) {
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .stat { min-width:0; }
+  .stat span { display:block; overflow-wrap:anywhere; }
+  .controls > * { min-width:0; }
+  .controls table { table-layout:fixed; }
+  .controls th, .controls td { padding:8px 7px; overflow-wrap:anywhere; }
+  .controls td:first-child { white-space:normal; }
+  .controls kbd { padding-left:6px; padding-right:6px; max-width:100%%; white-space:normal; }
   #download table { table-layout:fixed; width:100%%; }
   #download th:first-child, #download td:first-child { width:38%%; }
   #download th:nth-child(2), #download td:nth-child(2) { width:62%%; }
@@ -482,8 +490,21 @@ def build(L):
     A(f'<div class="device"><div class="screen"><picture><source media="(prefers-reduced-motion: reduce)" srcset="{r}assets/img/loops/{L}/garden-poster.webp">'
       f'<img src="{r}assets/img/loops/{L}/garden-loop.webp" width="768" height="576" alt="Mutable Dreams: the garden" fetchpriority="high"></picture></div>'
       f'<div class="dots"><i style="background:#aecfb6"></i><i style="background:#dcc694"></i><i style="background:#86c2b4"></i><i style="background:#a5bed9"></i><i style="background:#c8b1d8"></i><i style="background:#cca091"></i></div></div></div></div>')
+    # Published feature film, with separate EN/DE web captions.
+    tour_h = "A garden in your hands · the full film" if L == "en" else "Ein Garten in deinen Händen · der ganze Film"
+    tour_p = "6:40 of the garden, Sound Lab, played melodies, SELECT menu and Android touch layout." if L == "en" else "6:40 mit Garten, Klanglabor, gespielten Melodien, SELECT-Menü und Android-Touch-Ansicht."
+    tour_note = "Actual macOS app performance and original engine music. Synthetic English narration; English and German subtitles. The touch layout is a labelled still from the Mac preview." if L == "en" else "Echte App-Performance auf dem Mac mit Originalmusik. Englische synthetische Stimme; deutsche und englische Untertitel. Die Touch-Ansicht ist ein beschriftetes Standbild aus der Mac-Vorschau."
+    tour_file = REL + "Mutable-Dreams-1.5.9-Feature-Tour.mp4"
+    cover_file = REL + "Mutable-Dreams-1.5.9-Feature-Tour-Cover.jpg"
+    en_default = " default" if L == "en" else ""
+    de_default = " default" if L == "de" else ""
+    A(f'<main><section id="tour"><div class="wrap reveal"><h2>{tour_h}</h2><p class="lead">{tour_p}</p>')
+    A(f'<video controls playsinline preload="none" poster="{cover_file}" style="display:block;width:100%;aspect-ratio:16/9;background:#071018;border-radius:18px"><source src="{tour_file}" type="video/mp4">')
+    A(f'<track kind="subtitles" src="{r}assets/video/feature-tour-en.vtt" srclang="en" label="English"{en_default}><track kind="subtitles" src="{r}assets/video/feature-tour-de.vtt" srclang="de" label="Deutsch"{de_default}>')
+    A(f'<a href="{tour_file}">{tour_h}</a></video><p>{tour_note}</p>')
+    A(f'<p><a href="{tour_file}">{"Download the full film" if L == "en" else "Film herunterladen"}</a> · <a href="{REL}Mutable-Dreams-1.5.9-Release-Reel.mp4">{"60-second reel" if L == "en" else "60-Sekunden-Reel"}</a></p></div></section>')
     # pillars
-    A(f'<main><section id="garden"><div class="wrap reveal"><h2>{t["pillars_h"]}</h2><p class="lead">{t["pillars_p"]}</p>')
+    A(f'<section id="garden"><div class="wrap reveal"><h2>{t["pillars_h"]}</h2><p class="lead">{t["pillars_p"]}</p>')
     A('<div class="stats">' + "".join(f'<div class="stat"><b>{a}</b><span>{b}</span></div>' for a, b in t["stats"]) + "</div>")
     A('<div class="cards">' + "".join(f'<div class="card">{img(L, im, ti)}<div><h3>{ti}</h3><p>{tx}</p></div></div>' for ti, tx, im in t["pillars"]) + "</div></div></section>")
     # loops
