@@ -1,0 +1,17 @@
+Testmaterial für das VOICES-Modul (nur zum Entwickeln und Testen, nicht im Paket).
+Geladen am 13.11.2026 von archive.org.
+
+rossetti-youths-spring-tribute.ogg
+  "Youth's Spring-Tribute", Dante Gabriel Rossetti (1828-1882), LibriVox
+  Lizenz: http://creativecommons.org/publicdomain/zero/1.0/
+  Quelle: https://archive.org/details/youths_spring_tribute_1204_librivox
+
+hoffmann-struwwelpeter.ogg
+  "Der Struwwelpeter" (Version 2, deutsch), Heinrich Hoffmann (1809-1894), LibriVox
+  Lizenz: http://creativecommons.org/licenses/publicdomain/
+  Quelle: https://archive.org/details/struwwelpeter_de2_librivox
+
+om.ogg  (DEFEKT an der Quelle: nach 206 Bytes nur Nullen; dient als Test für kaputte Dateien)
+  "om" (swatma_om), Hochlader-Angabe gemeinfrei; vor einer Verwendung über Tests hinaus von Hand prüfen
+  Lizenz laut Eintrag: http://creativecommons.org/licenses/publicdomain/
+  Quelle: https://archive.org/details/swatma_om

@@ -1,0 +1,505 @@
+<title>Mutable Dreams – Manual</title>
+<section class="cover">
+  <div class="kicker">Manual · for the Trimui Brick</div>
+  <h1>Mutable Dreams</h1>
+  <div class="sub">A garden of sound that makes music by itself and answers you.</div>
+  <img src="bilder-en/02-garden-playing.jpg" alt="">
+  <div class="meta">Version {{VERSION}} · by Kid Bunka · English</div>
+</section>
+
+<p>This manual walks you through everything Mutable Dreams can do. Read it from the start, or open just the chapter you
+need. Every picture comes from the program itself and shows exactly what you see on the Brick.</p>
+{{TOC}}
+
+<h2>Welcome to the dream garden</h2>
+<p><strong>Mutable Dreams</strong> is a generative instrument. It plays by itself, the way a garden grows by itself. You
+do not need to read music or program anything. You tend the garden, and it answers you. Turn a dial, choose another Biome or
+play a note in play mode, and the music changes in a way you can hear and see.</p>
+<p>At its heart runs the sound engine of <strong>Mutable Dreams 2.1</strong> (FM-1) with six tracks. Around it are:</p>
+<ul>
+  <li>the <strong>Sound Lab</strong>, with modules after Mutable Instruments (Plaits, Rings, Elements, Clouds, Beads, Marbles, Grids, Tides);</li>
+  <li>the <strong>Playground</strong>, with ten toys and little games;</li>
+  <li><strong>Worlds</strong>, ready-made scenes of sound;</li>
+  <li>a <strong>dream tale</strong> that leads you through all of it while you play.</li>
+</ul>
+<fig src="00-start">The start screen: a night garden wakes. Any button starts the program, or it continues by itself after ten seconds.</fig>
+<h3>What you will find</h3>
+<ul>
+  <li><strong>The garden:</strong> six plants are the six voices of the music, and four dials are its weather.</li>
+  <li><strong>Biomes:</strong> 272 sound worlds of the engine, in families, from bells to storms.</li>
+  <li><strong>Worlds:</strong> 96 complete scenes, each with its own tempo, Sound Lab settings and a short story.</li>
+  <li><strong>Playground:</strong> bouncing balls, planets, rain, pendulums and more toys that make music with you.</li>
+  <li><strong>Sound Lab:</strong> synthesizers, grain clouds, reverb, echo and resonators, with mastering at the end.</li>
+  <li><strong>English and German:</strong> the whole interface can be switched between them.</li>
+</ul>
+
+<h2>Installing and the first start</h2>
+<h3>On the Trimui Brick (Knulli)</h3>
+<ol>
+  <li>Unpack <span class="label">Mutable-Dreams-Brick-{{VERSION}}.zip</span>.</li>
+  <li>Copy the file <span class="label">Mutable Dreams.sh</span> and the folder <span class="label">mutabledreams</span> into
+      <span class="label">roms/ports</span> on the SD card.</li>
+  <li>Update the game list in the Knulli menu, then start <strong>Mutable Dreams</strong> from <em>Ports</em>.</li>
+</ol>
+<p>You can copy a new version over an older one. Your saved Biomes, settings, tale progress and samples stay as they are.
+They live in <span class="label">mutabledreams/save</span> and <span class="label">mutabledreams/samples</span>.</p>
+<tip>To quit, press <k>MENU</k>, go to the bottom of the right-hand column, choose <strong>Quit</strong> and press <k>A</k>.</tip>
+<h3>On the Miyoo Mini, Mini Plus and Mini Flip (Onion OS)</h3>
+<p>Unpack <span class="label">Mutable-Dreams-Miyoo-Mini-Plus-Onion-{{VERSION}}.zip</span> (Mini Plus) or
+<span class="label">Mutable-Dreams-Miyoo-Mini-Onion-{{VERSION}}.zip</span> (Mini and Mini Flip) and copy its folders
+<span class="label">App</span> and <span class="label">Roms</span> onto the SD card, merging them with the ones there. Start
+<strong>Mutable Dreams</strong> under <em>Ports</em> or <em>Apps</em>. These handhelds show a lighter picture at up to 20 frames a
+second; <span class="label">MIYOO.txt</span> beside the program lists switch files for other settings.</p>
+<h3>On the RGB20S (AmberELEC)</h3>
+<p>Unpack <span class="label">Mutable-Dreams-RGB20S-AmberELEC-{{VERSION}}.zip</span> into <span class="label">roms/ports</span>,
+update the game list and start <strong>Mutable Dreams</strong> under <em>Ports</em>.</p>
+<h3>On the Anbernic H700 handhelds (Knulli)</h3>
+<p>For the RG35XX, RG40XX, RG CubeXX and RG34XX with Knulli: unpack <span class="label">Mutable-Dreams-Anbernic-H700-Knulli-{{VERSION}}.zip</span>
+and copy <span class="label">Mutable Dreams.sh</span> and <span class="label">mutabledreams</span> into <span class="label">roms/ports</span>.
+The launcher reads the screen's size and fits the stage to it; <span class="label">H700.txt</span> lists its switch files.
+This package is a community test: it has not run on an H700 yet, so please send <span class="label">log.txt</span> if something is wrong.</p>
+<h3>On Android</h3>
+<p>Install <span class="label">Mutable-Dreams-Android-{{VERSION}}.apk</span>. Its files (saves, your samples, worlds) live in
+<span class="label">Android/data/com.kidbunka.mutabledreams/files</span>. Without a gamepad you play by touch (see <em>The buttons</em>).</p>
+<tip>On every handheld without a <k>MENU</k> key, tap <k>SELECT</k> for the menu. To quit, press <k>UP</k> once there (that is
+<strong>Quit</strong>, at the end of the list) and press <k>A</k>.</tip>
+<h3>On a PC: Dream Garden for Mutable Dreams Linux</h3>
+<p>The package <span class="label">Mutable-Dreams-Linux-OS-x86_64</span> installs the program as <strong>Dream Garden</strong>, with an
+icon in the start menu. Without a game controller, every hint names the keyboard keys instead (see <em>The buttons</em>).</p>
+<h3>The guide</h3>
+<p>On the very first start, <strong>the guide</strong> opens by itself. It explains in fourteen pictured pages, in about two
+minutes, how everything fits together.</p>
+<ul>
+  <li><k>RIGHT</k> or <k>A</k> turns the page, <k>LEFT</k> goes back, and <k>B</k> closes the guide.</li>
+  <li>To open it again later, hold <k>SELECT</k> until the button map appears, then press <k>X</k>.</li>
+</ul>
+<div class="pair">
+  <fig src="40-guide-01">Page 1 of the guide: welcome to the dream garden.</fig>
+  <fig src="40-guide-03">The dials: up and down choose, left and right turn.</fig>
+</div>
+
+<h2>The buttons</h2>
+<p>Mutable Dreams is made for the Brick's buttons. Two rules matter most:</p>
+<ul>
+  <li><strong><k>B</k> always goes one step back</strong>, the way you came.</li>
+  <li><strong>Holding <k>B</k></strong> takes you home to the garden from anywhere.</li>
+</ul>
+<table>
+  <tr><th>Button</th><th>In the garden</th><th>With <k>R2</k> held</th></tr>
+  <tr><td><k>UP</k> <k>DOWN</k></td><td>choose one of the four dials</td><td>the track's sound model</td></tr>
+  <tr><td><k>LEFT</k> <k>RIGHT</k></td><td>turn the dial (hold <k>L2</k> for fine steps)</td><td>another Biome</td></tr>
+  <tr><td><k>L1</k> <k>R1</k></td><td>choose a track</td><td>octave</td></tr>
+  <tr><td><k>A</k></td><td>select, mute a track</td><td>LOCK: keep the Biome</td></tr>
+  <tr><td><k>B</k></td><td>back; hold: home</td><td>FREEZE everything</td></tr>
+  <tr><td><k>X</k></td><td>edit pages</td><td>envelope</td></tr>
+  <tr><td><k>Y</k></td><td>effect pages</td><td>global</td></tr>
+  <tr><td><k>START</k></td><td>play / stop</td><td>record</td></tr>
+  <tr><td><k>SELECT</k></td><td>tap: where am I? · hold: help</td><td>hold 1 s: save everything</td></tr>
+  <tr><td><k>MENU</k></td><td>where to? the menu</td><td>dream map</td></tr>
+  <tr><td><k>F1</k></td><td>Sound Lab</td><td></td></tr>
+  <tr><td><k>F2</k></td><td>mixer</td><td>Biome atlas</td></tr>
+  <tr><td><k>L2</k></td><td>tap: quick bar</td><td></td></tr>
+  <tr><td><k>FN</k> (switch)</td><td>play mode: the buttons play notes</td><td></td></tr>
+</table>
+<fig src="50-help">The help appears while you hold <k>SELECT</k>. A drawn Brick shows every button and what it does. <k>L1</k>/<k>R1</k> turn through five pages: garden, with <k>R2</k>, Sound Lab, play mode and the full views.</fig>
+<p>The bottom of the screen always says what the buttons do right now. Each button there is a small pebble, with its meaning beside
+it. If everything does not fit in one row, the bar turns its pages by itself. The top right corner shows where <k>B</k> leads.</p>
+<h3>On handhelds without MENU, F1, F2 and FN</h3>
+<p>The Miyoo handhelds, the RGB20S and Android gamepads lack some of the Brick's keys. Tap <k>SELECT</k> for the menu (every place,
+the options and <strong>Quit</strong>); hold <k>SELECT</k> for the help. Tap <k>L2</k> for the quick bar, which also switches play
+mode on and off. The hint line names <k>SELECT</k> MENU right after the place's name.</p>
+<h3>By touch (Android)</h3>
+<p>On a phone or tablet the Brick's buttons lie beside the stage: the D-pad, <k>L1</k>, <k>L2</k> and <k>SELECT</k> on the left;
+<k>A</k>, <k>B</k>, <k>X</k>, <k>Y</k>, <k>R1</k>, <k>R2</k>, <k>START</k> and <k>MENU</k> on the right. Several fingers at once and
+sliding work, so held buttons and combinations behave as on the device. Android's back key is <k>B</k>. Press a gamepad button and the
+touch buttons step aside for a larger stage; touch the screen to bring them back.</p>
+<h3>On a PC keyboard</h3>
+<table>
+  <tr><th>Brick</th><th>Keyboard</th><th>Brick</th><th>Keyboard</th></tr>
+  <tr><td><k>A</k></td><td>X</td><td><k>L1</k> / <k>R1</k></td><td>Q / W</td></tr>
+  <tr><td><k>B</k></td><td>Z</td><td><k>L2</k></td><td>1</td></tr>
+  <tr><td><k>X</k></td><td>S</td><td><k>R2</k></td><td>Shift</td></tr>
+  <tr><td><k>Y</k></td><td>A</td><td><k>START</k> / <k>SELECT</k></td><td>Enter / Backspace</td></tr>
+  <tr><td><k>MENU</k></td><td>Esc</td><td><k>FN</k></td><td>Tab</td></tr>
+</table>
+
+<h2>The garden</h2>
+<p>The garden is your home. On the left stand the <strong>six tracks</strong>, each with its number, its sound model and a plant.
+In the middle the garden itself grows.</p>
+<ul>
+  <li>Each track is a plant whose kind follows its sound: tulip, fern, bells, dandelion, reeds or mushrooms.</li>
+  <li>A plant grows with its track's level, blooms on each note and sends a spark upwards.</li>
+  <li>A muted track slowly falls asleep, and wakes again when you unmute it.</li>
+</ul>
+<fig src="02-garden-playing">The garden while the music plays: the six tracks on the left; the four dials, tempo and key on the right.</fig>
+<h3>The four dials: the garden's weather</h3>
+<p>The four dials stand on the right. <k>UP</k> and <k>DOWN</k> choose one, <k>LEFT</k> and <k>RIGHT</k> turn it.</p>
+<table>
+  <tr><th>Dial</th><th>What it does</th><th>In the picture</th></tr>
+  <tr><td><span class="label">FIREFLIES</span></td><td>Density: how many notes are played</td><td>fireflies in the air</td></tr>
+  <tr><td><span class="label">WIND</span></td><td>Motion: how much the music changes</td><td>the plants sway</td></tr>
+  <tr><td><span class="label">GLOW</span></td><td>Colour: dark or bright, soft or radiant</td><td>the light in the sky</td></tr>
+  <tr><td><span class="label">MIST</span></td><td>Space: reverb and width</td><td>mist, and the mirror in the pond</td></tr>
+</table>
+<tip>Start with MIST: a little more space makes almost any Biome more dreamlike. If the music feels too even, turn up WIND.</tip>
+<h3>Playing, tempo and Biomes</h3>
+<p><k>START</k> starts the music, and <k>START</k> again stops it. Under the tempo it says <span class="label">PLAYING</span> or
+<span class="label">RESTING</span>, and a ring of dots shows the steps of the bar.</p>
+<p>Each sound world of the engine is a <strong>Biome</strong>, and there are 272 of them. <k>R2</k> with <k>LEFT</k>/<k>RIGHT</k> moves to
+the next Biome. The <strong>Biome atlas</strong> (<k>R2</k> + <k>F2</k>) shows them all. When the Biome changes, new plants sprout in the garden.</p>
+<fig src="03-garden-r2">While you hold <k>R2</k>, two rows show everything it does together with the other buttons.</fig>
+<h3>The garden follows the music</h3>
+<ul>
+  <li>Each note ripples the pond, and the fireflies light up on the beat.</li>
+  <li><strong>FREEZE</strong> (<k>R2</k> + <k>B</k>) ices the pond over and lets it snow.</li>
+  <li>In Biomes with an aurora, six ribbons flare with each note, rising higher for higher notes.</li>
+  <li>On the journey <em>Terra Pluvia</em> it rains, and each note splashes at the foot of its plant.</li>
+  <li>A frog jumps whenever RANDOM plays, and POLY's voices float as lanterns on the pond.</li>
+  <li>The Biome drift slowly turns night into dawn, and the moon becomes the sun.</li>
+</ul>
+
+<h2>Quick bar and menu</h2>
+<h3>The quick bar (tap <k>L2</k>)</h3>
+<p>A short tap on <k>L2</k> opens the <strong>quick bar</strong>. Every place lies there as a living stone on a vine.</p>
+<ul>
+  <li><k>LEFT</k>/<k>RIGHT</k> choose a stone, <k>A</k> goes there, and <k>B</k> closes the bar.</li>
+  <li><k>UP</k>/<k>DOWN</k> jump between the places and the settings (options, play mode, picture, language) at the bar's end.</li>
+  <li>A leaf above the chosen stone gives its name and a line about what you will find there.</li>
+</ul>
+<fig src="04-quickbar">The quick bar, with the leaf above the chosen stone.</fig>
+<p>The quick bar always opens on the place you left last. So <k>L2</k>, <k>A</k> takes you straight back and forth between two places.
+At its end lie four switches:</p>
+<table>
+  <tr><th>Stone</th><th>What it switches</th></tr>
+  <tr><td><span class="label">PLAY MODE</span></td><td>The buttons play notes (for handhelds without the FN switch).</td></tr>
+  <tr><td><span class="label">LIGHT PICTURE</span></td><td>Less decoration and a faster stage. It also switches on by itself when the picture is slow.</td></tr>
+  <tr><td><span class="label">CALM MOTION</span></td><td>What only moves for decoration holds still. What shows the music keeps moving.</td></tr>
+  <tr><td><span class="label">DEUTSCH / ENGLISH</span></td><td>The language of the whole interface. Your choice is saved.</td></tr>
+</table>
+<h3>The menu (<k>MENU</k>)</h3>
+<p>The menu shows the Brick's places as stones along a garden path on the left, and the FM-1's pages as leaves on the right.</p>
+<ul>
+  <li><k>UP</k>/<k>DOWN</k> walk the path, <k>LEFT</k>/<k>RIGHT</k> cross to the other side, and <k>A</k> goes there.</li>
+  <li>The path glows up to the chosen stone, and a butterfly follows along.</li>
+  <li><strong>Quit</strong> is the last leaf on the right: from the top, one press of <k>UP</k> reaches it.</li>
+  <li>On handhelds without a <k>MENU</k> key, <k>SELECT</k> opens and closes the menu.</li>
+</ul>
+<fig src="05-menu">The menu: the Brick's places on the left, the FM-1's pages on the right.</fig>
+
+<h2>Playing yourself: play mode</h2>
+<p>Slide the <k>FN</k> switch on the side, and the buttons become notes.</p>
+<ul>
+  <li>The D-pad and <k>A</k> <k>B</k> <k>X</k> <k>Y</k> play eight tones of the Biome's scale, so nothing can sound wrong.</li>
+  <li><k>R2</k> adds a chord, and <k>L1</k>/<k>R1</k> choose the track.</li>
+  <li>Eight stepping stones lie over the pond, one per tone, and light up as you play.</li>
+</ul>
+<fig src="06-playmode">Play mode: the right side shows which button plays which tone; the stepping stones lie over the pond.</fig>
+<tip>If the POLY voice is on in the Sound Lab, you play it: eight voices with all 24 synthesis models of Plaits. Otherwise you play the chosen track.</tip>
+<p>On handhelds without the <k>FN</k> switch, switch play mode on and off from the quick bar.</p>
+
+<h2>The Sound Lab</h2>
+<p><k>F1</k> opens the <strong>Sound Lab</strong>. Here the sound itself can be bent, folded and set alight. Its modules stand in two
+rows: <strong>sources</strong> and <strong>effects</strong>. Each module draws a live picture of what it is doing.</p>
+<ul>
+  <li><k>L1</k>/<k>R1</k> choose a module, and <k>UP</k>/<k>DOWN</k> choose a setting.</li>
+  <li><k>LEFT</k>/<k>RIGHT</k> change it; hold <k>L2</k> for fine steps.</li>
+  <li><k>A</k> sets the setting back to neutral.</li>
+  <li><k>X</k> silences the whole module, and <k>X</k> again brings it back: the quickest way to hear what an effect adds.</li>
+  <li><k>Y</k> jumps to the next module that is sounding, so you never have to page through silent ones.</li>
+  <li><k>L1</k> and <k>R1</k> pressed together (or <k>F2</k>) show <strong>all modules at once</strong>: the sources above, the effects below. The D-pad chooses, <k>A</k> goes there. This is the quickest way into the effects.</li>
+</ul>
+<fig src="10-lab">The Sound Lab: the modules at the top, the module's picture in the middle, its settings below.</fig>
+<tip>With everything at neutral, the sound is exactly that of Mutable Dreams 2.1. Nothing can break: <k>A</k> brings any setting back.</tip>
+<h3>The modules</h3>
+<table>
+  <tr><th>Module</th><th>What it does</th></tr>
+  <tr><td><span class="label">TEXTURES</span></td><td>Beds of nature sound: FOREST, AIR (the wind), WATER (the rain) and STARDUST. They start silent at every start. Mix them in yourself, or let a world bring them.</td></tr>
+  <tr><td><span class="label">SAMPLES</span></td><td>Your own WAV files from <span class="label">mutabledreams/samples</span>, as a loop or as a hit that follows a track.</td></tr>
+  <tr><td><span class="label">VOICES</span></td><td>Spoken and sung voices, cut at their breaths, as sentences, fragments, vowels, mantras or grains.</td></tr>
+  <tr><td><span class="label">POLY</span></td><td>Eight voices with all 24 Plaits models. Play mode, RANDOM or a track can play them.</td></tr>
+  <tr><td><span class="label">SYNTH</span></td><td>Twelve instruments: just-intonation drones, resonators, Shepard tones, plucked strings, golden bells, a vowel choir, Rings and Elements, and since 1.2 a glass harmonica, an aurora pad of detuned saws, CZ-style phase-distortion crystals and a breathy wind flute.</td></tr>
+  <tr><td><span class="label">RANDOM</span></td><td>Déjà-vu melodies in the Biome's key, after Marbles.</td></tr>
+  <tr><td><span class="label">LOGIC</span></td><td>Music from musical mathematics: tintinnabuli, phasing, Fibonacci, cellular automata, Markov chains, L-systems and overtones.</td></tr>
+  <tr><td><span class="label">GRIDS</span></td><td>Mutable Instruments' topographic drum map: 25 patterns for kick, snare and hi-hat.</td></tr>
+  <tr><td><span class="label">RACK A / B</span></td><td>Two effect chains: filter, drive, crush, a resonator (Rings) and a tape echo in time.</td></tr>
+  <tr><td><span class="label">CLOUD · PARTICLES · SEEDS</span></td><td>Grain clouds (granular, stretch and spectral, from Clouds) and grains with delay on tape or digital memory (from Beads).</td></tr>
+  <tr><td><span class="label">SHIMMER</span></td><td>A reverb that sparkles an octave up.</td></tr>
+  <tr><td><span class="label">CROSSMOD</span></td><td>One track modulates another, up to a vocoder.</td></tr>
+  <tr><td><span class="label">SENDS · COLOUR</span></td><td>Each track's sends into the effects, plus ensemble, tape and age.</td></tr>
+  <tr><td><span class="label">MASTER</span></td><td>Mastering at the end: a sound preset (CLEAN, GENTLE, WARM, LOUD, AIRY), EQ, saturation, compressor, width and limiter.</td></tr>
+</table>
+<div class="pair">
+  <fig src="11-lab-03">POLY: eight voices with the Plaits models.</fig>
+  <fig src="11-lab-04">SYNTH: the garden's instruments.</fig>
+  <fig src="11-lab-05">RANDOM: melodies with déjà vu.</fig>
+  <fig src="11-lab-07">GRIDS: the drum map.</fig>
+</div>
+<p>One Sound Lab is shared by all Biomes. You can also give a Biome its own Lab under
+<span class="label">MASTER › THIS BIOME › OWN SOUND LAB</span>. It then returns with that Biome every time, gliding over in three seconds.</p>
+
+<tip>The garden shows the SYNTH too: glass bubbles for the glass harmonica, crystals for CZ, breath for the flute, bands of light for the pad, and sparks for the others.</tip>
+<tip>Not sure what a row does? Choose it: for four seconds a card at the bottom of the picture says, in one line, what it changes.</tip>
+<h2>The full views</h2>
+<p>Beside the garden there are views that each show one thing in full. Reach them from the menu or the quick bar; each one shows
+its buttons at the bottom.</p>
+<h3>Mixer (<k>F2</k>)</h3>
+<p>The level, pan and sends of the six tracks. Each fader is a stem, with a flower that opens with the level.</p>
+<ul>
+  <li><k>LEFT</k>/<k>RIGHT</k> choose the track, and <k>UP</k>/<k>DOWN</k> change the value.</li>
+  <li><k>L1</k>/<k>R1</k> change the row, and <k>A</k> mutes the track.</li>
+</ul>
+<fig src="20-mixer">The mixer.</fig>
+<h3>Biome atlas (<k>R2</k> + <k>F2</k>)</h3>
+<p>All 272 Biomes, by family. Choose the family on the left and the Biome on the right; <k>A</k> loads it. If music is playing
+or there are unsaved changes, a second <k>A</k> changes at once. <k>Y</k> loads a surprise Biome.</p>
+<fig src="21-atlas">The Biome atlas.</fig>
+<h3>Sequence</h3>
+<p>The steps of all six tracks at a glance. Hits are seedlings, and the one playing blooms. <k>X</k> edits a track as a piano roll:</p>
+<ul>
+  <li><k>LEFT</k>/<k>RIGHT</k> choose the step, and <k>UP</k>/<k>DOWN</k> change its value.</li>
+  <li><k>L1</k>/<k>R1</k> choose the field: note, velocity, chance, gate, rule or track length.</li>
+  <li><k>A</k> turns the step on or off, and <k>Y</k> generates a new pattern.</li>
+</ul>
+<p>With <k>R2</k> held you get tools: copy, paste, transpose, octave, mirror, and a fill for the next bar.</p>
+<div class="pair">
+  <fig src="22-sequence">The sequence of all tracks.</fig>
+  <fig src="23-sequence-edit">Editing one track.</fig>
+</div>
+<h3>Dream map (<k>R2</k> + <k>MENU</k>)</h3>
+<p>Travel through Biomes for hours, chapter by chapter. Choose the journey, its length, pace and room. <k>A</k> lets you dream,
+and <k>A</k> again wakes you.</p>
+<p><k>Y</k> starts <strong>free flight</strong>. You steer a wisp over the islands with the D-pad, and <k>A</k> lands on an island and
+loads its Biome. Catching a falling star nudges a dial.</p>
+<div class="pair">
+  <fig src="24-dreammap">The dream map with its stations.</fig>
+  <fig src="24-dreammap-flight">Free flight over the islands.</fig>
+</div>
+<h3>Modulation</h3>
+<p>Each track has two LFOs, shown as curves: their target, shape, depth and rate.</p>
+<ul>
+  <li><k>X</k> goes on to the <strong>living links</strong>, which connect tracks. For example, one track's level can make another's filter breathe.</li>
+  <li><k>X</k> again goes to the four macros and to the Biome drift between two scenes, A and B.</li>
+  <li><k>Y</k> opens the <strong>firefly pond</strong>. Each track is a lily pad, and its two LFOs are fireflies: how high one flies is its depth, and how fast it dances is its rate.</li>
+</ul>
+<div class="pair">
+  <fig src="25-modulation">The LFOs of the six tracks.</fig>
+  <fig src="25-modulation-pond">The firefly pond.</fig>
+</div>
+<h3>Voice</h3>
+<p>One track's whole sound in five pictured panels: sound, filter, envelope, rhythm and play. <k>X</k> moves to the next panel.
+Hold <k>A</k> to hear the track alone.</p>
+<fig src="26-voice">One track's voice.</fig>
+<h3>Space</h3>
+<p>The shared effects, each with a live picture:</p>
+<ul>
+  <li><strong>Echo and room:</strong> the echoes and the reverb tail.</li>
+  <li><strong>Grain memory:</strong> the memory drawn as a tape, with the grains that are playing.</li>
+  <li><strong>Tape:</strong> two reels whose speed is the pitch.</li>
+  <li><strong>Ducking and swing.</strong></li>
+</ul>
+<p><k>A</k> freezes it all, and the picture turns ice blue.</p>
+<fig src="27-space">Space.</fig>
+<h3>Archive</h3>
+<p>Free voices to fetch over WiFi: German and English poems from LibriVox, in the public domain or freely licensed.</p>
+<ul>
+  <li><k>A</k> fetches a poem, and <k>A</k> again puts it into VOICES.</li>
+  <li><k>X</k> opens the <strong>sampler</strong>, which sends the voice into grains, Tides or the Lab's modules.</li>
+</ul>
+<fig src="28-archive">The archive, with poems to fetch.</fig>
+
+<h2>Worlds</h2>
+<p>A <strong>world</strong> is a whole scene: a Biome with its own tempo, dials, Sound Lab, SYNTH, LOGIC and a line of story.
+There are <strong>96 worlds in 16 families</strong>:</p>
+<p class="label">Gardens of Number · Bells and Resonance · Drones and Overtones · Rain and Water · Night Choirs · Endless · Voices and Poems ·
+Machines and Automata · Plaits Orchestra · Rhythm Gardens · Resonant Rooms · Sky Machines · Forest Floor · Deep Waters · Glass and Air · Lullabies</p>
+<ul>
+  <li><k>L1</k>/<k>R1</k> choose the family, <k>UP</k>/<k>DOWN</k> the world, and <k>A</k> enters it.</li>
+  <li><k>Y</k> wanders on to the family's next world every few minutes, and <k>LEFT</k>/<k>RIGHT</k> set how many minutes.</li>
+</ul>
+<fig src="29-worlds">Worlds: the families on the left, their worlds on the right, and the chosen world's story and contents below.</fig>
+<tip>The nature sounds (forest, wind and rain) are only on in the worlds they belong to, such as <em>Forest Floor</em> and <em>Deep Waters</em>. That way the garden starts out clear.</tip>
+<tip>The <em>Lullabies</em> set the sleep timer themselves when you enter one, so the music fades out while you fall asleep.</tip>
+<h3>Your own worlds</h3>
+<p>The worlds are plain text in <span class="label">mutabledreams/worlds/worlds.txt</span>. Change them or add your own. A world looks like this:</p>
+<table><tr><td style="white-space:pre;font-family:Barlow;font-weight:600">[MY FAMILY] Moon Garden
+biome  = 89
+story  = A song walks out and comes home again.
+tempo  = 60
+macros = 30 25 40 70
+lab    = SHIMMER.MIX 30; TEXTURES.FOREST 20</td></tr></table>
+
+<h2>The playground</h2>
+<p>On the <strong>playground</strong>, ten toys make music with you. They always play the chosen track in the Biome's scale, so they
+always fit. For every toy:</p>
+<ul>
+  <li><k>L1</k>/<k>R1</k> turn the carousel to the next toy.</li>
+  <li><k>X</k> chooses the track that plays, and <k>B</k> goes back.</li>
+  <li><k>R2</k> + <k>X</k> <strong>keeps</strong> what that track played in the last bar as its sequence, so a toy's music stays in the song.
+      <k>R2</k> + <k>A</k> undoes this.</li>
+</ul>
+<div class="pair">
+  <fig src="30-toy"><strong>Bounce:</strong> Balls bounce in a box, and every bounce rings. On the floor it is the lily pad the ball lands on; on the ceiling, the same tone an octave up. <k>A</k> throws a ball, <k>LEFT</k>/<k>RIGHT</k> tilt the box, and <k>UP</k>/<k>DOWN</k> set the gravity.</fig>
+  <fig src="31-toy"><strong>Orbits:</strong> Up to five planets circle a sun. Each sings when it passes the gate at the top, at its own speed, so polyrhythms appear. <k>A</k> turns a planet on or off, and <k>Y</k> gives it a new note.</fig>
+  <fig src="32-toy"><strong>Rain:</strong> A cloud rains on the lily pads. <k>LEFT</k>/<k>RIGHT</k> move it, <k>UP</k>/<k>DOWN</k> set how much it rains, <k>A</k> brings thunder, and <k>Y</k> makes the drops fall in time.</fig>
+  <fig src="33-toy"><strong>Swing:</strong> Eight pendulums drift apart into waves and come together again at the end of the cycle. <k>A</k> releases them again, and <k>LEFT</k>/<k>RIGHT</k> set the cycle.</fig>
+  <fig src="34-toy"><strong>Firefly:</strong> Steer a firefly to the glowing notes. Each one caught joins a melody that loops in time. <k>A</k> forgets the melody, and <k>Y</k> chooses quarters, eighths or sixteenths.</fig>
+  <fig src="35-toy"><strong>Wheel:</strong> Four rhythm circles, each one a track, like a drum circle. <k>LEFT</k>/<k>RIGHT</k> set the hits, <k>Y</k> the steps, and <k>A</k> turns the ring.</fig>
+  <fig src="36-toy"><strong>Echo</strong> (a game): The pond sings a phrase, and you sing it back with the D-pad. Each round adds one note. Your best round is kept.</fig>
+  <fig src="37-toy"><strong>Seed</strong> (a game): Fly a dandelion seed on the night wind. Its height is GLOW, and how far right it flies is WIND. Spores of light ring and thicken the FIREFLIES; burrs thicken the MIST.</fig>
+  <fig src="38-toy"><strong>Jelly:</strong> <k>A</k> pulses a jellyfish upwards, and it slowly sinks again. Its depth is the MIST, and how far right it swims is the FIREFLIES. Plankton rings when it touches it.</fig>
+  <fig src="39-toy"><strong>Starfall</strong> (a game): Stars fall in time in eight lanes, one per tone. <k>LEFT</k>/<k>RIGHT</k> move a lotus cup under them, and every star you catch rings. <k>A</k> starts a round with three moons, and <k>Y</k> sets the speed.</fig>
+</div>
+<tip>Play with the orbits until you like a rhythm, then press <k>R2</k> + <k>X</k>. The rhythm stays as the track's sequence, even after you leave the playground.</tip>
+
+<h2>The dream tale</h2>
+<p>While you play, a story in eight chapters is told. Each chapter has a few lines and a small deed that leads you somewhere new:</p>
+<ol>
+  <li>the playground</li>
+  <li>the firefly</li>
+  <li>keeping a melody</li>
+  <li>the echo game</li>
+  <li>the planets</li>
+  <li>another Biome</li>
+  <li>the Sound Lab</li>
+  <li>all the balls at once</li>
+</ol>
+<p>When a deed is done, its card rises over the stage.</p>
+<p>The garden shows quietly at its foot where the tale stands, and so does the playground at the top. Progress is kept in
+<span class="label">mutabledreams/save/tale.txt</span>. Delete that file to begin the tale again.</p>
+
+<h2>Settings and options</h2>
+<h3>The options screen</h3>
+<p>The quick bar (tap <k>L2</k>) has an <span class="label">OPTIONS</span> stone, and from the button map (hold <k>SELECT</k>) <k>Y</k> leads there.</p>
+<ul>
+  <li><k>UP</k>/<k>DOWN</k> choose a row, and <k>LEFT</k>/<k>RIGHT</k> change it.</li>
+  <li><k>A</k> does it, and <k>B</k> closes the screen.</li>
+</ul>
+<fig src="60-options">Options. On the right you always see which button plays which part.</fig>
+<table>
+  <tr><th>Row</th><th>What it does</th></tr>
+  <tr><td><span class="label">SWAP A AND B</span></td><td>A and B change places, as on Nintendo-style handhelds.</td></tr>
+  <tr><td><span class="label">SWAP X AND Y</span></td><td>X and Y change places.</td></tr>
+  <tr><td><span class="label">ASSIGN A BUTTON</span></td><td>Choose a part with <k>LEFT</k>/<k>RIGHT</k> (A, B, X, Y, L1, R1, L2, R2, START or SELECT), press <k>A</k>, then press the button that should play it. The button that had the part takes the other one's part, so no part is ever lost.</td></tr>
+  <tr><td><span class="label">HELD BUTTONS REPEAT</span></td><td>How soon and how fast a held button goes on: calm, normal or quick.</td></tr>
+  <tr><td><span class="label">SLEEP TIMER</span></td><td>Off, 15, 30, 60 or 90 minutes. In the last minute the music fades out gently and stops; the screen rests, dark and frugal, until a button wakes it. A crescent at the bottom right shows the minutes left.</td></tr>
+  <tr><td><span class="label">LANGUAGE</span></td><td>English or German.</td></tr>
+  <tr><td><span class="label">LIGHT PICTURE</span>, <span class="label">CALM MOTION</span></td><td>The same as in the quick bar.</td></tr>
+  <tr><td><span class="label">THE BUTTON MAP</span>, <span class="label">THE GUIDE</span></td><td>Open the button map or the guide.</td></tr>
+  <tr><td><span class="label">EVERY BUTTON ITSELF AGAIN</span></td><td>Undoes every change of buttons.</td></tr>
+</table>
+<p>After any change, the hints at the bottom, the button map and the guide name the button you actually press. All settings are saved.</p>
+<tip>Mixed something up? Hold <k>START</k> and <k>SELECT</k> together for three seconds, anywhere, and every button is itself again.</tip>
+<h3>Smoother</h3>
+<p>Since 1.1, the picture is drawn on a core of its own while the previous frame is shown, and button presses come through at once, even in the middle of a frame.</p>
+<p>In the menu, the quick bar, the guide and the options, a held arrow keeps going and gets faster.</p>
+<h3>Language</h3>
+<p>Every version starts in English. The quick bar's last stone, <span class="label">DEUTSCH / ENGLISH</span>, switches the whole
+interface, and your choice is saved.</p>
+<p>The names of sound parameters, modules, Biomes and worlds stay in English, as on the FM-1. The translation lives in
+<span class="label">mutabledreams/lang/de.txt</span>, where you can improve it.</p>
+<h3>USB-C audio</h3>
+<p>Plug a class-compliant USB sound card or a USB-C headphone adapter into the Brick, and the sound goes there.
+<span class="label">USB AUDIO</span> appears, with the name of the device. Pull it out, and the sound returns to the Brick's own
+speaker without a crash. An empty file <span class="label">mutabledreams/usbaudio.off</span> keeps the sound on the Brick.</p>
+<tip>Whether a particular device is recognised depends on Knulli. After each start, <span class="label">mutabledreams/log.txt</span> lists every output the system sees, with USB ones marked "(USB)".</tip>
+<h3>MIDI</h3>
+<p>A class-compliant USB keyboard or controller plays POLY when POLY is on. Otherwise MIDI channels 1–6 play the six tracks.</p>
+<p>MIDI only goes in: Mutable Dreams sends no notes and no clock. When you unplug a keyboard, all of its notes stop.</p>
+<h3>Switch files</h3>
+<p>To switch one of these options on, put an empty file with its name into the <span class="label">mutabledreams</span> folder:</p>
+<table>
+  <tr><th>File</th><th>Effect</th></tr>
+  <tr><td>calm.on</td><td>start with CALM MOTION</td></tr>
+  <tr><td>light.on</td><td>start with LIGHT PICTURE</td></tr>
+  <tr><td>nosplash.on</td><td>start without the start screen</td></tr>
+  <tr><td>usbaudio.off</td><td>keep the sound on the Brick, even with a USB sound card plugged in</td></tr>
+  <tr><td>nosurface.on</td><td>draw the picture through SDL's renderer again (the older, slower way)</td></tr>
+  <tr><td>nofast.on</td><td>leave the CPU governor alone (otherwise it is set to "performance" while the program runs)</td></tr>
+  <tr><td>profile.on</td><td>every 30 s, write to log.txt where the picture's time goes</td></tr>
+  <tr><td>selftest.on</td><td>play by itself for 30 s, then write measurements to the log</td></tr>
+</table>
+
+<h2>Ideas for making music</h2>
+<h3>A quiet evening</h3>
+<ol>
+  <li>Open <strong>Worlds</strong> and enter <em>Kelp Cathedral</em> from <em>Deep Waters</em>.</li>
+  <li>Turn MIST up and FIREFLIES down a little.</li>
+  <li>Press <k>Y</k> to wander. Every few minutes the garden glides into the next world.</li>
+</ol>
+<fig src="29-worlds">Worlds: choose a family on the left and a world on the right; <k>Y</k> lets the garden wander on.</fig>
+<h3>A rhythm of your own</h3>
+<ol>
+  <li>On the playground, go to the <strong>Wheel</strong> and set three rings, for example 3 in 8, 5 in 16 and 4 in 16.</li>
+  <li>Choose the track with <k>X</k>, then keep the pattern with <k>R2</k> + <k>X</k>.</li>
+  <li>Open <strong>GRIDS</strong> in the Sound Lab to add kick, snare and hi-hat.</li>
+</ol>
+<fig src="35-toy">The Wheel: each ring is a track, its hits spread evenly over its steps.</fig>
+<h3>A melody that stays</h3>
+<ol>
+  <li>Catch four or five notes with the <strong>Firefly</strong>.</li>
+  <li>Listen for a few bars, then keep them as a sequence with <k>R2</k> + <k>X</k>.</li>
+  <li>Refine it in the <strong>Sequence</strong> with <k>X</k>, for example with chance and gate.</li>
+</ol>
+<fig src="34-toy">The Firefly: every glowing note caught joins the melody.</fig>
+<h3>Voices in the garden</h3>
+<ol>
+  <li>Fetch a poem in the <strong>Archive</strong>.</li>
+  <li>Send it to VOICES with <k>A</k>, and choose FRAGMENTS or GRAINS.</li>
+  <li>Add a little SHIMMER, and the words float through the garden.</li>
+</ol>
+<fig src="28-archive">The archive: poems to fetch, then to send into the garden's voices.</fig>
+<h3>Falling asleep</h3>
+<ol>
+  <li>Open <strong>Worlds</strong> and enter one of the <em>Lullabies</em>; it sets the sleep timer itself.</li>
+  <li>Or set it yourself in the options: <span class="label">SLEEP TIMER</span> 15, 30, 60 or 90 minutes.</li>
+  <li>Turn GLOW down. In the last minute the music fades out, and the screen rests dark until a button wakes it.</li>
+</ol>
+<fig src="60-options">The options: sleep timer, repeat speed, buttons and more.</fig>
+<h3>Playing live</h3>
+<ol>
+  <li>Switch on play mode: the <k>FN</k> switch on the Brick, or <strong>PLAY MODE</strong> in the quick bar (<k>L2</k>).</li>
+  <li>The D-pad and <k>A</k> <k>B</k> <k>X</k> <k>Y</k> now play the Biome's scale; <k>L1</k>/<k>R1</k> change the track.</li>
+  <li>Let a sequence run with <k>START</k> and play over it; hold <k>R2</k> for chords.</li>
+</ol>
+<fig src="06-playmode">Play mode: the right side shows which button plays which tone.</fig>
+<h3>On the go: Miyoo, RGB20S, phone</h3>
+<ol>
+  <li>Tap <k>SELECT</k> for the menu and pick a place; on a phone, use the touch buttons beside the stage.</li>
+  <li>Tap <k>L2</k> for the quick bar: PLAY MODE, LIGHT PICTURE and DEUTSCH / ENGLISH are at its end.</li>
+  <li>To stop, tap <k>SELECT</k>, press <k>UP</k> once to reach <strong>Quit</strong>, and <k>A</k>. The Sound Lab and your settings are kept on the way out; to be sure of everything, hold <k>R2</k> + <k>SELECT</k> for a second first.</li>
+</ol>
+<fig src="05-menu">The menu, opened with <k>SELECT</k> on handhelds: Quit is the last leaf on the right.</fig>
+
+<h2>Saving and your files</h2>
+<ul>
+  <li><strong>Save everything:</strong> hold <k>R2</k> + <k>SELECT</k> for one second.</li>
+  <li><span class="label">mutabledreams/save/</span> holds your Biomes, the Sound Lab (<em>lab.bin</em>), the tale (<em>tale.txt</em>) and your
+      settings (<em>brick-prefs.txt</em>: calm motion, light picture, the last toy and the language).</li>
+  <li><span class="label">mutabledreams/samples/</span> takes your own WAV files, and <em>samples/voices/</em> takes voices as Ogg or WAV.</li>
+  <li>An update never loses any of these.</li>
+</ul>
+
+<h2>Questions and help</h2>
+<h4>There is no sound.</h4>
+<p>Press <k>START</k>: <span class="label">RESTING</span> means the music is stopped. Also check the Brick's volume keys, and if a USB sound
+card is plugged in, check whether the sound goes there.</p>
+<h4>I am lost.</h4>
+<p>Hold <k>B</k>, and you are home. A short tap on <k>SELECT</k> tells you where you are.</p>
+<h4>The picture stutters.</h4>
+<p>Switch on <span class="label">LIGHT PICTURE</span> in the quick bar. It also comes on by itself when the stage stays slow. The sound
+always comes before the picture.</p>
+<h4>How do I begin the tale again?</h4>
+<p>Delete <span class="label">mutabledreams/save/tale.txt</span>.</p>
+<h4>I want everything back as new.</h4>
+<p>Rename the folder <span class="label">mutabledreams/save</span>. On the next start everything is new, and your old state stays in the renamed folder.</p>
+
+<h2>Thanks and licences</h2>
+<p><strong>Mutable Dreams for the Trimui Brick</strong> is by <strong>Kid Bunka</strong>. It grows from Mutable Dreams 2.1 (FM-1) and is
+licensed under the GPL-3.0. The sources and every notice are listed in <span class="label">mutabledreams/SOURCE.txt</span>.</p>
+<ul>
+  <li><strong>Mutable Instruments</strong> modules by Émilie Gillet: Plaits, Rings, Elements, Clouds, Beads, Marbles, Grids, Tides and stmlib (MIT and GPL licences).</li>
+  <li>The fonts <strong>Barlow</strong> and <strong>Nunito</strong> (SIL Open Font License).</li>
+  <li>The archive's voices: <strong>LibriVox</strong> via archive.org, public domain or freely licensed, credited beside each file.</li>
+  <li>Special thanks to <strong>Yimiblú</strong> for listening closely and asking for more.</li>
+</ul>
+<footer>Mutable Dreams {{VERSION}} · Manual · Kid Bunka · All pictures come from the program itself.</footer>

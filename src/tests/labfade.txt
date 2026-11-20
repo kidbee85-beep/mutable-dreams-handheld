@@ -1,0 +1,32 @@
+# the smooth change: continuous values glide, switches switch half way while their module dips (3 s)
+wait 3000
+lab CLOUD.MIX 40
+lab PARTICLES.MIX 50
+lab PARTICLES.MODE 0
+wait 2000
+lab MASTER.THIS_BIOME 1
+lab CLOUD.MIX 70
+lab PARTICLES.MODE 3
+wait 2000
+tap START
+wav out/labfade.wav
+wait 3000
+biome 1
+expect_lab CLOUD.MIX 69:70.01
+wait 750
+expect_lab CLOUD.MIX 60:69
+expect_lab PARTICLES.MODE 3
+expect_lab PARTICLES.MIX 15:35
+tap F1
+shot out/labfade-1-changing.png
+wait 1500
+expect_lab PARTICLES.MODE 0
+expect_lab PARTICLES.MIX 15:35
+wait 1500
+expect_lab CLOUD.MIX 40
+expect_lab PARTICLES.MODE 0
+expect_lab PARTICLES.MIX 50
+expect_lab MASTER.THIS_BIOME 0
+wait 2000
+wavstop
+expect_sound

@@ -1,0 +1,10 @@
+wait 2000
+press R2
+tap MENU
+release R2
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap RIGHT
+wait 300
+shot out/dream-5-long.png

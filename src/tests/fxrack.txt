@@ -1,0 +1,69 @@
+# the FX RACKs and GRIDS: a voice dry, then through rack A (filter following it, Rings, echo), through rack B
+# (drive, crush, sweep); SYNTH (RINGS, ELEMENTS) into a rack; GRIDS playing the kit and POLY. Needs the voices of
+# tests/voices in out/samples/voices (as for voices.txt)
+wait 2500
+lab VOICES.FILE 0
+lab VOICES.LEVEL 80
+lab VOICES.DENSITY 90
+tap START
+wav out/fx-voice-dry.wav
+wait 6000
+expect_sound
+wavstop
+lab RACK_A.VOICES_INTO 1
+lab RACK_A.FILTER 2
+lab RACK_A.CUTOFF 45
+lab RACK_A.RESONANCE 60
+lab RACK_A.FOLLOW 70
+lab RACK_A.RESONATOR 70
+lab RACK_A.RES_MODEL 1
+lab RACK_A.ECHO 40
+lab RACK_A.ECHO_FEEDBACK 55
+expect_lab RACK_A.VOICES_INTO 1
+wav out/fx-voice-rack-a.wav
+wait 8000
+expect_sound
+wavstop
+lab RACK_A.VOICES_INTO 0
+lab RACK_B.VOICES_INTO 1
+lab RACK_B.DRIVE 60
+lab RACK_B.CRUSH 50
+lab RACK_B.FILTER 1
+lab RACK_B.SWEEP 80
+lab RACK_B.SWEEP_RATE 50
+wav out/fx-voice-rack-b.wav
+wait 8000
+expect_sound
+wavstop
+lab VOICES.LEVEL 0
+lab SYNTH.LEVEL 70
+lab SYNTH.ENGINE 6
+lab SYNTH.MODEL 1
+lab SYNTH.DENSITY 60
+wav out/fx-rings.wav
+wait 8000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 7
+lab RACK_A.SYNTH_INTO 1
+lab RACK_A.RESONATOR 0
+lab RACK_A.FILTER 0
+wav out/fx-elements-echo.wav
+wait 8000
+expect_sound
+wavstop
+lab SYNTH.LEVEL 0
+lab GRIDS.PLAY 1
+lab GRIDS.KICK_TO 1
+lab GRIDS.SNARE_TO 2
+lab GRIDS.HAT_TO 8
+lab POLY.LEVEL 50
+lab POLY.MODEL 23
+hits 0
+wav out/fx-grids.wav
+wait 8000
+hits 0 more
+expect_sound
+wavstop
+shot out/fx-grids.png
+tap START

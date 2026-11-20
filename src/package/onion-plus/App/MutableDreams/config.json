@@ -1,0 +1,6 @@
+{
+  "label": "Mutable Dreams",
+  "icon": "/mnt/SDCARD/App/MutableDreams/icon.png",
+  "launch": "launch.sh",
+  "description": "Kid Bunka / Mutable Dreams / a generative garden of sound"
+}

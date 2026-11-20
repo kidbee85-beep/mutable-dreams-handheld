@@ -1,0 +1,21 @@
+# Mutable Dreams: the keyboard. Each Brick button and the keys that press it, separated by commas.
+# Key names as SDL writes them: A..Z, 0..9, Up, Down, Left, Right, Return, Space, Tab, Escape, Backspace,
+# Left Shift, Right Shift, Left Ctrl, F1..F12, Keypad 8 ... Delete this file to get the defaults back.
+UP     = Up
+DOWN   = Down
+LEFT   = Left
+RIGHT  = Right
+A      = X
+B      = Z
+X      = S
+Y      = A
+L1     = Q
+R1     = W
+L2     = 1
+R2     = Left Shift, Right Shift, 2
+START  = Return
+SELECT = Backspace
+MENU   = Escape
+F1     = F1
+F2     = F2
+FN     = Tab

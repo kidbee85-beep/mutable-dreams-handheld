@@ -1,0 +1,12 @@
+# SELECT tapped: the sequence pages; SELECT held: the help (button map), for where we are
+wait 4000
+tap SELECT
+wait 300
+print
+press SELECT
+wait 900
+release SELECT
+expect_help 1
+shot out/selhelp.png
+tap B
+expect_help 0

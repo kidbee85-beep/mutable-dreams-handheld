@@ -1,0 +1,51 @@
+# editing a sequence in the SEQUENCE view: track 2 becomes a sequence; cursor, step on/off, note by scale, velocity,
+# length, generator; all checked in the engine's patch
+wait 2500
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+expect_page SEQUENCE_VIEW
+tap DOWN
+tap X
+expect_track 2 seq_enabled 1
+mark_track 2 seq_edit
+tap RIGHT
+tap RIGHT
+expect_track_delta 2 seq_edit 2
+mark_track 2 seq_note
+tap A
+tap A
+expect_track_delta 2 seq_note 0
+tap UP
+mark_track 2 seq_note
+tap UP
+tap UP
+expect_track_delta 2 seq_note >1
+tap DOWN
+expect_track_delta 2 seq_note >0
+tap R1
+mark_track 2 seq_velocity
+tap DOWN
+tap DOWN
+expect_track_delta 2 seq_velocity -10
+tap R1
+tap R1
+tap R1
+tap R1
+mark_track 2 seq_length
+tap DOWN
+expect_track_delta 2 seq_length -1
+mark_track 2 seq_generator
+tap Y
+expect_track_delta 2 seq_generator 1
+tap START
+wait 3000
+shot out/seqedit-1.png
+tap X
+expect_page SEQUENCE_VIEW
+wait 200
+shot out/seqedit-2-after.png
+tap B
+expect_page LIVE

@@ -1,0 +1,37 @@
+# (1.4) the SLEEP TIMER: OPTIONS sets it (OFF > 15 MIN); run out (here in 70 s): the last minute fades, then the music
+# stops and the screen rests; any button wakes it without doing anything else
+wait 2500
+tap START
+wait 1000
+expect_playing 1
+options 1
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap RIGHT
+wait 300
+shot out/sleep-options.png
+options 0
+sleeptimer 70000
+wait 30000
+expect_resting 0
+expect_playing 1
+wav out/sleep-fade.wav
+wait 20000
+wavstop
+expect_sound
+shot out/sleep-fading.png
+wait 25000
+expect_resting 1
+expect_playing 0
+shot out/sleep-resting.png
+wav out/sleep-quiet.wav
+wait 3000
+wavstop
+expect_silence
+tap A
+wait 300
+expect_resting 0
+expect_playing 0
+shot out/sleep-woken.png

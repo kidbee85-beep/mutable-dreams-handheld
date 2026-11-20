@@ -1,0 +1,30 @@
+# SAMPLES: files in out/samples (tools/make_test_samples.py), save in out/<dir>/: a broken file, a loop, hits that
+# follow a track, a send into the shimmer; the chosen file kept by name
+wait 2000
+lab SAMPLES.LEVEL 70
+tap F1
+tap R1
+wait 300
+shot out/samples-1-broken.png
+tap DOWN
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap START
+wav out/samples.wav
+wait 6000
+shot out/samples-2-loop.png
+tap DOWN
+tap RIGHT
+tap UP
+tap LEFT
+tap LEFT
+wait 8000
+shot out/samples-3-follow.png
+lab SENDS.SAMPLES_>_SHIMMER 60
+lab SHIMMER.MIX 40
+wait 6000
+wavstop
+expect_sound
+tap B
+expect_page LIVE

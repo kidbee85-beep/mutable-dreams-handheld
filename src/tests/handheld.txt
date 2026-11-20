@@ -1,0 +1,22 @@
+# a handheld without MENU, F1, F2, FN (MD_KEYS=handheld): the hints point to the quick bar instead, the R2 overlay and
+# the button map leave those keys out; everything is still reached through L2
+handheld 1
+wait 4000
+wait 4600
+shot out/handheld-garden-hint.png
+press R2
+wait 600
+shot out/handheld-r2.png
+release R2
+press SELECT
+wait 900
+release SELECT
+wait 300
+expect_help 1
+shot out/handheld-help.png
+tap B
+tap L2
+tap A
+wait 300
+expect_page MIXER_VIEW
+tap B

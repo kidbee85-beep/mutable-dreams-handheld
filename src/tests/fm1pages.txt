@@ -1,0 +1,26 @@
+# the FM-1's pages in the garden's style: their words set sharp by the stage (gfx.c), dials instead of K1..K4
+wait 4000
+tap START
+tap X
+wait 800
+shot out/fm1p-1-edit.png
+tap X
+wait 800
+shot out/fm1p-2-edit2.png
+tap Y
+wait 800
+shot out/fm1p-3-fx.png
+tap SELECT
+wait 800
+shot out/fm1p-4-seq.png
+press R2
+tap X
+release R2
+wait 800
+shot out/fm1p-5-env.png
+press R2
+tap Y
+release R2
+wait 800
+shot out/fm1p-6-global.png
+tap START

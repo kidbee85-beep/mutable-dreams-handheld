@@ -1,0 +1,16 @@
+# a turn shows its name and value large for a moment: on the garden, on an FM-1 page, in the Lab
+wait 4000
+tap RIGHT
+wait 200
+shot out/toast-garden.png
+tap X
+wait 600
+tap RIGHT
+wait 200
+shot out/toast-page.png
+tap F1
+tap RIGHT
+wait 200
+shot out/toast-lab.png
+wait 2000
+shot out/toast-gone.png

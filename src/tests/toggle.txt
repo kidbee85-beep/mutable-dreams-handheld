@@ -1,0 +1,15 @@
+# switching heavy modules off and on while playing: no silence gap, sound continues
+lab SEEDS.MIX 60
+lab PARTICLES.MIX 60
+wait 2000
+tap START
+wav out/toggle.wav
+wait 5000
+lab SEEDS.MIX 0
+lab PARTICLES.MIX 0
+wait 2000
+lab SEEDS.MIX 60
+lab PARTICLES.MIX 60
+wait 6000
+wavstop
+expect_sound

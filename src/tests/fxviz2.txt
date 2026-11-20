@@ -1,0 +1,6 @@
+# the Lab's picture sliding in on a module change
+wait 2000
+tap F1
+tap R1
+wait 90
+shot out/viz-slide.png

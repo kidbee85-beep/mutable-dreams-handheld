@@ -1,0 +1,107 @@
+wav out/labfull.wav
+# the Sound Lab: every module on, pictures of each, a recording, and the settings kept
+wait 3000
+tap START
+wait 2000
+tap F1
+press RIGHT
+wait 1600
+release RIGHT
+tap DOWN
+tap DOWN
+press RIGHT
+wait 1200
+release RIGHT
+tap DOWN
+press RIGHT
+wait 2000
+release RIGHT
+wait 3000
+print
+tap R1
+press RIGHT
+wait 1500
+release RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+press RIGHT
+wait 700
+release RIGHT
+tap DOWN
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+wait 4000
+print
+tap R1
+press RIGHT
+wait 1500
+release RIGHT
+tap DOWN
+tap DOWN
+press RIGHT
+wait 1500
+release RIGHT
+wait 3000
+print
+tap R1
+press RIGHT
+wait 2500
+release RIGHT
+tap DOWN
+press RIGHT
+wait 2500
+release RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+press RIGHT
+wait 2000
+release RIGHT
+wait 1000
+print
+tap R1
+press RIGHT
+wait 1200
+release RIGHT
+tap DOWN
+tap DOWN
+tap DOWN
+press RIGHT
+wait 800
+release RIGHT
+wait 1500
+print
+tap R1
+tap DOWN
+tap DOWN
+tap DOWN
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+tap A
+wait 1500
+print
+wait 30000
+tap B
+expect_page LIVE
+print
+wait 2000
+wavstop

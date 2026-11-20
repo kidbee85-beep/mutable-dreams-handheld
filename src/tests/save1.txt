@@ -1,0 +1,16 @@
+wait 4000
+expect_page LIVE
+press R2
+tap RIGHT
+tap RIGHT
+release R2
+wait 1500
+print
+press R2
+press SELECT
+wait 1300
+release SELECT
+release R2
+wait 800
+print
+fm1shot out/save-said.png

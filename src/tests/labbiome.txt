@@ -1,0 +1,37 @@
+# the Sound Lab per Biome: shared, then this Biome's own; a Biome change carries the Lab; MASTER stays global
+wait 3000
+lab MASTER.LAB_CHANGE_TIME 0
+print
+lab CLOUD.MIX 40
+lab MASTER.GAIN 3
+wait 2000
+lab MASTER.THIS_BIOME 1
+lab CLOUD.MIX 70
+wait 2000
+expect_lab CLOUD.MIX 70
+expect_lab MASTER.THIS_BIOME 1
+press R2
+tap RIGHT
+release R2
+wait 1000
+print
+expect_lab CLOUD.MIX 40
+expect_lab MASTER.THIS_BIOME 0
+expect_lab MASTER.GAIN 3
+lab MASTER.GAIN 5
+lab PARTICLES.MIX 20
+wait 2000
+shot out/labbiome-1-shared.png
+press R2
+tap LEFT
+release R2
+wait 1000
+print
+expect_lab CLOUD.MIX 70
+expect_lab PARTICLES.MIX 0
+expect_lab MASTER.GAIN 5
+expect_lab MASTER.THIS_BIOME 1
+tap F1
+tap L1
+wait 500
+shot out/labbiome-2-own.png

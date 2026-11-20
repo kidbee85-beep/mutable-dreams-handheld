@@ -1,0 +1,48 @@
+# VOICES as a granular sampler (0.43): GRAINS free with a slow scan, the tide on the position, a burst on track 1's
+# hits, MARBLES with deja vu, the tide on pitch and level; every one must sound and stay clean
+wait 2500
+lab VOICES.FILE 0
+lab VOICES.LEVEL 80
+lab VOICES.MODE 4
+lab VOICES.SCAN 30
+lab VOICES.SPRAY 20
+wait 200
+expect_voices >20
+wav out/grains-free.wav
+wait 8000
+expect_sound
+wavstop
+lab VOICES.TIDE_DEPTH 70
+lab VOICES.TIDE_RATE 60
+lab VOICES.TIDE_TO 0
+lab VOICES.GRAIN_SIZE 400
+lab VOICES.GRAINS 30
+wav out/grains-tide.wav
+wait 8000
+expect_sound
+wavstop
+tap START
+lab VOICES.TRIGGER 1
+lab VOICES.TIDE_TO 1
+wav out/grains-hits.wav
+wait 8000
+expect_sound
+wavstop
+lab VOICES.TRIGGER 8
+lab VOICES.DENSITY 70
+lab VOICES.SCATTER_(SCALE) 7
+lab VOICES.TIDE_TO 5
+wav out/grains-marbles.wav
+wait 10000
+expect_sound
+wavstop
+lab VOICES.GRAIN_SIZE 20
+lab VOICES.GRAINS 60
+lab VOICES.TRIGGER 0
+lab VOICES.TIDE_SMOOTH 100
+lab VOICES.TIDE_TO 2
+wav out/grains-dense.wav
+wait 5000
+expect_sound
+wavstop
+shot out/grains-lab.png

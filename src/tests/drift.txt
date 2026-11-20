@@ -1,0 +1,59 @@
+# editing the Biome drift in the MODULATION view (X three times): no mode without scenes, capture A and B, MANUAL with
+# the position by hand, capturing refused while on, cycle and depth, AUTO wanders while playing, OFF again
+wait 2500
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+expect_page MODULATION_VIEW
+tap X
+tap X
+tap X
+expect_track 1 drift_mode 0
+expect_track 1 drift_captured 0
+tap RIGHT
+expect_track 1 drift_mode 0
+tap L1
+expect_track 1 drift_captured 1
+tap R1
+expect_track 1 drift_captured 3
+tap RIGHT
+expect_track 1 drift_mode 1
+tap DOWN
+mark_track 1 drift_position
+tap RIGHT
+tap RIGHT
+tap RIGHT
+expect_track_delta 1 drift_position 60
+tap L1
+expect_track 1 drift_mode 1
+tap DOWN
+mark_track 1 drift_rate
+tap LEFT
+expect_track_delta 1 drift_rate -20
+tap DOWN
+mark_track 1 drift_depth
+tap LEFT
+tap LEFT
+expect_track_delta 1 drift_depth -40
+tap UP
+tap UP
+tap UP
+tap RIGHT
+expect_track 1 drift_mode 2
+tap START
+wait 1500
+mark_track 1 drift_live
+wait 6000
+expect_track_delta 1 drift_live >0
+shot out/drift-1.png
+tap LEFT
+tap LEFT
+expect_track 1 drift_mode 0
+tap START
+tap X
+tap B
+expect_page LIVE

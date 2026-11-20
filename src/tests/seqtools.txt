@@ -1,0 +1,52 @@
+# the sequence tools (R2 held in the piano roll): a step rule, copy the phrase, transpose up and back, mirror twice,
+# paste into another track, queue a fill
+wait 2500
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+tap DOWN
+tap X
+tap R1
+tap R1
+tap R1
+tap R1
+tap UP
+expect_track 2 seq_rule 1
+tap DOWN
+expect_track 2 seq_rule 0
+press R2
+tap Y
+tap L1
+release R2
+mark_track 2 seq_sum
+press R2
+tap UP
+release R2
+expect_track_delta 2 seq_sum >0
+press R2
+tap DOWN
+release R2
+expect_track_delta 2 seq_sum 0
+mark_track 2 seq_first
+press R2
+tap A
+tap A
+release R2
+expect_track_delta 2 seq_first 0
+mark_track 2 seq_sum
+tap X
+tap DOWN
+tap X
+press R2
+tap R1
+release R2
+expect_track_delta 3 seq_sum 0
+tap START
+wait 1500
+press R2
+tap X
+release R2
+wait 500
+shot out/seqtools-1.png

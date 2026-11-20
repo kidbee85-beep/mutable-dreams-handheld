@@ -1,0 +1,29 @@
+# the start screen: the garden grows, the title rises, it waits; a button fades it into the stage and does nothing
+# else (no menu opens, nothing plays); it also ends by itself after 10 s
+splash
+expect_splash 1
+wait 900
+shot out/splash-1.png
+wait 1200
+shot out/splash-2.png
+wait 1400
+shot out/splash-3.png
+wait 2000
+shot out/splash-4.png
+expect_splash 1
+tap MENU
+expect_splash 1
+wait 300
+shot out/splash-fade.png
+wait 600
+expect_splash 0
+expect_page LIVE
+expect_playing 0
+shot out/splash-after.png
+tap START
+wait 1500
+expect_playing 1
+tap START
+splash
+wait 10900
+expect_splash 0

@@ -1,0 +1,16 @@
+# after a restart: the Biome's own Lab is back; following off shows the shared Lab; giving the own Lab up
+wait 3000
+print
+expect_lab CLOUD.MIX 70
+expect_lab MASTER.GAIN 5
+expect_lab MASTER.THIS_BIOME 1
+lab MASTER.LAB_FOLLOWS_BIOME 0
+expect_lab CLOUD.MIX 40
+expect_lab PARTICLES.MIX 20
+expect_lab MASTER.THIS_BIOME 0
+lab MASTER.LAB_FOLLOWS_BIOME 1
+expect_lab CLOUD.MIX 70
+lab MASTER.THIS_BIOME 0
+expect_lab CLOUD.MIX 40
+expect_lab MASTER.THIS_BIOME 0
+wait 2000

@@ -1,0 +1,61 @@
+# OPTIONS (1.1): from the quick bar (its 14th stone); A and B swapped and used so; START + SELECT held 3 s: every button
+# itself again; a button given another's part; kept for the next start
+wait 3000
+tap L2
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+wait 200
+tap A
+wait 400
+expect_options 1
+shot out/options-1.png
+# row 1: SWAP A AND B
+tap A
+wait 200
+expect_part 4 5
+expect_part 5 4
+shot out/options-swapped.png
+# the physical A now plays B: it closes OPTIONS
+tap A
+wait 200
+expect_options 0
+# START + SELECT held 3 s: back to the Brick's own buttons
+press START
+press SELECT
+wait 3300
+release SELECT
+release START
+wait 200
+expect_part 4 4
+expect_part 5 5
+# row 3: give a button another part - A (the first offered), then X is pressed: X plays A, A plays X
+options 1
+tap DOWN
+tap DOWN
+tap A
+wait 200
+shot out/options-assign.png
+tap X
+wait 200
+expect_part 6 4
+expect_part 4 6
+wait 300
+prefs_reload
+expect_part 6 4
+# and reset from its row
+options 1
+tap UP
+tap UP
+tap UP
+wait 200
+expect_options 1

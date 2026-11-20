@@ -1,0 +1,93 @@
+# SYNTH: each engine heard on its own (ITSELF), LOGIC playing GOLDEN BELLS, track 1's hits playing KARPLUS RAIN
+wait 2500
+lab SYNTH.LEVEL 80
+tap START
+lab SYNTH.ENGINE 0
+wait 600
+wav out/synth-0.wav
+wait 8000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 1
+wait 600
+wav out/synth-1.wav
+wait 8000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 2
+wait 600
+wav out/synth-2.wav
+wait 8000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 3
+wait 600
+wav out/synth-3.wav
+wait 8000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 4
+wait 600
+wav out/synth-4.wav
+wait 8000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 5
+wait 600
+wav out/synth-5.wav
+wait 8000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 6
+wait 600
+wav out/synth-6.wav
+wait 6000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 7
+wait 600
+wav out/synth-7.wav
+wait 6000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 8
+wait 600
+wav out/synth-8.wav
+wait 6000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 9
+wait 600
+wav out/synth-9.wav
+wait 6000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 10
+wait 600
+wav out/synth-10.wav
+wait 6000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 11
+wait 600
+wav out/synth-11.wav
+wait 6000
+expect_sound
+wavstop
+lab SYNTH.ENGINE 4
+lab SYNTH.PLAYED_BY 1
+lab LOGIC.PLAY 1
+lab LOGIC.RULE 2
+lab LOGIC.VOICE_1_TO 7
+wav out/synth-logic-bells.wav
+wait 8000
+expect_sound
+wavstop
+lab LOGIC.PLAY 0
+lab SYNTH.ENGINE 3
+lab SYNTH.PLAYED_BY 2
+wav out/synth-track-karplus.wav
+wait 8000
+expect_sound
+wavstop
+tap START

@@ -1,0 +1,10 @@
+wait 2000
+tap START
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+benchdraw 10000

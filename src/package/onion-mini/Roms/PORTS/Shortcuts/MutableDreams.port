@@ -1,0 +1,10 @@
+#!/bin/sh
+# Mutable Dreams / MIYOO MINI
+GameName="Mutable Dreams"
+GameDir="MutableDreams"
+GameExecutable="launch.sh"
+GameDataFile="mutable-dreams"
+KillAudioserver=0
+PerformanceMode=0
+Arguments=""
+/mnt/SDCARD/Emu/PORTS/launch_standalone.sh "$GameName" "$GameDir" "$GameExecutable" "$Arguments" "$GameDataFile" "$KillAudioserver" "$PerformanceMode"

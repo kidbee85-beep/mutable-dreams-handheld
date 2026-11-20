@@ -1,0 +1,22 @@
+# a steady bed (no transport): the change at 3.0 s, LAB CHANGE TIME 0 ms
+wait 3000
+lab TEXTURES.AIR 70
+lab TEXTURES.FOREST 60
+lab CLOUD.MIX 40
+lab PARTICLES.MIX 60
+lab PARTICLES.MODE 0
+lab SHIMMER.MIX 20
+wait 2000
+lab MASTER.THIS_BIOME 1
+lab MASTER.LAB_CHANGE_TIME 0
+lab CLOUD.MIX 90
+lab PARTICLES.MODE 3
+lab PARTICLES.PITCH 12
+lab SHIMMER.MIX 70
+lab TEXTURES.AIR 10
+wait 6000
+wav out/steady-0.wav
+wait 3000
+biome 1
+wait 5000
+wavstop

@@ -1,0 +1,15 @@
+.DS_Store
+._*
+__pycache__/
+*.pyc
+.venv/
+src/build/
+src/out/
+src/toolchain/
+src/android/app/build/
+src/android/.gradle/
+src/android/app/src/main/cpp/sources.cmake
+local.properties
+*.keystore
+*.jks
+passwort*

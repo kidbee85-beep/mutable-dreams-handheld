@@ -1,0 +1,56 @@
+# handhelds without MENU or the FN switch: the quick bar's entries before LIGHT PICTURE and CALM MOTION (the last two). PLAY MODE latches play mode (a key plays
+# a note with the music stopped), the same entry again ends it; MENU opens the whole jump menu
+wait 4000
+expect_playing 0
+expect_play 0
+tap L2
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+wait 200
+shot out/quickplay-bar.png
+tap A
+wait 300
+expect_play 1
+wav out/quickplay.wav
+press A
+wait 600
+release A
+wait 300
+wavstop
+expect_sound
+tap L2
+tap A
+wait 300
+expect_play 0
+tap L2
+tap LEFT
+tap A
+wait 300
+expect_menu 1
+tap B
+expect_menu 0
+# LIGHT PICTURE (two to the right of MENU): the light picture on, and off again
+tap L2
+tap RIGHT
+tap RIGHT
+tap A
+wait 300
+expect_light 1
+tap L2
+tap A
+wait 300
+expect_light 0
+# CALM MOTION (0.75, the last entry, one to the right of LIGHT PICTURE): on, and off again
+tap L2
+tap RIGHT
+tap A
+wait 300
+expect_calm 1
+shot out/quickplay-calm.png
+tap L2
+tap A
+wait 300
+expect_calm 0

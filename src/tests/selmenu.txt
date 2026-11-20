@@ -1,0 +1,34 @@
+# 1.5.8: a handheld has no MENU key - SELECT tapped opens the menu (every place, OPTIONS, QUIT), SELECT or B closes it,
+# SELECT held is still the button map; on the Brick (not handheld) SELECT tapped stays "where am I"
+handheld 1
+small 1
+wait 4000
+tap START
+wait 1500
+expect_menu 0
+tap SELECT
+wait 300
+expect_menu 1
+shot out/selmenu-open.png
+tap SELECT
+wait 300
+expect_menu 0
+tap SELECT
+wait 300
+tap UP
+wait 200
+shot out/selmenu-quit.png
+tap B
+wait 300
+expect_menu 0
+press SELECT
+wait 900
+release SELECT
+expect_help 1
+expect_menu 0
+tap B
+expect_help 0
+handheld 0
+tap SELECT
+wait 300
+expect_menu 0

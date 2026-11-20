@@ -1,0 +1,21 @@
+MUTABLE DREAMS ON THE POWKIDDY RGB20S (AmberELEC; ROCKNIX and ArkOS on RK3326 handhelds the same way)
+
+Install: copy "Mutable Dreams.sh" and the folder mutabledreams/ into ports/ on the games card (TF2), beside the other
+ports. Refresh the game list (or restart) and open Mutable Dreams under Ports.
+
+The screen shows the Brick's 1024 x 768 stage scaled to 640 x 480. The RGB20S has no MENU, F1, F2 or FN key:
+  L2 (tap)      the quick bar: garden, mixer, Sound Lab, atlas, sequence, dream map, worlds, archive, modulation,
+                voice, space, help, MENU (the whole jump menu with the FM-1 pages) and PLAY MODE (instead of FN)
+  SELECT (hold) the button map
+  The quick bar's last stones: LIGHT PICTURE, CALM MOTION and DEUTSCH / ENGLISH (the whole interface in German).
+New since the first handheld build (0.60): the PLAYGROUND (ten toys and little games: bounce, orbits, rain, swing,
+firefly, wheel, echo, seed, jelly, starfall), DREAM TALES, THE GUIDE, 84 WORLDS, German and English, the musical
+garden. The manual (German and English, with pictures) comes beside this package as PDF.
+Everything else as on the Brick (see README.txt).
+
+If something does not work, mutabledreams/log.txt says what happened. Files that change the start:
+  keytest.on   every button pressed is written to log.txt
+  selftest.on  plays 30 s by itself and writes its measurements (frame rate, sound) to log.txt
+  gpu.on       draws with the GPU (OpenGL ES) instead of the processor - try it if the picture is slow
+  calm.on      CALM MOTION from the start;  light.on  the light picture from the start
+The controller mapping (controllers.txt) is the RG351MP family's internal pad, as TrackWerk uses it on the RGB20S.

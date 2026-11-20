@@ -1,0 +1,5 @@
+# test catalogue (file:// archive in out/fake-archive, built by the test runner)
+ENGLISH POEMS	test_rossetti_item	rossetti.ogg	Youth's Spring-Tribute	Dante Gabriel Rossetti	1828	1882	Test Reader	67	647618	http://creativecommons.org/publicdomain/zero/1.0/
+GERMAN POEMS	test_hoffmann_item	struwwelpeter.ogg	Der Struwwelpeter	Heinrich Hoffmann	1809	1894	Test Leser	889	8723883	http://creativecommons.org/licenses/publicdomain/
+GERMAN POEMS	test_wrong_size	struwwelpeter.ogg	Wrong Size	Heinrich Hoffmann	1809	1894		10	5000	http://creativecommons.org/licenses/publicdomain/
+GERMAN POEMS	test_missing	nothing.ogg	Missing	Nobody	1800	1850		10	5000	http://creativecommons.org/licenses/publicdomain/

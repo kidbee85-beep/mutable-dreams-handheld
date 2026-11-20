@@ -1,0 +1,22 @@
+# L2 tapped: the quick bar; RIGHT, A: the mixer; L2 again: the bar opens on the place last left (the garden), A; R2 held: its two rows; B from a page: the garden
+wait 4000
+tap L2
+wait 300
+shot out/quick-bar.png
+tap A
+wait 300
+expect_page MIXER_VIEW
+tap L2
+tap A
+wait 300
+expect_garden 1
+press R2
+wait 400
+shot out/r2-rows.png
+release R2
+tap X
+wait 300
+expect_garden 0
+tap B
+wait 300
+expect_garden 1

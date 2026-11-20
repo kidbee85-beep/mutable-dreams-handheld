@@ -1,0 +1,64 @@
+# the original Mutable Instruments modules: PARTICLES in its four modes, CROSSMOD, RANDOM (SEEDS: tests/seeds.txt)
+wait 3000
+tap START
+wait 1500
+tap F1
+tap R1
+tap R1
+tap R1
+tap R1
+press RIGHT
+wait 1800
+release RIGHT
+wav out/mi-particles.wav
+wait 6000
+shot out/mi-1-granular.png
+tap DOWN
+tap RIGHT
+wait 6000
+shot out/mi-2-stretch.png
+tap RIGHT
+wait 6000
+shot out/mi-3-looping.png
+tap RIGHT
+wait 6000
+shot out/mi-4-spectral.png
+wavstop
+expect_sound
+tap UP
+tap A
+tap R1
+tap R1
+tap R1
+press RIGHT
+wait 1800
+release RIGHT
+wav out/mi-crossmod.wav
+wait 6000
+tap DOWN
+tap DOWN
+tap DOWN
+press RIGHT
+wait 1500
+release RIGHT
+wait 4000
+shot out/mi-5-crossmod.png
+wavstop
+expect_sound
+tap UP
+tap UP
+tap UP
+tap A
+tap R1
+tap A
+tap DOWN
+tap RIGHT
+tap RIGHT
+tap RIGHT
+wav out/mi-random.wav
+wait 12000
+shot out/mi-6-random.png
+wavstop
+expect_sound
+tap B
+expect_page LIVE

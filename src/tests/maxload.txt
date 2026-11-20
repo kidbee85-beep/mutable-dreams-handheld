@@ -1,0 +1,33 @@
+# every Sound Lab module at once, the dearest modes: the load to expect on the Brick
+lab TEXTURES.FOREST 60
+lab TEXTURES.STARDUST 60
+lab CLOUD.MIX 50
+lab PARTICLES.MIX 50
+lab PARTICLES.MODE 3
+lab SEEDS.MIX 50
+lab SAMPLES.LEVEL 60
+lab POLY.LEVEL 50
+lab POLY.VOICES 8
+lab POLY.MODEL 2
+lab POLY.FOLLOW_TRACK 1
+lab POLY.FOLLOW_GATE 3000
+lab SAMPLES.FILE_(A:_LOOK_AGAIN) 3
+lab SENDS.SAMPLES_>_SEEDS 50
+lab SEEDS.MEDIA 0
+lab SHIMMER.MIX 50
+lab SHIMMER.SHIMMER 60
+lab CROSSMOD.MIX 40
+lab CROSSMOD.ALGORITHM 90
+lab RANDOM.PLAY 1
+lab COLOUR.ENSEMBLE 40
+lab COLOUR.TAPE_DRIVE 20
+lab COLOUR.WOW_+_FLUTTER 20
+lab MASTER.LIMITER 1
+wait 2000
+tap START
+wav out/maxload.wav
+wait 30000
+wavstop
+expect_sound
+benchsound 20000
+bench 20000

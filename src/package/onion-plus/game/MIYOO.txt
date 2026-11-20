@@ -1,0 +1,30 @@
+MUTABLE DREAMS ON THE MIYOO MINI PLUS (OnionOS 4.3 or later)
+
+Install: copy the folders Roms/ and App/ of this zip onto the root of the Onion card (they join the existing ones;
+nothing there is replaced). Mutable Dreams then appears under Games > Ports and under Apps.
+
+The screen shows the Brick's stage made 640 x 480, at 15 pictures a second (the Cortex-A7 keeps its strength for the
+sound). The Miyoo has MENU but no F1, F2 or FN:
+  L2 (tap)      the quick bar: garden, mixer, Sound Lab, atlas, sequence, dream map, worlds, archive, modulation,
+                voice, space, help, MENU and PLAY MODE (instead of FN)
+  MENU          the jump menu       SELECT (hold) the button map
+  The quick bar's last stones: LIGHT PICTURE, CALM MOTION and DEUTSCH / ENGLISH (the whole interface in German).
+New since the first Miyoo build (0.60): the PLAYGROUND (ten toys and little games: bounce, orbits, rain, swing,
+firefly, wheel, echo, seed, jelly, starfall), DREAM TALES, THE GUIDE, 84 WORLDS, German and English, the musical
+garden. The manual (German and English, with pictures) comes beside this package as PDF.
+WiFi: the ARCHIVE fetches free poems with curl over WiFi (set the clock in Onion first). Not yet tested on the device.
+The Sound Lab with every module at once is too much for the Miyoo's two cores: use a few modules at a time.
+
+If something does not work, Roms/PORTS/Games/MutableDreams/log.txt says what happened. Files that change the start:
+  keytest.on   every button pressed is written to log.txt
+  selftest.on  plays 30 s by itself and writes its measurements (frame rate, sound) to log.txt
+  calm.on      CALM MOTION from the start (lighter for the two cores)
+  full.on      the full picture instead of the light one
+  nofast.on    the CPU governor left alone (else "performance" while it runs, the old one put back after; no overclock)
+  scaleone.on  the picture made smaller on one core only (to compare)
+  burst.off    no sound made ahead between frames (to compare)
+  sidefull.on  the columns beside the stage (tracks, dials, the top line and the hints) drawn in every frame;
+               without it, in the light picture they are drawn every other frame and copied between (1.5.8)
+  fps15.on     15 frames a second instead of 20 (1.5.8)
+mutabledreams' keys.txt (written on the first start) binds a USB keyboard's keys, if one is ever used.
+Bundled: the Miyoo SDL2 (mmiyoo, by steward-fu, as TrackWerk uses it) and its NEON helper, in libs/.

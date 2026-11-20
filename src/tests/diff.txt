@@ -1,0 +1,9 @@
+wait 2000
+lab POLY.LEVEL 100
+lab POLY.MODEL 8
+lab RANDOM.PLAY 1
+lab RANDOM.TRACK 6
+tap START
+wav out/diff.wav
+wait 20000
+wavstop

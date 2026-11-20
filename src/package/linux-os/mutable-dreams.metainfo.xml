@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.kidbunka.mutabledreams.dreamgarden</id>
+  <name>@APPNAME@</name>
+  <summary>A generative garden of sound</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-only</project_license>
+  <developer id="kidbunka"><name>Kid Bunka</name></developer>
+  <description>
+    <p>Mutable Dreams makes music by itself, like a garden grows. Six voices as plants, four dials (fireflies, wind,
+    glow, mist), 272 Biomes, a Sound Lab with Mutable Instruments' modules, a playground of toys and games, and a
+    dream tale told while you play. Made for handhelds and played with a game controller.</p>
+  </description>
+  <launchable type="desktop-id">org.kidbunka.mutabledreams.dreamgarden.desktop</launchable>
+  <categories><category>Music</category></categories>
+</component>

@@ -1,0 +1,8 @@
+# after a restart: the Sound Lab as it was left
+wait 3000
+tap START
+tap F1
+wait 3000
+shot out/lab-8-restart.png
+benchsound 20000
+bench 20000

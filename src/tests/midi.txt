@@ -1,0 +1,69 @@
+# MIDI: notes onto POLY (velocity, sustain pedal, bend, mod wheel), by channel; other notes and the rest to the engine
+wait 3000
+lab POLY.LEVEL 70
+wav out/midi.wav
+hits 0
+midi 90 3C 64
+midi 90 40 30
+midi 90 43 7F
+wait 1500
+expect_poly 3 3
+hits 0 same
+midi B0 40 7F
+midi 80 3C 00
+midi 90 40 00
+wait 400
+expect_poly 3 3
+midi B0 40 00
+wait 100
+expect_poly 3 1
+midi E0 7F 7F
+midi B0 01 7F
+wait 1000
+midi E0 00 40
+midi 80 43 00
+wait 4000
+expect_poly 0 0
+lab POLY.MIDI_NOTES 2
+midi 91 3C 64
+wait 300
+expect_poly 0 0
+hits 1
+midi 90 3C 64
+wait 300
+expect_poly 1 1
+midi 80 3C 00
+lab POLY.LEVEL 0
+hits 0
+midi 90 3C 64
+wait 400
+hits 0 more
+midi 80 3C 00
+tap START
+wait 3000
+midiout
+wait 1000
+wavstop
+expect_sound
+# (0.73) a key held while the keyboard is unplugged: everything it held is let go (POLY's notes, the pedal) - held at
+# once, sounding after the voices' own release
+lab POLY.LEVEL 70
+lab POLY.MIDI_NOTES 1
+midi B0 40 7F
+midi 90 40 64
+midi 90 43 64
+wait 300
+expect_poly 2 2
+midi_unplug
+wait 600
+expect_poly 2 0
+wait 5000
+expect_poly 0 0
+lab POLY.LEVEL 0
+# Mutable Dreams 2.1 sends no MIDI of its own: nothing is offered as MIDI out (the ledger stays empty while playing)
+midi_ledger 1
+tap START
+wait 3000
+midi_report
+expect_midi_channels 0
+tap START

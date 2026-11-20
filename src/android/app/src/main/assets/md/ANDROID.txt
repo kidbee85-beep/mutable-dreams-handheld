@@ -1,0 +1,10 @@
+MUTABLE DREAMS ON ANDROID (made for the Anbernic RG405V; runs on other Android 9+ devices with a gamepad)
+
+The app keeps its files in Android/data/com.kidbunka.mutabledreams/files on the device's storage: save/ (your
+Biomes, Lab settings), samples/ (put your own WAV / OGG there, samples/voices for spoken voices), worlds/worlds.txt
+and log.txt (what happened, if something did not work).
+
+The screen shows the Brick's stage, scaled. The RG405V has no MENU, F1, F2 or FN key:
+  L2 (tap)      the quick bar: every place, MENU and PLAY MODE (instead of FN)
+  SELECT (hold) the button map
+The ARCHIVE cannot fetch on Android yet; the voices already in samples/voices play.

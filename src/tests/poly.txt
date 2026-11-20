@@ -1,0 +1,42 @@
+# POLY: play mode (FN) plays the Plaits voices, chords with R2, a 6-op FM model, RANDOM on POLY, POLY following a track
+lab POLY.LEVEL 70
+wait 2500
+tap F1
+tap R1
+tap R1
+tap START
+wav out/poly.wav
+press FN
+press LEFT
+wait 600
+press DOWN
+wait 600
+press RIGHT
+wait 1200
+shot out/poly-1-three-notes.png
+release LEFT
+release DOWN
+release RIGHT
+wait 1500
+lab POLY.MODEL 2
+press R2
+press Y
+wait 2500
+shot out/poly-2-fm-chord.png
+release Y
+release R2
+wait 1500
+release FN
+lab POLY.MODEL 6
+lab RANDOM.PLAY 1
+lab RANDOM.TRACK 6
+lab RANDOM.RATE 1
+wait 6000
+shot out/poly-3-random.png
+lab RANDOM.PLAY 0
+lab POLY.MODEL 13
+lab POLY.FOLLOW_TRACK 1
+wait 6000
+shot out/poly-4-follow.png
+wavstop
+expect_sound

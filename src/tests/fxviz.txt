@@ -1,0 +1,50 @@
+# the Lab's pictures of SYNTH RINGS / ELEMENTS, GRIDS, RACK A and RACK B (screenshots to look at)
+wait 2500
+lab VOICES.FILE 0
+lab VOICES.LEVEL 80
+lab VOICES.DENSITY 90
+lab RACK_A.VOICES_INTO 1
+lab RACK_A.FILTER 2
+lab RACK_A.CUTOFF 45
+lab RACK_A.RESONANCE 60
+lab RACK_A.FOLLOW 70
+lab RACK_A.RESONATOR 70
+lab RACK_A.RES_MODEL 1
+lab RACK_A.ECHO 40
+lab RACK_A.ECHO_FEEDBACK 55
+lab SYNTH.LEVEL 70
+lab SYNTH.ENGINE 6
+lab SYNTH.DENSITY 70
+lab RACK_B.SYNTH_INTO 1
+lab RACK_B.DRIVE 60
+lab RACK_B.CRUSH 30
+lab RACK_B.FILTER 1
+lab RACK_B.SWEEP 80
+lab GRIDS.PLAY 1
+lab GRIDS.KICK_TO 7
+lab GRIDS.MAP_X 35
+lab GRIDS.MAP_Y 60
+tap START
+wait 4000
+tap F1
+tap R1
+tap R1
+tap R1
+tap R1
+wait 2500
+shot out/viz-synth-rings.png
+lab SYNTH.ENGINE 7
+wait 2500
+shot out/viz-synth-elements.png
+tap R1
+tap R1
+tap R1
+wait 1500
+shot out/viz-grids.png
+tap R1
+wait 1500
+shot out/viz-rack-a.png
+tap R1
+wait 1500
+shot out/viz-rack-b.png
+tap START

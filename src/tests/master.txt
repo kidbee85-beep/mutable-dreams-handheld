@@ -1,0 +1,58 @@
+# MASTER's chain (0.62): EQ, saturation (three kinds), glue compressor, look-ahead limiter; pushed 12 dB too loud the
+# limiter keeps the peaks under its ceiling, nothing turns to NaN; the guard keeps the plain mix under 0 dBFS
+wait 2500
+tap START
+wav out/master-plain.wav
+wait 4000
+expect_peak_below 0.01
+wavstop
+lab MASTER.EQ_LOW 6
+lab MASTER.EQ_MID -3
+lab MASTER.EQ_HIGH 4
+lab MASTER.SATURATION 70
+lab MASTER.GLUE_COMPRESSOR 80
+lab MASTER.GAIN 12
+lab MASTER.LIMITER 1
+lab MASTER.CEILING -1
+wav out/master-tape.wav
+wait 4000
+expect_sound
+expect_peak_below -0.95
+wavstop
+lab MASTER.SATURATION_KIND 1
+wav out/master-tube.wav
+wait 3000
+expect_peak_below -0.95
+wavstop
+lab MASTER.SATURATION_KIND 2
+lab MASTER.COMP_MIX_(PARALLEL) 40
+lab MASTER.COMP_ATTACK 1
+lab MASTER.COMP_RELEASE 20
+wav out/master-transistor.wav
+wait 3000
+expect_peak_below -0.95
+wavstop
+lab MASTER.LIMITER 0
+wav out/master-guard.wav
+wait 3000
+expect_peak_below 0.01
+wavstop
+benchsound 10000
+lab MASTER.GAIN 0
+lab MASTER.SATURATION 0
+lab MASTER.GLUE_COMPRESSOR 0
+lab MASTER.EQ_LOW 0
+lab MASTER.EQ_MID 0
+lab MASTER.EQ_HIGH 0
+benchsound 10000
+# the sounds: one turn sets the chain (LOUD: limiter on, gain up); a turn of a row by hand makes it OWN
+lab MASTER.SOUND 4
+expect_lab MASTER.GAIN 11
+expect_lab MASTER.LIMITER 1
+wav out/master-loud.wav
+wait 3000
+expect_peak_below -0.75
+wavstop
+lab MASTER.EQ_HIGH 1
+expect_lab MASTER.SOUND 0
+expect_lab MASTER.GAIN 11

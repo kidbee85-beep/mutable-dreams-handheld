@@ -1,0 +1,91 @@
+# ARCHIVE, offline: the test catalogue (tests/archive-catalogue.tsv) fetched from a file:// archive with the real
+# curl. Run with: mkdir -p out/fake-archive/test_rossetti_item out/fake-archive/test_hoffmann_item
+#   out/fake-archive/test_wrong_size; copy the two oggs in; MD_ARCHIVE_BASE=file://$PWD/out/fake-archive
+#   MD_ARCHIVE_CATALOGUE=tests/archive-catalogue.tsv. Fetch, credit file, into VOICES; a wrong size and a missing
+#   file are not kept
+wait 2500
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+expect_page ARCHIVE
+expect_archive 0 0
+expect_archive 1 0
+tap A
+wait_fetch
+expect_archive 0 1
+shot out/archive-1.png
+tap A
+expect_lab VOICES.FILE 0
+expect_lab VOICES.LEVEL 70
+wait 300
+expect_voices >20
+tap X
+expect_lab VOICES.MODE 0
+tap Y
+expect_lab VOICES.MODE 4
+wav out/archive-grains.wav
+wait 2500
+expect_sound
+wavstop
+lab VOICES.TIDE_DEPTH 60
+lab VOICES.TIDE_SHAPE 20
+wait 700
+shot out/archive-sampler.png
+tap R1
+tap R1
+tap R1
+tap RIGHT
+expect_lab SENDS.VOICES_>_CLOUD 1
+expect_lab CLOUD.MIX 60
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap RIGHT
+expect_lab RACK_A.VOICES_INTO 1
+tap L1
+tap UP
+tap RIGHT
+tap RIGHT
+tap Y
+expect_lab VOICES.MODE 0
+tap LEFT
+tap B
+expect_page ARCHIVE
+lab SENDS.VOICES_>_CLOUD 0
+tap Y
+expect_lab SENDS.VOICES_>_CLOUD 85
+tap Y
+expect_lab SENDS.VOICES_>_CLOUD 0
+tap A
+expect_lab VOICES.LEVEL 0
+tap A
+expect_lab VOICES.LEVEL 70
+tap R1
+tap A
+wait_fetch
+expect_archive 1 1
+tap DOWN
+tap A
+wait_fetch
+expect_archive 2 0
+tap DOWN
+tap A
+wait_fetch
+expect_archive 3 0
+tap UP
+tap UP
+tap START
+wait 2000
+shot out/archive-2.png
+tap START
+tap B
+expect_page LIVE

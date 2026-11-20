@@ -1,0 +1,35 @@
+# 1.5.8, the Miyoo's compromise: in the light picture the columns around the stage every other frame (sidehalf 1, as
+# MD_SIDE_HALF=1). Every screen still reached and drawn: garden, an FM-1 page, the Lab, the quick bar, the menu.
+# Flicker: tools/flicker_scan.py on a film (as tests/... in UEBERGABE); here the walk and the pictures.
+handheld 1
+small 1
+light 1
+sidehalf 1
+wait 3000
+tap START
+wait 2500
+sidecheck
+shot out/sidehalf-garden.png
+press DOWN
+wait 900
+release DOWN
+wait 400
+shot out/sidehalf-garden-down.png
+tap X
+wait 800
+shot out/sidehalf-page.png
+tap B
+wait 500
+tap L2
+wait 400
+shot out/sidehalf-quick.png
+tap B
+wait 400
+expect_help 0
+tap L1
+wait 600
+sidehalf 0
+wait 300
+sidehalf 1
+wait 600
+shot out/sidehalf-end.png

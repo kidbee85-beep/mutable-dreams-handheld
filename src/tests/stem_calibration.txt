@@ -1,0 +1,4 @@
+# the stems' level against the mix: brick_lab.inc LAB_STEM_K (build with EXTRA_CFLAGS=-DBK_STEMCAL OUT_SUFFIX=-cal)
+wait 3000
+tap START
+wait 30000

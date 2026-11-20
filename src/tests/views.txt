@@ -1,0 +1,59 @@
+# the full views: MIXER (fader, dials, mute), ATLAS (family, tile, load; edits unsaved: A again changes), SEQUENCE
+wait 3000
+tap F2
+expect_page MIXER_VIEW
+tap RIGHT
+mark_track 2 level
+tap UP
+tap UP
+tap UP
+expect_track_delta 2 level 60
+tap R1
+mark_track 2 pan
+tap DOWN
+tap DOWN
+expect_track_delta 2 pan -40
+tap A
+expect_track 2 mute 1
+wait 300
+shot out/views-1-mixer.png
+tap A
+expect_track 2 mute 0
+tap B
+expect_page LIVE
+mark_biome
+press R2
+tap F2
+release R2
+expect_page BIOME_ATLAS
+tap R1
+tap RIGHT
+wait 200
+shot out/views-2-atlas.png
+tap A
+wait 300
+expect_biome_same
+shot out/views-3-atlas-confirm.png
+tap A
+wait 500
+expect_biome_changed
+tap START
+wait 2000
+mark_biome
+tap RIGHT
+tap A
+wait 300
+tap A
+wait 500
+expect_biome_changed
+tap B
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+expect_page SEQUENCE_VIEW
+wait 2500
+shot out/views-4-sequence.png
+tap B
+expect_page LIVE

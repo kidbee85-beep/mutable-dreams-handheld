@@ -1,0 +1,87 @@
+# the SPACE view (MENU > SPACE VIEW): UP/DOWN field, LEFT/RIGHT value in the engine, X / L1 / R1 panels, A freeze
+wait 2500
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+expect_page SPACE_VIEW
+mark_track 1 s_echo_time
+tap LEFT
+tap LEFT
+expect_track_delta 1 s_echo_time -10
+tap DOWN
+mark_track 1 s_echo_fb
+tap LEFT
+expect_track_delta 1 s_echo_fb -20
+tap DOWN
+tap DOWN
+mark_track 1 s_return
+tap RIGHT
+tap LEFT
+expect_track_delta 1 s_return 0
+tap X
+mark_track 1 s_space
+tap RIGHT
+expect_track_delta 1 s_space 20
+tap DOWN
+tap DOWN
+mark_track 1 s_position
+tap LEFT
+expect_track_delta 1 s_position -20
+tap R1
+mark_track 1 s_pitch
+tap RIGHT
+tap RIGHT
+tap RIGHT
+expect_track_delta 1 s_pitch 3
+tap DOWN
+tap RIGHT
+expect_track 1 s_reverse 1
+tap LEFT
+expect_track 1 s_reverse 0
+tap A
+expect_track 1 s_freeze 1
+tap A
+expect_track 1 s_freeze 0
+tap X
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+expect_track 1 s_duck_from -1
+tap RIGHT
+tap RIGHT
+expect_track 1 s_duck_from 1
+tap DOWN
+mark_track 1 s_duck
+tap RIGHT
+expect_track_delta 1 s_duck 20
+tap DOWN
+tap DOWN
+mark_track 1 s_swing
+tap RIGHT
+expect_track_delta 1 s_swing >0
+tap L1
+tap L1
+tap L1
+tap START
+wait 4000
+shot out/space-1.png
+tap X
+tap X
+tap A
+wait 1500
+shot out/space-2.png
+tap A
+tap START
+tap B
+expect_page LIVE

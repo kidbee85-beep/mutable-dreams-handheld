@@ -1,0 +1,5 @@
+# after a restart: the same file, found by its name
+wait 2000
+tap F1
+wait 500
+shot out/samples-4-restart.png

@@ -1,0 +1,58 @@
+#!/bin/sh
+# Mutable Dreams by Kid Bunka: start it for this user. Its own copy of the data lives in the user's data folder,
+# so the program can write its worlds, voices and saves; an update renews the program files, never save/ samples/.
+SYS="@PREFIX@/lib/mutable-dreams"
+U="${XDG_DATA_HOME:-$HOME/.local/share}/mutable-dreams"
+mkdir -p "$U/save" "$U/samples/voices"
+if [ ! -f "$U/.version" ] || ! cmp -s "$SYS/SOURCE.txt" "$U/.version"; then
+    ( cd "$SYS" && find . -type f ! -path './save/*' ! -path './samples/*' | while read -r f; do
+        mkdir -p "$U/$(dirname "$f")"; cp -p "$f" "$U/$f"; done )
+    ( cd "$SYS" && [ -d samples ] && find samples -type f | while read -r f; do
+        [ -e "$U/$f" ] || { mkdir -p "$U/$(dirname "$f")"; cp -p "$f" "$U/$f"; }; done ) || true
+    cp "$SYS/SOURCE.txt" "$U/.version"
+fi
+cd "$U" || exit 2
+# (0.80) mutable-dreams --keys: the keyboard's bindings to edit (keys.txt, written with the defaults when missing);
+# mutable-dreams --manual: the manual (German when the system is German)
+case "${1:-}" in
+--keys)
+    if [ ! -f keys.txt ]; then
+        cat > keys.txt <<'KEYS'
+# Mutable Dreams: the keyboard. Each Brick button and the keys that press it, separated by commas.
+# Key names as SDL writes them: A..Z, 0..9, Up, Down, Left, Right, Return, Space, Tab, Escape, Backspace,
+# Left Shift, Right Shift, Left Ctrl, F1..F12, Keypad 8 ... Delete this file to get the defaults back.
+UP     = Up
+DOWN   = Down
+LEFT   = Left
+RIGHT  = Right
+A      = X
+B      = Z
+X      = S
+Y      = A
+L1     = Q
+R1     = W
+L2     = 1
+R2     = Left Shift, Right Shift, 2
+START  = Return
+SELECT = Backspace
+MENU   = Escape
+F1     = F1
+F2     = F2
+FN     = Tab
+KEYS
+    fi
+    exec xdg-open "$U/keys.txt" ;;
+--manual)
+    DOC="@PREFIX@/share/doc/mutable-dreams"
+    case "${LC_ALL:-${LC_MESSAGES:-${LANG:-}}}" in de*) M="$DOC/Mutable-Dreams-Handbuch-DE.pdf" ;; *) M="$DOC/Mutable-Dreams-Manual-EN.pdf" ;; esac
+    exec xdg-open "$M" ;;
+esac
+# a handheld without the Brick's MENU / F1 / F2 / FN keys: MD_KEYS=handheld (the quick bar, L2, reaches it all)
+[ -n "${MD_KEYS:-}" ] && export MD_KEYS
+# a desktop PC: fullscreen at the screen's own size, the stage in proportion (MD_DESKTOP=0 for a handheld's own
+# screen); MD_WINDOW=1 or --window: a window
+export MD_DESKTOP="${MD_DESKTOP:-1}"
+# (0.80.1) on a Wayland desktop SDL's own Wayland driver first (no XWayland in between), X11 if that cannot start
+if [ -n "${WAYLAND_DISPLAY:-}" ] && [ -z "${SDL_VIDEODRIVER:-}" ]; then export SDL_VIDEODRIVER=wayland,x11; fi
+[ "${MD_WINDOW:-0}" = 1 ] && set -- --window "$@"
+exec "$U/mutable-dreams" "$@" "$U/save"

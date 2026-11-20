@@ -1,0 +1,15 @@
+# turning moves what is in sight: the garden's plants, sparks, the frame; the Lab's value
+wait 4000
+tap START
+wait 1500
+press RIGHT
+wait 500
+shot out/kick-garden.png
+release RIGHT
+tap F1
+tap DOWN
+press RIGHT
+wait 400
+shot out/kick-lab.png
+release RIGHT
+tap START

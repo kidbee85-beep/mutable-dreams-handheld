@@ -1,0 +1,50 @@
+# start, play, look at the stage, walk the main buttons
+wait 4000
+print
+shot out/01-start.png
+wav out/smoke.wav
+tap START
+wait 6000
+expect_playing 1
+shot out/02-playing.png
+tap X
+expect_page SOUND
+tap RIGHT
+tap RIGHT
+shot out/03-sound.png
+tap F2
+expect_page MIXER_VIEW
+tap F2
+expect_page SOUND
+tap R1
+tap R1
+wait 1000
+shot out/04-track3.png
+press R2
+tap RIGHT
+release R2
+wait 3000
+print
+tap MENU
+shot out/05-menu.png
+tap DOWN
+tap DOWN
+tap A
+expect_page BIOME_ATLAS
+tap B
+expect_page SOUND
+wait 500
+wavstop
+expect_sound
+# the jump menu's two columns (it remembers its place: BIOME ATLAS, the third on the left): RIGHT goes to the same
+# row of the FM-1 pages (BIOME BROWSER, a LIVE view), LEFT back, then one down is the SEQUENCE view
+tap MENU
+tap RIGHT
+tap A
+expect_page LIVE
+tap MENU
+tap LEFT
+tap DOWN
+tap A
+expect_page SEQUENCE_VIEW
+tap B

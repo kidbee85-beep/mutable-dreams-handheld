@@ -1,0 +1,59 @@
+# the firefly pond (Y in the MODULATION view): UP/DOWN depth, LEFT/RIGHT speed (right = shorter period), A shape,
+# X target, L1/R1 the next firefly (1A 1B 2A ...); Y back to the LFO grid
+wait 2500
+tap START
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+expect_page MODULATION_VIEW
+tap Y
+mark_track 1 a_depth
+tap UP
+tap UP
+tap UP
+tap UP
+tap UP
+expect_track_delta 1 a_depth 100
+mark_track 1 a_rate
+tap LEFT
+expect_track_delta 1 a_rate 20
+mark_track 1 a_shape
+tap A
+expect_track_delta 1 a_shape 1
+tap R1
+mark_track 1 b_target
+tap X
+expect_track_delta 1 b_target 1
+mark_track 1 b_depth
+tap UP
+tap UP
+tap UP
+tap UP
+tap UP
+tap UP
+tap UP
+tap UP
+expect_track_delta 1 b_depth 160
+tap R1
+mark_track 2 a_depth
+tap UP
+tap UP
+tap UP
+tap UP
+tap UP
+tap UP
+expect_track_delta 2 a_depth 120
+tap DOWN
+wait 3000
+shot out/pond-1.png
+wait 1300
+shot out/pond-2.png
+tap Y
+wait 200
+shot out/pond-3-grid.png
+tap B
+expect_page LIVE

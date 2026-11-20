@@ -1,0 +1,76 @@
+# the VOICE view (MENU > VOICE VIEW): L1/R1 track, UP/DOWN field, LEFT/RIGHT value in the engine, X next panel,
+# A held sounds the track's note (stopped: a hit, then let go); a preset; reversible changes
+wait 2500
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+expect_page VOICE_VIEW
+tap R1
+mark_track 2 v_tone
+tap DOWN
+tap DOWN
+tap RIGHT
+tap RIGHT
+expect_track_delta 2 v_tone 40
+tap LEFT
+tap LEFT
+expect_track_delta 2 v_tone 0
+tap X
+mark_track 2 v_cutoff
+tap LEFT
+expect_track_delta 2 v_cutoff -20
+tap DOWN
+tap DOWN
+mark_track 2 v_char
+tap RIGHT
+tap LEFT
+expect_track_delta 2 v_char 0
+tap X
+tap DOWN
+tap DOWN
+tap DOWN
+mark_track 2 v_level
+tap LEFT
+expect_track_delta 2 v_level -20
+tap X
+tap DOWN
+mark_track 2 v_length
+tap LEFT
+expect_track_delta 2 v_length -1
+tap X
+mark_track 2 v_note
+tap RIGHT
+tap RIGHT
+expect_track_delta 2 v_note 2
+tap DOWN
+tap DOWN
+hits 1
+press A
+wait 300
+hits 1 more
+release A
+tap X
+mark_track 2 v_preset
+tap RIGHT
+expect_track_delta 2 v_preset 1
+tap DOWN
+mark_track 2 v_model
+tap RIGHT
+expect_track_delta 2 v_model 1
+expect_track 2 v_preset -1
+tap START
+wait 2500
+shot out/voice-1.png
+tap L1
+tap X
+tap X
+wait 300
+shot out/voice-2.png
+tap START
+tap B
+expect_page LIVE

@@ -1,0 +1,53 @@
+# the garden's creatures: a living link as a vine (track 1 to 3), POLY voices as lanterns (RANDOM plays them,
+# the frog jumps), SHIMMER as a band of light, LOCK as a lantern on the bank, a muted track falling asleep slowly
+wait 4000
+lab POLY.LEVEL 60
+lab POLY.VOICES 4
+lab RANDOM.PLAY 1
+lab RANDOM.TRACK 6
+lab RANDOM.RATE 4
+lab SHIMMER.MIX 60
+expect_lab RANDOM.PLAY 1
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+expect_page MODULATION_VIEW
+tap X
+tap A
+expect_track 1 link_depth 500
+tap L1
+tap L1
+tap RIGHT
+tap RIGHT
+expect_track 1 link_dest 2
+tap X
+tap X
+tap X
+tap X
+tap B
+expect_garden 1
+tap START
+wait 4000
+shot out/creatures-1.png
+press R2
+tap A
+release R2
+tap F2
+tap RIGHT
+tap A
+tap F2
+wait 400
+shot out/creatures-asleep-half.png
+wait 2000
+shot out/creatures-2.png
+tap F2
+tap A
+tap F2
+press R2
+tap A
+release R2
+tap START

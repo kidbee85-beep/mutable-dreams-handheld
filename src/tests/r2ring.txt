@@ -1,0 +1,19 @@
+# R2 held a moment: the ring of what the buttons do with it; while held, a pressed one lights
+wait 4000
+press R2
+wait 900
+shot out/r2-ring.png
+press X
+wait 100
+shot out/r2-ring-x.png
+release X
+release R2
+wait 300
+tap MENU
+wait 300
+shot out/menu-path.png
+tap DOWN
+tap DOWN
+wait 400
+shot out/menu-path-2.png
+tap B

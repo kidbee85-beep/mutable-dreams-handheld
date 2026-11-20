@@ -1,0 +1,20 @@
+# (0.74) the musical sky and rain: the garden's aurora flares with each track's notes and floats with their pitch;
+# in Terra Pluvia each note splashes at its plant. Nothing as long as the Biome has neither (Velvet Mist)
+wait 2500
+tap START
+wait 6000
+expect_gfx_notes 0
+garden_fx aurora
+wait 6000
+expect_gfx_notes 4
+shot out/gfx-aurora.png
+garden_fx rain
+wait 6000
+expect_gfx_notes 9
+shot out/gfx-rain.png
+garden_fx off
+light 1
+garden_fx rain
+wait 3000
+expect_gfx_notes 11
+shot out/gfx-rain-light.png

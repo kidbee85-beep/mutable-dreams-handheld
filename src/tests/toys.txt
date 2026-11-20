@@ -1,0 +1,204 @@
+# the PLAYGROUND (0.65; five toys 0.66; WHEEL and KEEP 0.67; ECHO and the tale 0.69; SEED 0.70; JELLY 0.72): from the jump menu (its 13th stone) and the quick bar; each toy plays notes on its own;
+# B goes back; away from it nothing more is played
+wait 4000
+tap START
+wait 500
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+wait 300
+expect_where PLAYGROUND
+# (0.76) the tale's first card is up on the first visit - it vanished in its first frame at an even millisecond
+expect_tale_card 0
+# BOUNCE: two balls are in the air on the first visit, more thrown with A
+wav out/toys-bounce.wav
+tap A
+tap A
+wait 3000
+wavstop
+expect_toy_notes 4
+expect_sound
+expect_peak_below 0
+shot out/toys-bounce.png
+# ORBITS: three planets at 1, 3/2 and 2 a bar
+tap R1
+wait 6000
+expect_toy_notes 8
+shot out/toys-orbits.png
+# RAIN: thunder and drops
+tap R1
+tap A
+tap UP
+tap UP
+wait 3000
+expect_toy_notes 14
+shot out/toys-rain.png
+tap Y
+wait 2000
+# SWING: eight pendulums, each rings in the middle
+tap R1
+wait 4000
+expect_toy_notes 30
+shot out/toys-swing.png
+# FIREFLY: it flies across in lines; what it catches loops as a melody
+tap R1
+tap DOWN
+wait 300
+tap RIGHT
+wait 3500
+tap DOWN
+wait 300
+tap RIGHT
+wait 3500
+tap DOWN
+wait 300
+tap RIGHT
+wait 3500
+tap DOWN
+wait 300
+tap RIGHT
+wait 3500
+tap DOWN
+wait 300
+tap RIGHT
+wait 3500
+tap DOWN
+wait 300
+tap RIGHT
+wait 3500
+tap DOWN
+wait 300
+tap RIGHT
+wait 3500
+tap DOWN
+wait 300
+tap RIGHT
+wait 3500
+expect_toy_notes 34
+shot out/toys-firefly.png
+# KEEP (R2 + X): the last bar of track 1's notes becomes its sequence; R2 + A brings back what was there
+seq_mark 1
+press R2
+tap X
+release R2
+wait 300
+expect_seq 1 1
+expect_seq_changed 1
+press R2
+tap A
+release R2
+wait 300
+expect_seq_same 1
+# WHEEL: four rings, each a track
+tap R1
+wait 3000
+expect_toy_notes 150
+shot out/toys-wheel.png
+# ECHO (0.69): A starts, the pond sings, the pads answer the D-pad
+tap R1
+tap A
+wait 1600
+shot out/toys-echo.png
+tap LEFT
+wait 600
+tap UP
+wait 2500
+expect_toy_notes 153
+shot out/toys-echo2.png
+# DREAM TALES: the first chapter (16 notes in the playground) is told by now
+expect_tale 1
+# SEED (0.70): flying high turns GLOW up, low turns it down; Y gives the dials back
+tap R1
+press UP
+wait 2500
+release UP
+wait 400
+expect_macro_above 2 700
+shot out/toys-seed.png
+press DOWN
+wait 2500
+release DOWN
+wait 400
+expect_macro_below 2 300
+tap A
+wait 300
+# JELLY (0.72): it sinks into the deep - the MIST grows; pulses (A) bring it up - the MIST thins
+tap R1
+wait 9000
+expect_macro_above 3 650
+tap A
+wait 450
+tap A
+wait 450
+tap A
+wait 450
+tap A
+wait 450
+tap A
+wait 450
+tap A
+wait 450
+tap A
+wait 450
+tap A
+wait 450
+tap A
+wait 450
+tap A
+wait 450
+tap A
+wait 450
+tap A
+wait 450
+wait 300
+expect_macro_below 3 500
+shot out/toys-jelly.png
+# STARFALL (0.79): stars fall in the tempo, the cup catches them and each caught one rings; A a round with three moons
+tap R1
+wait 300
+expect_toy 9
+wait 2500
+tap LEFT
+wait 2500
+tap RIGHT
+tap RIGHT
+wait 2500
+expect_toy_notes 179
+tap A
+wait 4000
+shot out/toys-stars.png
+wait 20000
+shot out/toys-stars2.png
+expect_toy_notes 180
+tap R1
+# X: another track plays
+tap X
+wait 1000
+tap B
+wait 300
+expect_where GARDEN
+# the quick bar opens on the place last left: L2, A goes back to the playground
+tap L2
+wait 200
+shot out/toys-quick.png
+tap A
+wait 300
+expect_where PLAYGROUND
+tap MENU
+wait 600
+shot out/toys-menu.png
+tap MENU
+tap B
+wait 300
+expect_where GARDEN

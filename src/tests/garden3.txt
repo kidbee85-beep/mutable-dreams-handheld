@@ -1,0 +1,22 @@
+# play mode in the garden: eight stepping stones over the pond light up with their notes (two at once: a third);
+# the butterfly flies from track 1 to track 3
+wait 4000
+tap START
+wait 1500
+press FN
+hits 0
+press LEFT
+press RIGHT
+wait 250
+hits 0 more
+shot out/play-stones.png
+release LEFT
+release RIGHT
+release FN
+tap R1
+tap R1
+wait 250
+shot out/butterfly-flying.png
+wait 1500
+shot out/butterfly-there.png
+tap START

@@ -1,0 +1,27 @@
+# the DREAM MAP: the route before the journey, a journey and its length chosen, dreaming (station 1, then 2), waking
+wait 3000
+press R2
+tap MENU
+release R2
+expect_page DREAM_MAP
+shot out/dream-1-preview.png
+tap R1
+tap LEFT
+wait 300
+shot out/dream-2-short.png
+mark_biome
+tap A
+wait 3000
+expect_playing 1
+print
+expect_biome_changed
+shot out/dream-3-start.png
+mark_biome
+wait 240000
+print
+expect_biome_changed
+shot out/dream-4-later.png
+tap A
+wait 500
+expect_playing 0
+tap B

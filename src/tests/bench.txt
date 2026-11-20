@@ -1,0 +1,5 @@
+wait 3000
+tap START
+benchsound 20000
+benchdraw 20000
+bench 20000

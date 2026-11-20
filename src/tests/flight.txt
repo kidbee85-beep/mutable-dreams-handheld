@@ -1,0 +1,31 @@
+# the Dream Map's free flight (Y): the wisp flies with the D-pad, A over an island lands there (its Biome loads;
+# with music playing A again changes); Y again back to the journey settings
+wait 3000
+press R2
+tap MENU
+release R2
+expect_page DREAM_MAP
+wait 800
+tap Y
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap RIGHT
+tap DOWN
+wait 400
+shot out/flight-1-near.png
+mark_biome
+tap A
+wait 300
+tap A
+wait 800
+expect_biome_changed
+shot out/flight-2-landed.png
+tap Y
+tap B
+expect_page LIVE

@@ -1,0 +1,14 @@
+# Mutable Dreams for Trimui Brick: how the Brick's buttons reach the program.
+# SWAP_AB = 1 swaps A and B (on the Brick they arrive swapped: Y X on top, B A below, left to right).
+# SWAP_XY = 1 swaps X and Y; NINTENDO = 1 swaps both pairs.
+# F1, F2 (the lit keys), FN (the switch), MENU: a raw joystick button each, when the controller mapping does not
+# name it. Since 1.5 F1 and F2 are found by themselves (the mapping's stick clicks, or raw 11 and 12); log.txt says
+# what was found ("input: ..."), and lists the first presses of every start with their codes.
+# Run "./mutable-dreams --keytest" over SSH to print every press.
+SWAP_AB = 1
+SWAP_XY = 0
+NINTENDO = 0
+# F1 = 11
+# F2 = 12
+# FN = 0
+# MENU = 0

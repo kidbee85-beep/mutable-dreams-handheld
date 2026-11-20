@@ -1,0 +1,58 @@
+# LOGIC: every rule writes notes onto POLY in the Biome's key (and the tracks keep playing); each heard; a track as
+# voice 1 plays; HARMONIC tunes POLY off the grid (just intonation)
+wait 2500
+lab POLY.LEVEL 70
+lab POLY.MODEL 13
+lab POLY.RELEASE 70
+lab SHIMMER.MIX 30
+lab LOGIC.PLAY 1
+expect_lab LOGIC.PLAY 1
+tap START
+lab LOGIC.RULE 0
+wav out/logic-0.wav
+wait 8000
+expect_sound
+wavstop
+print_logic
+lab LOGIC.RULE 1
+wav out/logic-1.wav
+wait 8000
+expect_sound
+wavstop
+print_logic
+lab LOGIC.RULE 2
+wav out/logic-2.wav
+wait 8000
+expect_sound
+wavstop
+print_logic
+lab LOGIC.RULE 3
+wav out/logic-3.wav
+wait 8000
+expect_sound
+wavstop
+print_logic
+lab LOGIC.RULE 4
+wav out/logic-4.wav
+wait 8000
+expect_sound
+wavstop
+print_logic
+lab LOGIC.RULE 5
+wav out/logic-5.wav
+wait 8000
+expect_sound
+wavstop
+print_logic
+lab LOGIC.RULE 6
+wav out/logic-6.wav
+wait 8000
+expect_sound
+wavstop
+print_logic
+lab LOGIC.RULE 3
+lab LOGIC.VOICE_1_TO 0
+hits 0
+wait 4000
+hits 0 more
+tap START

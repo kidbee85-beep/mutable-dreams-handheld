@@ -1,0 +1,22 @@
+[Desktop Entry]
+Type=Application
+Name=@APPNAME@
+GenericName=Mutable Dreams, a generative music garden
+Comment=A garden of sound that plays by itself - tend it, and it answers
+Exec=@PREFIX@/bin/mutable-dreams
+Icon=org.kidbunka.mutabledreams.dreamgarden
+Terminal=false
+Categories=AudioVideo;Audio;Music;Game;
+Keywords=music;generative;synthesizer;ambient;garden;dream;
+StartupNotify=false
+Actions=manual;keys;
+
+[Desktop Action manual]
+Name=Manual
+Name[de]=Handbuch
+Exec=@PREFIX@/bin/mutable-dreams --manual
+
+[Desktop Action keys]
+Name=Keyboard keys
+Name[de]=Tasten belegen
+Exec=@PREFIX@/bin/mutable-dreams --keys

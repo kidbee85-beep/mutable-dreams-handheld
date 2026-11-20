@@ -1,0 +1,31 @@
+MUTABLE DREAMS ON THE ANBERNIC H700 HANDHELDS (Knulli) - by Kid Bunka
+
+For the Allwinner H700 handhelds with Knulli: RG35XX (Plus, H, SP, 2024), RG40XX (H, V), RG CubeXX, RG34XX.
+A community test: it is the Trimui Brick's program (the same aarch64 build, Knulli's own SDL2), not yet run on an
+H700 by us. Please send log.txt back if something does not work.
+
+INSTALL
+  Unpack the zip and copy "Mutable Dreams.sh" and the folder mutabledreams into roms/ports on the SD card (the
+  SHARE partition). Update the game list in Knulli's menu, then start Mutable Dreams under Ports.
+
+THE BUTTONS
+  The H700 handhelds have no F1, F2 or FN: tap SELECT for the menu (every place, the options, and QUIT at its end:
+  press UP once there, then A); hold SELECT for the help. Tap L2 for the quick bar (PLAY MODE, LIGHT PICTURE,
+  DEUTSCH / ENGLISH at its end). Every version starts in English.
+
+THE SCREEN
+  The launcher reads the screen's size and draws the 4:3 stage to fit: 640 x 480 fills it; on 720 x 720 (CubeXX) and
+  720 x 480 (RG34XX) the stage sits in the middle. log.txt says what was found ("screen: ...").
+  The picture goes straight into the window first, as on the Brick. If no picture comes within 20 s, the launcher
+  starts it once more through SDL's renderer and keeps the way that worked (mutabledreams/video-mode.txt).
+
+SWITCH FILES (in mutabledreams/, content does not matter)
+  light.on      the light picture from the start (it also comes by itself when the stage is slow)
+  calm.on       CALM MOTION from the start
+  nosplash.on   no animated start screen
+  selftest.on   plays 30 s by itself and writes its measurements (frame rate, sound) to log.txt
+  keytest.on    every button pressed is written to log.txt
+  surface.on / nosurface.on   only the window's own pixels / only SDL's renderer
+  gpu.on        SDL's accelerated (GL) renderer
+  nofast.on     the CPU governor left alone (else "performance" while it runs, the old one put back after; no overclock)
+  usbaudio.off  the sound stays on the handheld even with a USB-C sound card plugged in

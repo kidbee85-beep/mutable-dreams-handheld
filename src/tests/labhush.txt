@@ -1,0 +1,34 @@
+# (1.3) the Sound Lab's X and Y: X silences the module and brings it back (before / after); Y goes on to the next
+# module that sounds; on SENDS X has nothing to silence
+wait 2500
+lab SYNTH.LEVEL 70
+lab RANDOM.PLAY 0
+lab LOGIC.PLAY 0
+lab GRIDS.PLAY 1
+tap START
+wait 1000
+tap F1
+tap R1
+tap R1
+tap R1
+tap R1
+expect_labmod SYNTH
+tap X
+wait 200
+expect_lab SYNTH.LEVEL 0
+tap X
+wait 200
+expect_lab SYNTH.LEVEL 70
+tap X
+lab SYNTH.LEVEL 40
+tap X
+expect_lab SYNTH.LEVEL 0
+tap X
+expect_lab SYNTH.LEVEL 40
+tap Y
+expect_labmod GRIDS
+tap X
+expect_lab GRIDS.PLAY 0
+tap X
+expect_lab GRIDS.PLAY 1
+tap START

@@ -1,0 +1,5 @@
+wait 2000
+tap START
+wav out/iso.wav
+wait 70000
+wavstop

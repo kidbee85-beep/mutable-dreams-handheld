@@ -1,0 +1,50 @@
+# VOICES: three Ogg voices (tests/voices, copied to out/samples/voices first): a German story cut at its breaths,
+# om.ogg is broken at its source (zeros after 206 bytes): it must only show a message; each mode heard (sentence, fragments on track 1's hits, vowel, mantra in the bars), radio, the sends
+wait 2500
+lab VOICES.FILE 0
+lab VOICES.LEVEL 80
+wait 200
+expect_voices >20
+print
+tap START
+wav out/voices-sentence.wav
+wait 9000
+expect_sound
+wavstop
+shot out/voices-lab.png
+lab VOICES.MODE 1
+lab VOICES.TRIGGER 1
+wav out/voices-fragments.wav
+wait 8000
+expect_sound
+wavstop
+lab VOICES.MODE 2
+lab VOICES.TRIGGER 7
+wav out/voices-vowel.wav
+wait 8000
+expect_sound
+wavstop
+lab VOICES.MODE 3
+lab VOICES.PHRASE 4
+lab VOICES.RADIO 60
+lab SHIMMER.MIX 40
+lab SENDS.VOICES_>_SHIMMER 60
+wav out/voices-mantra-radio.wav
+wait 12000
+expect_sound
+wavstop
+lab VOICES.FILE 2
+lab VOICES.MODE 0
+lab VOICES.TRIGGER 0
+lab VOICES.RADIO 0
+wait 300
+expect_voices >1
+wav out/voices-english.wav
+wait 9000
+expect_sound
+wavstop
+lab VOICES.FILE 1
+wait 300
+expect_voices -1
+shot out/voices-broken.png
+tap START

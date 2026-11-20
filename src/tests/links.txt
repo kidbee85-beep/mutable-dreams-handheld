@@ -1,0 +1,53 @@
+# editing living links in the MODULATION view: link 1 on, its source, signal, destination (wrapping), target, depth,
+# release; playing gives it a live value; off and on keeps the depth
+wait 2500
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+expect_page MODULATION_VIEW
+tap X
+tap A
+expect_track 1 link_depth 500
+tap L1
+tap L1
+tap L1
+tap L1
+tap RIGHT
+expect_track 1 link_source 1
+tap R1
+tap RIGHT
+tap RIGHT
+expect_track 1 link_signal 2
+tap R1
+tap LEFT
+expect_track 1 link_dest 5
+tap R1
+tap RIGHT
+expect_track 1 link_target 1
+tap R1
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+tap LEFT
+expect_track 1 link_depth 400
+tap R1
+mark_track 1 link_release
+tap RIGHT
+expect_track_delta 1 link_release 20
+mark_track 1 link_live
+tap START
+wait 4000
+expect_track_delta 1 link_live >0
+shot out/links-1.png
+tap A
+expect_track 1 link_depth 0
+tap A
+expect_track 1 link_depth 400
+tap X
+tap B
+expect_page LIVE

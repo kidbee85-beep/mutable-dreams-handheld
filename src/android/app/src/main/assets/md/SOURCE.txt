@@ -1,0 +1,19 @@
+Mutable Dreams for Trimui Brick - release 1.5.9 (20.11.2026), by Kid Bunka.
+
+This program is free software under the GNU General Public License version 3 only (GPL-3.0-only), see LICENSE.txt.
+It is built from the unchanged Mutable Dreams 2.1 sources (build 2467CC38):
+  https://github.com/kidbee85-beep/mutable-dreams  (tag v2.1)
+plus the Trimui Brick port layer (brick_core.c, brick_emu.inc, brick_lab.inc, brick_labbiome.inc, brick_samples.inc, brick_voices.inc, brick_logic.inc, brick_synth.inc, brick_fxrack.inc, brick_grids.inc, brick_poly.inc, brick_stage.inc, gfx.c (a shadow of base/device/gfx.c: includes it unchanged), tools/gen_stage_font.py, tools/install_card.py, brick_views*.inc, brick_splash.inc, brick_garden.inc, brick_help.inc, brick_archive.inc, brick_worlds.inc, tools/gen_itinera.py, tools/gen_archive_catalogue.py, tools/gen_splash_font.py, tools/gen_grids.py, brick_mi_*.cpp, brick_sdl.c, build.py).
+The Sound Lab's texture beds come from Kid Bunka's VIBE FM Performance Garden. The port's sources are
+published with the release; until then they are available from Kid Bunka on request.
+
+Included code and its notices: Mutable Instruments Plaits, Rings, Elements and stmlib by Emilie Gillet (MIT); in the
+Sound Lab also Mutable Instruments Clouds, Beads, Warps, Marbles, Tides 2 (since 0.44.0) and the complete Plaits DSP by Emilie Gillet (MIT, see
+LICENSE-MIT-Mutable-Instruments.txt; two fixes in clouds: dsp/window.h, dsp/grain.h); since 0.34.0 the complete Rings (the
+RESONATOR in the FX RACKs and SYNTH RINGS) and Elements (SYNTH ELEMENTS), MIT; Grids' drum map and its blending
+(GRIDS) from Mutable Instruments Grids by Emilie Gillet, GPL-3.0-or-later (used under GPL-3.0);
+stb_vorbis 1.22 by Sean Barrett (public domain / MIT, used under its public domain dedication) decodes Ogg
+Vorbis for VOICES; the FM-1 platform layer felucca-bsp / fm1-base (plat.h, plat_host.c, emu_web.c;
+MPL-2.0, distributed here under GPL-3.0 per MPL-2.0 section 3.3); fonts Barlow and
+Nunito (SIL OFL 1.1). Independent from Mutable Instruments, M-VAVE and Trimui. Uses SDL2 (zlib licence) from the
+system.

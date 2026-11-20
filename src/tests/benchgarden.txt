@@ -1,0 +1,8 @@
+# the stage cost: garden home, an FM-1 page, the Lab
+wait 4000
+tap START
+benchdraw 10000
+tap X
+benchdraw 10000
+tap F1
+benchdraw 10000

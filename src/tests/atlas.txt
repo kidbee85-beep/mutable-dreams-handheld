@@ -1,0 +1,34 @@
+# the Atlas's two sides: LEFT from the left tile column goes out to the families, UP/DOWN there picks a family,
+# RIGHT goes back to its Biomes; Y loads a surprise Biome (with a playing Biome the engine asks: A again changes)
+wait 3000
+press R2
+tap F2
+release R2
+expect_page BIOME_ATLAS
+tap LEFT
+wait 200
+shot out/atlas-1-families.png
+tap DOWN
+tap DOWN
+tap DOWN
+wait 200
+shot out/atlas-2-family.png
+tap RIGHT
+tap DOWN
+wait 200
+shot out/atlas-3-tiles.png
+mark_biome
+tap A
+wait 300
+tap A
+wait 500
+expect_biome_changed
+mark_biome
+tap Y
+wait 300
+tap A
+wait 500
+expect_biome_changed
+shot out/atlas-4-surprise.png
+tap B
+expect_page LIVE

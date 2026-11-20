@@ -1,0 +1,46 @@
+# the garden, the Brick's own home: shown on LIVE; K1 turns the fireflies (DENSITY); a muted track sleeps; another
+# page or the help brings the FM-1's screen; MENU > GARDEN / FM-1 SCREEN switches it off and on
+wait 4000
+expect_page LIVE
+expect_garden 1
+mark_track 1 macro1
+tap RIGHT
+tap RIGHT
+expect_track_delta 1 macro1 40
+tap START
+wait 3000
+shot out/garden-1.png
+tap F2
+tap RIGHT
+tap A
+expect_track 2 mute 1
+tap F2
+expect_garden 1
+wait 1500
+shot out/garden-muted.png
+tap F2
+tap A
+expect_track 2 mute 0
+tap F2
+tap X
+expect_garden 0
+tap B
+expect_page LIVE
+expect_garden 1
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+expect_garden 0
+expect_page LIVE
+shot out/garden-off.png
+tap MENU
+tap A
+expect_garden 1
+tap START
