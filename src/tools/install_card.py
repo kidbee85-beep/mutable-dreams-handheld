@@ -39,7 +39,7 @@ shutil.copyfile(PKG / "Mutable Dreams.sh", ports / "Mutable Dreams.sh")
 DESC = (f"Mutable Dreams {version} by Kid Bunka - a generative garden of sound for the Trimui Brick, grown from "
         "Mutable Dreams 2.1 (FM-1). Six tracks, 272 Biomes, a Sound Lab with Mutable Instruments' Plaits, Rings, "
         "Elements, Clouds, Beads, Warps, Marbles and Grids, twelve SYNTH instruments, two FX racks, spoken voices "
-        "from the archive, 96 worlds, a playground of ten toys and games, a dream tale, dream journeys and a sleep timer.\n"
+        "from the archive, 128 worlds, a playground of ten toys and games, a dream tale, dream journeys and a sleep timer.\n"
         "START play - F1 Sound Lab - F2 mixer - MENU where to - hold SELECT: help.")
 gl = ports / "gamelist.xml"
 if gl.exists():

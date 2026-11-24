@@ -36,8 +36,17 @@ static void bk_notice(const char *a, const char *b)
 
 /* -------------------------------------------------------------- store --- */
 static char bk_dir[512];
-static int bk_lang, bk_lang_forced;              /* (brick_stage.inc: the language; forced by MD_LANG, then the saved one is not taken) */
+static int bk_lang, bk_lang_idx, bk_lang_forced;              /* (brick_stage.inc: the language; forced by MD_LANG, then the saved one is not taken) */
 static int bk_lang_choose(int on);
+static int bk_lang_cycle(void);
+static int bk_lang_choose_idx(int idx);
+static int bk_lang_by_code(const char *c);
+static const char *const BK_LANG_CODE[] = {"en", "de", "fr", "es"};
+static const char *const BK_LANG_NAME[] = {"ENGLISH", "DEUTSCH", "FRAN\xC3\x87" "AIS", "ESPA\xC3\x91" "OL"};
+static const char *const BK_LANG_SAY[] = {"THE GARDEN SPEAKS ENGLISH", "DIE GARTENSPRACHE IST DEUTSCH", "LE JARDIN PARLE FRAN\xC3\x87" "AIS",
+                                          "EL JARD\xC3\x8D" "N HABLA ESPA\xC3\x91" "OL"};
+#define BK_NLANG ((int)(sizeof BK_LANG_CODE / sizeof BK_LANG_CODE[0]))
+
 static uint32_t bk_store_seen;
 static int bk_battery_pct = -1, bk_battery_warned = 100;   /* (1.3: the lowest mark already told) */
 void bk_battery(int percent)
@@ -360,7 +369,109 @@ static void lab_a(void)
         lab_set(p, lab_prev[p]);
 }
 
+/* (1.6) the new OPTIONS: a scale for playing, a garden that follows the clock, LISTEN MODE (the screen rests while the
+   music plays on), larger letters, more contrast; and the GARDEN JOURNAL (which Biomes and worlds were visited) */
+typedef struct { const char *name; int n; int iv[8]; } bk_pscale;
+static const bk_pscale BK_PSCALES[] = {
+    {"BIOME'S OWN", 0, {0}},
+    {"MAJOR", 7, {0, 2, 4, 5, 7, 9, 11}},          {"MINOR", 7, {0, 2, 3, 5, 7, 8, 10}},
+    {"PENTATONIC", 5, {0, 2, 4, 7, 9}},            {"MINOR PENTATONIC", 5, {0, 3, 5, 7, 10}},
+    {"DORIAN", 7, {0, 2, 3, 5, 7, 9, 10}},         {"HIJAZ", 7, {0, 1, 4, 5, 7, 8, 10}},
+    {"HIRAJOSHI", 5, {0, 2, 3, 7, 8}},             {"PELOG", 5, {0, 1, 3, 7, 8}},
+    {"WHOLE TONE", 6, {0, 2, 4, 6, 8, 10}}};
+#define BK_NPSCALES ((int)(sizeof BK_PSCALES / sizeof BK_PSCALES[0]))
+static const int BK_LISTEN_MIN[4] = {0, 2, 5, 10};
+static int bk_play_scale, bk_clock_on, bk_listen_sel, bk_big_text, bk_contrast, bk_listen_rest, bk_journal_on;
+static int bk_quick_lift(void);
+static int bk_tsize = 1, bk_tside, bk_tglow = 1, bk_tbuzz = 1, bk_tlift, bk_perf, bk_tpad, bk_tmode;   /* (1.6) the touch pad: size 0..2, sides swapped, glow 0..2, a buzz on a tap */
+static uint32_t bk_listen_at, bk_listen_test_ms;     /* (the tests: the wait in ms instead of minutes) */
+static float bk_clock_test = -1.0f;                  /* (the tests: the hour of the day, instead of the clock) */
+static uint8_t bk_jr_b[(MD_BIOMES + 7) / 8], bk_jr_w[16];
+static int bk_jr_dirty;
+static void bk_journal_open(void) { bk_journal_on = 1; }
+static int bk_jr_get(const uint8_t *a, int i) { return a[i >> 3] >> (i & 7) & 1; }
+static void bk_jr_set(uint8_t *a, int i)
+{
+    if (!bk_jr_get(a, i))
+        a[i >> 3] |= (uint8_t)(1u << (i & 7)), bk_jr_dirty = 1;
+}
+/* the hour of the day (0..24, with minutes); the tests may fix it */
+static float bk_clock_hour(void)
+{
+    static uint32_t at;
+    static float h = 12.0f;
+    if (bk_clock_test >= 0)
+        return bk_clock_test;
+    if (!at || bk_ms() - at > 20000u) {
+        time_t tt = time(NULL);
+        struct tm lt;
+        if (localtime_r(&tt, &lt))
+            h = (float)lt.tm_hour + (float)lt.tm_min / 60.0f;
+        at = bk_ms() | 1u;
+    }
+    return h;
+}
+/* the time of day as the garden's "dawn": 0 night .. 1 sunrise and sunset, a pale 0.45 at noon */
+static float bk_clock_dawn(void)
+{
+    static const float pt[][2] = {{0, 0}, {5, 0}, {7, 1}, {12, 0.45f}, {17, 0.8f}, {19, 1}, {21.5f, 0}, {24, 0}};
+    float h = bk_clock_hour();
+    for (int i = 1; i < 8; i++)
+        if (h <= pt[i][0])
+            return pt[i - 1][1] + (pt[i][1] - pt[i - 1][1]) * (h - pt[i - 1][0]) / (pt[i][0] - pt[i - 1][0]);
+    return 0;
+}
+static int bk_quick_lift(void) { return bk_tlift ? 56 : 0; }
 int bk_quit_requested(void) { return bk_quit; }
+static const char *const BK_OPT_NAMES[] = {"pscale", "clock", "listen", "bigtext", "contrast"};
+int bk_option_set(const char *name, int v)
+{
+    if (!strcmp(name, "pscale")) bk_play_scale = clamp(v, 0, BK_NPSCALES - 1);
+    else if (!strcmp(name, "clock")) bk_clock_on = v != 0;
+    else if (!strcmp(name, "listen")) bk_listen_sel = clamp(v, 0, 3), bk_listen_at = bk_ms();
+    else if (!strcmp(name, "bigtext")) bk_big_text = v != 0;
+    else if (!strcmp(name, "contrast")) bk_contrast = v != 0;
+    else if (!strcmp(name, "tsize")) bk_tsize = clamp(v, 0, 2);
+    else if (!strcmp(name, "tside")) bk_tside = v != 0;
+    else if (!strcmp(name, "tglow")) bk_tglow = clamp(v, 0, 2);
+    else if (!strcmp(name, "tbuzz")) bk_tbuzz = v != 0;
+    else if (!strcmp(name, "tlift")) bk_tlift = v != 0;
+    else if (!strcmp(name, "perf")) bk_perf = v != 0;
+    else if (!strcmp(name, "tpad")) bk_tpad = v != 0;
+    else if (!strcmp(name, "tmode")) bk_tmode = clamp(v, 0, 2);
+    else if (!strcmp(name, "hour")) bk_clock_test = v < 0 ? -1.0f : (float)v / 10.0f;
+    else if (!strcmp(name, "listenms")) bk_listen_test_ms = (uint32_t)v;
+    else return -1;
+    (void)BK_OPT_NAMES;
+    return 0;
+}
+static int bk_touch_probe(const char *name);   /* (brick_touch_views.inc: what the views hold, for the tests) */
+int bk_option_get(const char *name)
+{
+    if (!strcmp(name, "pscale")) return bk_play_scale;
+    if (!strcmp(name, "clock")) return bk_clock_on;
+    if (!strcmp(name, "listen")) return bk_listen_sel;
+    if (!strcmp(name, "bigtext")) return bk_big_text;
+    if (!strcmp(name, "contrast")) return bk_contrast;
+    if (!strcmp(name, "track")) return dream_ui.track;
+    if (!strcmp(name, "focus")) return bk_focus;
+    if (!strcmp(name, "tsize")) return bk_tsize;
+    if (!strcmp(name, "tside")) return bk_tside;
+    if (!strcmp(name, "tglow")) return bk_tglow;
+    if (!strcmp(name, "tbuzz")) return bk_tbuzz;
+    if (!strcmp(name, "tlift")) return bk_tlift;
+    if (!strcmp(name, "perf")) return bk_perf;
+    if (!strcmp(name, "tpad")) return bk_tpad;
+    if (!strcmp(name, "tmode")) return bk_tmode;
+    return bk_touch_probe(name);
+}
+int bk_journal_count(int worlds)
+{
+    int n = 0;
+    for (int i = 0; i < (worlds ? 128 : MD_BIOMES); i++)
+        n += bk_jr_get(worlds ? bk_jr_w : bk_jr_b, i);
+    return n;
+}
 
 /* (1.4) SLEEP TIMER (OPTIONS): after 15, 30, 60 or 90 minutes the music fades over a minute and stops; the screen rests
    (dark, a moon, four pictures a second: little to draw, the battery kept) until any button wakes it. Not kept for
@@ -403,6 +514,10 @@ static int bk_scale_note(int degree)
 {
     const md_patch *p = md_state();
     int base = 48 + (int)(p->root % 12) + 12 * dream_ui.octave, n = base, found = 0, s;
+    if (bk_play_scale > 0 && bk_play_scale < BK_NPSCALES) {   /* (1.6) a scale of the player's choice */
+        const bk_pscale *ps = &BK_PSCALES[bk_play_scale];
+        return clamp(base + 12 * (degree / ps->n) + ps->iv[degree % ps->n], 24, 96);
+    }
     for (s = 0; s < 48; s++) {
         int q = base + s;
         if (md_quantize(q, p->root, p->scale) == q) {
@@ -415,6 +530,8 @@ static int bk_scale_note(int degree)
     }
     return clamp(n, 24, 96);
 }
+
+int bk_note_for_degree(int degree) { return bk_scale_note(degree); }
 
 static void bk_note_down(int b, int chord)
 {
@@ -586,7 +703,7 @@ static void bk_track_place(void)
     bk_place n;
     int i;
     if (dream_ui.help >= 0 || md_pending_biome() >= 0 || bank_pending >= 0 || bk_menu_open || bk_quick_open ||
-        bk_help_open || bk_guide_open || sp_on || intro_active)
+        bk_help_open || bk_guide_open || bk_journal_on || sp_on || intro_active)
         return;                                  /* (a question, a help or a menu on top: not a place) */
     n = bk_place_now();
     if (!bk_here_set) {
@@ -709,10 +826,10 @@ static void bk_quick_press(int b)
         else if (BK_QUICK[bk_quick_sel] == -7)    /* OPTIONS (1.1) */
             bk_opt_open = 1;
         else if (BK_QUICK[bk_quick_sel] == -6) {   /* DEUTSCH / ENGLISH */
-            if (bk_lang_choose(!bk_lang) < 0)
-                bk_notice("DEUTSCH", "LANG/DE.TXT IS MISSING");
+            if (bk_lang_cycle() < 0)
+                bk_notice("ENGLISH", "NO LANGUAGE TABLE FOUND (LANG/DE.TXT, FR.TXT, ES.TXT)");
             else
-                bk_notice(bk_lang ? "DEUTSCH" : "ENGLISH", bk_lang ? "DIE GARTENSPRACHE IST DEUTSCH" : "THE GARDEN SPEAKS ENGLISH");
+                bk_notice(BK_LANG_NAME[bk_lang_idx], BK_LANG_SAY[bk_lang_idx]);
             st_dirty = 1;
         } else if (BK_QUICK[bk_quick_sel] == -5) {
             bk_calm = !bk_calm;
@@ -749,6 +866,12 @@ static void bk_press(int b)
     }
     if (bk_guide_open) {                         /* THE GUIDE: its own keys */
         bk_guide_press(b);
+        bk_tgt[b] = t;
+        return;
+    }
+    if (bk_journal_on) {                         /* (1.6) the journal: any button closes it, back to OPTIONS */
+        if (b != BK_FN && b != BK_R2)
+            bk_journal_on = 0, bk_opt_open = 1;
         bk_tgt[b] = t;
         return;
     }
@@ -1084,7 +1207,26 @@ static void bk_tick(uint32_t dt_ms)
             t->kind = T_NONE;                    /* one save per hold */
         }
     }
-    for (k = 0; k < 4; k++) {                    /* Brick Pro: deflection = speed, up to 24 detents a second */
+    bk_touch_tick(now);
+    if (bk_opt_open || bk_menu_open || bk_quick_open) {   /* (1.6) the left stick is a cursor in the menus: tilt = one step, held = repeat */
+        static int dir_held;                     /* 0 none, else the BK_ button */
+        static uint32_t dir_next;
+        int want = 0;
+        float sx = bk_stick[0], sy = bk_stick[1];
+        if (fabsf(sy) > fabsf(sx) && fabsf(sy) > 0.6f)
+            want = sy > 0 ? BK_UP : BK_DOWN;
+        else if (fabsf(sx) > 0.6f)
+            want = sx > 0 ? BK_RIGHT : BK_LEFT;
+        if (!want)
+            dir_held = 0;
+        else if (want != dir_held || now >= dir_next) {
+            dir_next = now + (want != dir_held ? 420u : 160u);
+            dir_held = want;
+            bk_press(want);
+        }
+        bk_stick_acc[0] = bk_stick_acc[1] = 0;
+    }
+    for (k = (bk_opt_open || bk_menu_open || bk_quick_open) ? 2 : 0; k < 4; k++) {   /* Brick Pro: deflection = speed, up to 24 detents a second */
         float v = bk_stick[k], a = fabsf(v);
         if (a < 0.18f) {
             bk_stick_acc[k] = 0;
@@ -1094,10 +1236,31 @@ static void bk_tick(uint32_t dt_ms)
         while (bk_stick_acc[k] >= 1.0f || bk_stick_acc[k] <= -1.0f) {
             int d = bk_stick_acc[k] > 0 ? 1 : -1;
             web_enc(EN_K1 + k, d);
+            bk_turns++, bk_turn_dir = d;
             bk_stick_acc[k] -= (float)d;
             bk_focus_dir[k] = d;
             bk_focus_at[k] = now;
         }
+    }
+    if (bk_listen_sel && !bk_resting && md_playing() && !lab_open) {   /* (1.6) LISTEN MODE: a while without a button */
+        uint32_t wait = bk_listen_test_ms ? bk_listen_test_ms : (uint32_t)BK_LISTEN_MIN[bk_listen_sel] * 60000u;
+        if (now - bk_listen_at > wait) {
+            bk_resting = 1, bk_listen_rest = 1;
+            bk_menu_open = bk_help_open = bk_guide_open = bk_opt_open = bk_quick_open = lab_mapview = bk_journal_on = 0;
+        }
+    }
+    {   /* (1.6) the journal: a Biome or world counts once it has been there for a moment */
+        static int seen_b = -1, seen_w = -1;
+        static uint32_t since_b, since_w;
+        int bid = (int)md_state()->biome_id, wid = bk_world_current();
+        if (bid != seen_b)
+            seen_b = bid, since_b = now;
+        else if (bid >= 0 && bid < MD_BIOMES && now - since_b > 3000u)
+            bk_jr_set(bk_jr_b, bid);
+        if (wid != seen_w)
+            seen_w = wid, since_w = now;
+        else if (wid >= 0 && wid < 128 && now - since_w > 3000u)
+            bk_jr_set(bk_jr_w, wid);
     }
     if (bk_sleep_end && !bk_resting) {          /* (1.4) the sleep timer: the last minute fades, then it stops */
         int32_t left = (int32_t)(bk_sleep_end - now);
@@ -1161,11 +1324,17 @@ void bk_input(uint32_t held)
     held |= bk_fn_soft;                          /* (play mode from the quick bar stands for the FN switch) */
     ch = held ^ bk_held;
     int b;
+    if (ch)
+        bk_listen_at = bk_ms();
     if (bk_resting) {                            /* (1.4) resting after the sleep timer: any button wakes, nothing else */
         if (held & ~bk_held & ~(1u << BK_FN)) {
             bk_resting = 0;
             web_master(4096u);
-            bk_notice("GOOD MORNING", "START: PLAY AGAIN");
+            if (bk_listen_rest)
+                bk_notice("WELCOME BACK", "THE MUSIC PLAYED ON");
+            else
+                bk_notice("GOOD MORNING", "START: PLAY AGAIN");
+            bk_listen_rest = 0;
         }
         bk_held = held;
         return;

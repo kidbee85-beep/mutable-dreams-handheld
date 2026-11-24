@@ -1,0 +1,20 @@
+# (1.6) the tale's second book: chapters IX..XVI; here the ones a test can do alone: the dials, the scale, the clock
+wait 1500
+tale 8
+expect_tale 8
+sticks 32000 0 0 0
+wait 1500
+sticks 0 0 0 0
+wait 300
+expect_tale 9
+wait 6000
+tale 14
+opt pscale 2
+wait 2000
+expect_tale 15
+wait 6000
+opt clock 1
+wait 2000
+expect_tale 16
+wait 5000
+shot out/tale16-told.png

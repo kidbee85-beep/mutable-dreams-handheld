@@ -39,8 +39,14 @@ def main():
         shutil.rmtree(src)
     shutil.copytree(HERE / "android", src, ignore=shutil.ignore_patterns(".gradle", "build", ".cxx"))
     home = WORK / "gradle-home"
+    online = os.environ.get("MD_GRADLE_ONLINE") == "1"   # (1.6.2) only when asked for: the dependencies fetched from Google's and Maven Central's repositories
     if not home.exists():                        # an APFS clone of TrackWerk's dependency cache; theirs is only read
-        subprocess.run(["cp", "-c", "-R", str(TW_CACHE), str(home)], check=True)
+        if TW_CACHE.exists():
+            subprocess.run(["cp", "-c", "-R", str(TW_CACHE), str(home)], check=True)
+        elif online:
+            home.mkdir(parents=True)
+        else:
+            sys.exit(f"no dependency cache ({TW_CACHE} is gone): run again with MD_GRADLE_ONLINE=1 to fetch the dependencies once")
     if "debug" in kinds:
         assert (KEYHOME / "debug.keystore").is_file(), f"the debug key is missing: {KEYHOME}/debug.keystore (see above)"
     env = dict(os.environ, ANDROID_HOME=str(SDK), ANDROID_SDK_ROOT=str(SDK), JAVA_HOME=str(JAVA),
@@ -50,7 +56,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     log = OUT / "build.log"
     with log.open("w") as stream:
-        r = subprocess.run([str(GRADLE), "--offline", "--no-daemon", "--console=plain", "--max-workers=4", "--project-dir",
+        r = subprocess.run([str(GRADLE), *([] if online else ["--offline"]), "--no-daemon", "--console=plain", "--max-workers=4", "--project-dir",
                             str(src), f"-PmdPort={HERE}", *tasks], stdout=stream, stderr=subprocess.STDOUT, env=env)
     if r.returncode:
         print(f"Gradle failed, see {log}")

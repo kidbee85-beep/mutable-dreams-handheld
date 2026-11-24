@@ -1,0 +1,137 @@
+# (1.6) fingers in the views: MIXER (fader, branch, mute), ATLAS (family, tile), WORLDS, ARCHIVE
+wait 3000
+tap F2
+expect_page MIXER_VIEW
+# the fader of track 2 follows the finger: low, then high
+tdown 0 336 600
+tup 0 336 600
+wait 200
+expect_opt mxrow 0
+expect_track 2 level 363
+tdown 0 336 600
+tmove 0 336 460
+tup 0 336 460
+wait 200
+expect_track 2 level 1000
+# the branch (PAN) goes to where the finger is: the far left
+tdown 0 300 164
+tmove 0 300 164
+tup 0 300 164
+expect_opt mxrow 1
+# a tap on the label mutes, again lets go
+touch 336 690
+wait 200
+expect_track 2 mute 1
+touch 336 690
+wait 200
+expect_track 2 mute 0
+tap B
+expect_page LIVE
+# the atlas: a family, then a tile twice (chosen, then loaded)
+press R2
+tap F2
+release R2
+expect_page BIOME_ATLAS
+touch 170 188
+expect_opt atfam 3
+expect_opt atpos 0
+mark_biome
+touch 466 92
+expect_opt atpos 0
+touch 466 138
+expect_opt atpos 2
+touch 466 138
+wait 300
+tap B
+tap B
+# the worlds, by the menu: a family, a world, the same again enters it
+tap MENU
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap DOWN
+tap A
+wait 500
+touch 300 140
+expect_opt wfam 1
+touch 452 202
+expect_opt wpos 2
+expect_page WORLDS
+tap B
+# the archive: a basket, a poem
+tap MENU
+tap UP
+tap A
+wait 500
+expect_page ARCHIVE
+touch 300 150
+expect_opt arbasket 1
+touch 400 140
+expect_opt arpos 1
+tap B
+# the sequence: a row chosen, again to edit; a step tapped (cursor and on/off), dragged up (the note rises)
+tap MENU
+tap UP
+tap UP
+tap UP
+tap UP
+tap UP
+tap UP
+tap A
+wait 500
+expect_page SEQUENCE_VIEW
+touch 500 310
+expect_opt track 2
+expect_opt sqedit 0
+touch 500 310
+expect_opt sqedit 1
+touch 403 314
+wait 200
+expect_opt sqstep 5
+tap B
+# the Sound Lab: a row by a tap, a module by the right panel
+tap MENU
+tap UP
+tap UP
+tap UP
+tap A
+wait 500
+touch 200 243
+expect_opt labfocus 3
+touch 900 79
+expect_opt labmod 2
+touch 500 40
+wait 100
+tap B
+# play mode: the stones of the right panel are pads; a finger strikes, a slide strikes the next, lifting lets go
+tap START
+wait 800
+press FN
+wait 200
+tdown 0 890 70
+wait 100
+expect_opt lit 1
+tmove 0 954 130
+wait 100
+expect_opt lit 8
+tdown 1 890 70
+wait 100
+expect_opt lit 9
+tup 1 890 70
+tup 0 954 130
+wait 100
+expect_opt lit 0
+release FN
+# a finger held still for a moment: the help for where you are
+tdown 0 500 400
+wait 800
+expect_help 5
+tup 0 500 400
+tap B
+expect_help 0

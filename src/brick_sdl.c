@@ -793,6 +793,80 @@ static int vpad_tick(SDL_mutex *lock, uint32_t ms)
     return 0;
 }
 #endif
+static int fit_edge;                             /* (1.6) MD_SCREEN: the bars beside the stage glow with its edge's colours (MD_EDGE=0: black) */
+#define FIT_BANDS 24
+static SDL_Texture *fit_amb[4];                  /* left, right (1 x 24) and above, below (24 x 1): the edge's colours, averaged in bands, drawn smoothly */
+static uint32_t fit_amb_px[4][FIT_BANDS];
+static void fit_ambient_update(SDL_Renderer *ren, const uint32_t *px)
+{
+    static uint32_t n;
+    if (n++ % 3u)                                /* (every third frame is plenty: the glow follows the picture slowly) */
+        return;
+    for (int side = 0; side < 4; side++) {
+        int horiz = side < 2, len = horiz ? out_h : out_w, thick = horiz ? out_w : out_h, at = thick / 16;   /* a strip inside the panel: its cards' colours */
+        int c0 = (side & 1 ? thick - 1 - at - thick / 40 : at - thick / 40), c1 = c0 + thick / 20;
+        if (c0 < 0) c0 = 0;
+        if (!fit_amb[side]) {
+            fit_amb[side] = SDL_CreateTexture(ren, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, horiz ? 1 : FIT_BANDS, horiz ? FIT_BANDS : 1);
+            if (!fit_amb[side])
+                continue;
+#if SDL_VERSION_ATLEAST(2, 0, 12)
+            SDL_SetTextureScaleMode(fit_amb[side], SDL_ScaleModeLinear);
+#endif
+        }
+        for (int b = 0; b < FIT_BANDS; b++) {
+            unsigned r = 0, g = 0, bl = 0, cnt = 0;
+            int a0 = len * b / FIT_BANDS, a1 = len * (b + 1) / FIT_BANDS;
+            for (int a = a0; a < a1; a += 3)
+                for (int c = c0; c < c1; c += 3) {
+                    uint32_t v = horiz ? px[(size_t)a * (size_t)out_w + (size_t)c] : px[(size_t)c * (size_t)out_w + (size_t)a];
+                    r += v >> 16 & 255u, g += v >> 8 & 255u, bl += v & 255u, cnt++;
+                }
+            if (!cnt)
+                cnt = 1;
+            fit_amb_px[side][b] = 0xFF000000u | (r / cnt) << 16 | (g / cnt) << 8 | (bl / cnt);
+        }
+        SDL_UpdateTexture(fit_amb[side], 0, fit_amb_px[side], horiz ? 4 : FIT_BANDS * 4);
+    }
+}
+static void fit_present(SDL_Renderer *ren, SDL_Texture *tex, const uint32_t *px)
+{
+    int W = 0, H = 0, ow = out_w, oh = out_h;
+    SDL_Rect d;
+    float sc;
+    SDL_GetRendererOutputSize(ren, &W, &H);
+    sc = (float)W / (float)ow < (float)H / (float)oh ? (float)W / (float)ow : (float)H / (float)oh;
+    d.w = (int)((float)ow * sc), d.h = (int)((float)oh * sc), d.x = (W - d.w) / 2, d.y = (H - d.h) / 2;
+    SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
+    SDL_RenderClear(ren);
+    if (d.x > 0 || d.y > 0) {
+        fit_ambient_update(ren, px);
+        SDL_SetRenderDrawBlendMode(ren, SDL_BLENDMODE_BLEND);
+        for (int side = 0; side < 4; side++) {   /* left, right, above, below */
+            SDL_Rect dst;
+            int horiz = side < 2;
+            if (!fit_amb[side] || (horiz && d.x <= 0) || (!horiz && d.y <= 0))
+                continue;
+            if (horiz)
+                dst.x = side ? d.x + d.w : 0, dst.y = d.y, dst.w = side ? W - d.x - d.w : d.x, dst.h = d.h;
+            else
+                dst.x = d.x, dst.y = side == 3 ? d.y + d.h : 0, dst.w = d.w, dst.h = side == 3 ? H - d.y - d.h : d.y;
+            SDL_SetTextureColorMod(fit_amb[side], 235, 235, 235);
+            SDL_RenderCopy(ren, fit_amb[side], 0, &dst);
+            for (int k = 0; k < 16; k++) {       /* the dark grows from the stage's edge to the screen's: 16 strips */
+                SDL_Rect f = dst;
+                int span = horiz ? dst.w : dst.h, a0 = span * k / 16, a1 = span * (k + 1) / 16;
+                if (horiz)
+                    f.x = side ? dst.x + a0 : dst.x + dst.w - a1, f.w = a1 - a0;
+                else
+                    f.y = side == 3 ? dst.y + a0 : dst.y + dst.h - a1, f.h = a1 - a0;
+                SDL_SetRenderDrawColor(ren, 0, 0, 0, (Uint8)(60 + 195 * (k + 1) / 16));
+                SDL_RenderFillRect(ren, &f);
+            }
+        }
+    }
+    SDL_RenderCopy(ren, tex, 0, &d);
+}
 static const char *md_shot;                      /* (1.5.10) MD_SHOT=FILE.bmp: the window as shown through the renderer, once, after 40 frames (tests) */
 static void window_shot(SDL_Renderer *ren)
 {
@@ -833,8 +907,12 @@ static void present_frame(SDL_Window *win, SDL_Surface *win_surf, SDL_Renderer *
             return;
         }
 #endif
-        SDL_RenderClear(ren);
-        SDL_RenderCopy(ren, tex, 0, 0);
+        if (fit_edge) {
+            fit_present(ren, tex, px);
+        } else {
+            SDL_RenderClear(ren);
+            SDL_RenderCopy(ren, tex, 0, 0);
+        }
         if (md_shot && n == 40)
             window_shot(ren);
         SDL_RenderPresent(ren);
@@ -1229,6 +1307,7 @@ int main(int argc, char **argv)
         touch_on = !env_is("MD_TOUCH", "0");
         SDL_SetHint(SDL_HINT_ANDROID_TRAP_BACK_BUTTON, "1");   /* (the back key comes to us: B) */
         SDL_SetHint(SDL_HINT_ACCELEROMETER_AS_JOYSTICK, "0");  /* (the phone's tilt is no controller) */
+        SDL_SetHint(SDL_HINT_ORIENTATIONS, env_is("MD_PORTRAIT", "0") ? "LandscapeLeft LandscapeRight" : "LandscapeLeft LandscapeRight Portrait");   /* (1.6) upright too: the stage on top) */
 #else
         touch_on = env_is("MD_TOUCH", "1");
 #endif
@@ -1264,6 +1343,7 @@ int main(int argc, char **argv)
             fprintf(stderr, "video: the screen's own size, the stage in proportion in the middle%s\n", test_w ? " (a test window)" : "");
         }
         md_shot = getenv("MD_SHOT");
+        fit_edge = fit_screen && !env_is("MD_EDGE", "0");
     }
     if (desktop || fit_screen)
         SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
@@ -1336,7 +1416,7 @@ int main(int argc, char **argv)
             fprintf(stderr, "video: driver %s, renderer %s\n", SDL_GetCurrentVideoDriver(), ri.name);
         fflush(stderr);
     }
-    if (ren)
+    if (ren && !fit_edge)
         SDL_RenderSetLogicalSize(ren, out_w, out_h);
 #ifdef MD_HAVE_TOUCH
     if (ren && touch_on) {                       /* (the touch pad places the stage itself, beside the bars) */
@@ -1348,6 +1428,8 @@ int main(int argc, char **argv)
         fprintf(stderr, "touch: the buttons on the screen, %d x %d, stage %d x %d\n", W, H, stage_dst.w, stage_dst.h);
         if (env_is("MD_TOUCH_SELFTEST", "1"))
             touch_selftest();
+        if (getenv("MD_TOUCH_LAYOUTS"))
+            fprintf(stderr, "touch: layouts, %d wrong\n", touch_layouts(getenv("MD_TOUCH_LAYOUTS"))), touch_layout(W, H);
     } else if (!ren)
         touch_on = 0;
 #endif
@@ -1421,7 +1503,7 @@ int main(int argc, char **argv)
         if (env_is("MD_CALM", "1"))
             bk_set_calm(1), fprintf(stderr, "motion: calm\n");
         if (getenv("MD_LANG"))                   /* (0.80) MD_LANG=de / en: the language from the start (else the saved one) */
-            fprintf(stderr, "language: %s (%d texts)\n", bk_set_lang(env_is("MD_LANG", "de")) > 0 ? "de" : "en", bk_lang_on());
+            fprintf(stderr, "language: %s (%d texts)\n", bk_set_lang_code(getenv("MD_LANG")) >= 0 ? bk_lang_code() : "en", bk_lang_on());
     }
     if (getenv("MD_SOUND_SLOW_US"))
         sound_slow_us = (uint32_t)atoi(getenv("MD_SOUND_SLOW_US"));
@@ -1458,7 +1540,7 @@ int main(int argc, char **argv)
         }
 #endif
         fprintf(stderr, "language: the system's is %s; English unless German was chosen (%s now)\n", de ? "German" : "not German",
-                bk_lang_on() ? "German" : "English");
+                bk_lang_on() ? bk_lang_code() : "en");
     }
     bk_battery(read_battery());
     audio_dev = dev;
@@ -1512,6 +1594,18 @@ int main(int argc, char **argv)
             int c = -1, down = 0;
             switch (e.type) {
             case SDL_QUIT: running = 0; break;
+#ifdef MD_HAVE_TOUCH
+            case SDL_APP_WILLENTERBACKGROUND: case SDL_APP_DIDENTERBACKGROUND: case SDL_APP_WILLENTERFOREGROUND:
+                if (touch_on)
+                    touch_release_all();         /* (a finger can not be told of what happens while away) */
+                break;
+            case SDL_WINDOWEVENT:
+                if (touch_on && (e.window.event == SDL_WINDOWEVENT_FOCUS_LOST || e.window.event == SDL_WINDOWEVENT_MINIMIZED ||
+                                 e.window.event == SDL_WINDOWEVENT_HIDDEN || e.window.event == SDL_WINDOWEVENT_LEAVE ||
+                                 e.window.event == SDL_WINDOWEVENT_SIZE_CHANGED || e.window.event == SDL_WINDOWEVENT_FOCUS_GAINED))
+                    touch_release_all();
+                break;
+#endif
 #ifdef MD_HAVE_TOUCH
             case SDL_FINGERDOWN: case SDL_FINGERMOTION: case SDL_FINGERUP:
                 if (touch_on)
@@ -1627,7 +1721,7 @@ int main(int argc, char **argv)
         }
         held = held_kbd | held_pad | fn_latched;
 #ifdef MD_HAVE_TOUCH
-        held |= held_touch;
+        held |= held_touch | touch_latch;
 #endif
         SDL_AtomicSet(&input_waiting, 1);        /* (1.1) the stage steps aside for the buttons */
         SDL_LockMutex(core_lock);
@@ -1637,6 +1731,13 @@ int main(int argc, char **argv)
                       SDL_GameControllerGetAxis(pad, SDL_CONTROLLER_AXIS_RIGHTX), SDL_GameControllerGetAxis(pad, SDL_CONTROLLER_AXIS_RIGHTY));
             stick_new = 0;
         }
+#ifdef MD_HAVE_TOUCH
+        if (touch_on)
+            touch_sync();
+        touch_flush();
+        if (touch_on)
+            touch_chips_refresh();
+#endif
         bk_input(held);
         SDL_UnlockMutex(core_lock);
 

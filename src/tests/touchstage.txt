@@ -1,0 +1,84 @@
+# (1.6) touch on the stage: a tap on a quick-bar stone, an options row, a swipe in a list and on the dials
+wait 1500
+tap L2
+wait 300
+touch 714 706
+wait 300
+expect_options 1
+# row 7 (CLOCK GARDEN): a tap chooses it and does it
+touch 300 442
+wait 200
+expect_opt clock 1
+# a swipe down twice: row 9 (TEXT SIZE); A does it
+swipe 1 1 1
+swipe 1 1 1
+tap A
+wait 200
+expect_opt bigtext 1
+# the touch pad's own settings, kept
+opt tsize 2
+opt tside 1
+opt tglow 0
+opt tbuzz 0
+expect_opt tsize 2
+expect_opt tside 1
+expect_opt tglow 0
+expect_opt tbuzz 0
+tap B
+wait 200
+expect_options 0
+# dials by swipe (nothing open): no trouble, and a tap there does nothing
+swipe 1 0 1
+swipe 1 1 -1
+swipe 2 0 1
+swipe 2 1 1
+touch 500 300
+expect_options 0
+# a track's plant chooses the track; a dial's panel its focus
+touch 70 200
+expect_opt track 1
+touch 70 330
+expect_opt track 2
+touch 900 100
+expect_opt focus 0
+touch 900 280
+expect_opt focus 2
+# the touch buttons the place names (the hint line): the garden, the mixer, options
+wait 500
+expect_chip 6 EDIT
+expect_chip 7 EFFECTS
+tap F2
+wait 300
+expect_chip 4 MUTE
+tcmd 1
+wait 300
+expect_options 1
+expect_chip 2 <
+tcmd 1
+wait 300
+expect_options 0
+tcmd 2
+wait 200
+expect_help 5
+tcmd 2
+wait 100
+expect_help 0
+tcmd 0
+wait 600
+expect_page LIVE
+# the Sound Lab names its own; R2 held names what R2 changes
+tap MENU
+wait 300
+tap A
+wait 500
+expect_chip 6 SILENT
+expect_chip 16 ALL
+tap B
+wait 300
+press R2
+wait 300
+expect_chip 4 LOCK
+expect_chip 12 RECORD
+expect_chip 14 DREAM
+expect_chip 13 SAVE
+release R2

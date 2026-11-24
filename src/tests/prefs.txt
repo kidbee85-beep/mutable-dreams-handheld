@@ -57,6 +57,20 @@ expect_lang de
 wait 300
 prefs_reload
 expect_lang de
+# (1.6) one more press: FRANCAIS, ESPANOL, then English again; the choice is kept like the others
+tap L2
+tap LEFT
+tap A
+wait 300
+expect_lang fr
+wait 300
+prefs_reload
+expect_lang fr
+tap L2
+tap LEFT
+tap A
+wait 300
+expect_lang es
 tap L2
 tap LEFT
 tap A

@@ -114,7 +114,7 @@ def wide_board():
     b.tap("RIGHT", 2, 500); b.hold("UP", 900); b.wait(5000)
     b.tap("F2"); b.wait(400)
     b.menu(10)
-    b.title(14, "96 worlds", "Whole scenes, each with its own story",
+    b.title(14, "128 worlds", "Whole scenes, each with its own story",
             de="Sechsundneunzig Welten: ganze Szenen, jede mit eigenem Tempo, eigenem Klang und einer kleinen Geschichte.",
             en="Ninety-six worlds: whole scenes, each with its own tempo, its own sound and a little story.")
     b.tap("R1", 14, 180); b.wait(900); b.tap("DOWN"); b.wait(1600)           # GLASS AND AIR > Northern Curtain
@@ -146,7 +146,7 @@ def wide_board():
             en="And when night falls: lullabies and a sleep timer. The music fades gently, and the garden sleeps.")
     b.do("world 90"); b.wait(4000)                                            # Moon Over The Pond
     b.do("sleeptimer 14000"); b.wait(8000)
-    b.title(12, "@card", "Coming soon|A spin-off of Mutable Dreams for the FM-1|12 instruments · 96 worlds · 10 toys · the Sound Lab|by Kid Bunka",
+    b.title(12, "@card", "Coming soon|A spin-off of Mutable Dreams for the FM-1|12 instruments · 128 worlds · 10 toys · the Sound Lab|by Kid Bunka",
             de="Mutable Dreams für den Trimui Brick. Bald erhältlich. Von Kid Bunka.",
             en="Mutable Dreams for the Trimui Brick. Coming soon. By Kid Bunka.")
     b.wait(12000)
@@ -171,7 +171,7 @@ def short_board():
     b.tap("RIGHT", 4, 300); b.tap("A"); b.wait(500)
     b.hold("RIGHT", 1300); b.do("lab SYNTH.LEVEL 65"); b.tap("DOWN"); b.tap("RIGHT", 8, 110); b.wait(3500); b.tap("RIGHT"); b.wait(3500)
     b.tap("F1"); b.wait(300)
-    b.title(8, "96 worlds", "Each with its own sound and story",
+    b.title(8, "128 worlds", "Each with its own sound and story",
             de="Sechsundneunzig Welten.", en="Ninety-six worlds.")
     b.do("world 85"); b.wait(700); b.tap("A"); b.wait(5660)                  # (the question: SEL - A - discard and load)
     b.menu(12); b.wait(800)

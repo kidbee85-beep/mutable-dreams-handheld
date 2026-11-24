@@ -1,0 +1,46 @@
+MUTABLE DREAMS ON THE ANBERNIC RG35XX (Knulli) - by Kid Bunka
+
+For the RG35XX family with Knulli: RG35XX Plus, RG35XX H, RG35XX SP and RG35XX 2024 (all Allwinner H700, screen 640 x 480).
+A test version: nobody has run it on an RG35XX yet. It is the Trimui Brick's program (the same aarch64 build, Knulli's own
+SDL2) with a launcher made for this family. If it does not start or something is wrong, please send BOTH files
+mutabledreams/diagnose.txt and mutabledreams/log.txt back (see "IF SOMETHING GOES WRONG").
+
+INSTALL
+  1. Unpack the zip. Copy the two files "Mutable Dreams.sh" and "Mutable Dreams Diagnose.sh" and the folder mutabledreams
+     into roms/ports on the SD card that holds your games (the SHARE partition, or card 2 if you use one).
+  2. In Knulli: Start > Game Settings > Update Gamelists (or restart EmulationStation). Mutable Dreams and Mutable Dreams
+     Diagnose appear under PORTS.
+  3. First start "Mutable Dreams Diagnose": it starts nothing and writes mutabledreams/diagnose.txt. Then start Mutable
+     Dreams. Every version starts in English; DEUTSCH / ENGLISH is in the quick bar.
+
+THE BUTTONS
+  The RG35XX has no F1, F2 or FN switch: tap SELECT for the menu (every place, the options, and QUIT at its end: press UP
+  once there, then A); hold SELECT for the help. Tap L2 for the quick bar (PLAY MODE, LIGHT PICTURE, DEUTSCH / ENGLISH).
+  START plays and stops. The D-pad moves, A, B, X, Y as printed on your handheld (if A and B come the wrong way round:
+  OPTIONS > SWAP A AND B). L1/R1 change the track, hold R2 for more.
+  If your model has no L2 or R2 (the SP may not): OPTIONS (SELECT, then the options place) > ASSIGN A BUTTON gives another
+  button that part (e.g. L1's part to a button you do not need). The H has two sticks: they turn the dials.
+  There is no touch control in this version (the RG35XX has no touch screen).
+
+THE SCREEN
+  The launcher reads the screen's size and draws the 4:3 stage to fit: the RG35XX's 640 x 480 is filled. The picture goes
+  straight into the window first, as on the Brick. If no picture comes within 20 s, the launcher starts it once more
+  through SDL's renderer, then through the screen-fitting way, and keeps the way that worked (mutabledreams/video-mode.txt).
+
+SWITCH FILES (in mutabledreams/, content does not matter)
+  light.on      the light picture from the start (it also comes by itself when the stage is slow)
+  calm.on       CALM MOTION from the start          nosplash.on   no animated start screen
+  selftest.on   plays 30 s by itself and writes its measurements (frame rate, sound) to log.txt, then quits
+  keytest.on    every button pressed is written to log.txt (for a model whose buttons do not do what they should)
+  surface.on / nosurface.on / fit.on   only the window's own pixels / only SDL's renderer / only the screen-fitting way
+  gpu.on        SDL's accelerated (GL) renderer
+  nofast.on     the CPU governor left alone (else "performance" while it runs, the old one put back after; no overclock)
+  usbaudio.off  the sound stays on the handheld even with a USB-C sound card plugged in
+
+IF SOMETHING GOES WRONG
+  1. Start "Mutable Dreams Diagnose" and send mutabledreams/diagnose.txt.
+  2. Send mutabledreams/log.txt (the first lines say what the launcher found, which picture way it tried, and why it stopped);
+     log.previous.txt is the start before.
+  3. For wrong buttons: create the empty file mutabledreams/keytest.on, start once, press the buttons, send log.txt.
+  4. No picture or a black screen: create mutabledreams/nosurface.on, start; then try gpu.on instead. Tell us which one worked.
+  5. Crackling sound: create light.on.

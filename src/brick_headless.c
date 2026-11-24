@@ -317,7 +317,7 @@ int main(int argc, char **argv)
         if (sm && sm[0] == '1')
             bk_set_small(1);                     /* (as a 640 x 480 handheld: tools/textscan.sh MD_SMALL=1) */
         if (getenv("MD_LANG"))                   /* (MD_LANG=de: the stage in German, tools/textscan.sh too) */
-            bk_set_lang(!strcmp(getenv("MD_LANG"), "de"));
+            bk_set_lang_code(getenv("MD_LANG"));
     }
     while (fgets(line, sizeof line, sc)) {
         char cmd[64] = "", a[400] = "", b[64] = "";
@@ -626,6 +626,47 @@ int main(int argc, char **argv)
             int v[4] = {0, 0, 0, 0};
             sscanf(line, "%*s %d %d %d %d", &v[0], &v[1], &v[2], &v[3]);
             bk_sticks(v[0], v[1], v[2], v[3]);
+        } else if (!strcmp(cmd, "chips")) {       /* chips: the touch buttons the place names, listed (1.6) */
+            bk_chip c[12];
+            int n = bk_touch_chips(c, 12);
+            printf("  chips (%d):", n);
+            for (int q = 0; q < n; q++)
+                printf(" [%d %s]", c[q].btn, c[q].label);
+            printf("\n");
+        } else if (!strcmp(cmd, "expect_chip")) { /* expect_chip BUTTON_NUMBER LABEL_WORD: such a chip is there (_ for spaces) */
+            bk_chip c[12];
+            int n = bk_touch_chips(c, 12), found = 0;
+            char want[40];
+            snprintf(want, sizeof want, "%s", b);
+            for (char *q = want; *q; q++)
+                if (*q == '_')
+                    *q = ' ';
+            for (int q = 0; q < n; q++)
+                if (c[q].btn == atoi(a) && (!want[0] || strstr(c[q].label, want)))
+                    found = 1;
+            if (!found) {
+                printf("FAIL line %d: no chip %s %s\n", ln, a, b);
+                fails++;
+            } else
+                printf("  ok chip %s %s\n", a, b);
+        } else if (!strcmp(cmd, "tcmd")) {        /* tcmd N: the dock's own thing: 0 home, 1 options, 2 help (1.6) */
+            bk_touch_cmd(atoi(a));
+        } else if (!strcmp(cmd, "touch")) {       /* touch X Y: a tap on the stage at that point (1.6) */
+            bk_touch_event(0, 0, (float)atoi(a), (float)atoi(b));
+            bk_touch_event(2, 0, (float)atoi(a), (float)atoi(b));
+        } else if (!strcmp(cmd, "tdown") || !strcmp(cmd, "tmove") || !strcmp(cmd, "tup")) {   /* tdown S X Y, tmove S X Y, tup S X Y: a finger (slot S) */
+            int sl = atoi(a), px = 0, py = 0;
+            sscanf(line, "%*s %*d %d %d", &px, &py);
+            bk_touch_event(cmd[1] == 'd' ? 0 : cmd[1] == 'm' ? 1 : 2, sl, (float)px, (float)py);
+        } else if (!strcmp(cmd, "swipe")) {       /* swipe FINGERS AXIS D [N]: a drag of N (default 1) steps from the middle of the stage (1.6) */
+            int fg = 1, ax = 0, dd = 1, nn = 1;
+            sscanf(line, "%*s %d %d %d %d", &fg, &ax, &dd, &nn);
+            for (int q = 0; q < fg; q++)
+                bk_touch_event(0, q, 500.0f + 80.0f * q, 400.0f);
+            for (int q = 0; q < fg; q++)
+                bk_touch_event(1, q, 500.0f + 80.0f * q + (ax ? 0 : 50.0f * nn * dd), 400.0f + (ax ? 50.0f * nn * dd : 0));
+            for (int q = 0; q < fg; q++)
+                bk_touch_event(2, q, 500.0f + 80.0f * q + (ax ? 0 : 50.0f * nn * dd), 400.0f + (ax ? 50.0f * nn * dd : 0));
         } else if (!strcmp(cmd, "sidehalf")) {    /* sidehalf 1/0: the columns every other frame in the light picture (1.5.8) */
             bk_set_side_half(atoi(a));
         } else if (!strcmp(cmd, "sidecheck")) {   /* sidecheck: four frames at one moment, the pixels that differ told
@@ -668,14 +709,47 @@ int main(int argc, char **argv)
             } else
                 printf("  ok button %s plays %s\n", a, b);
         } else if (!strcmp(cmd, "lang")) {         /* lang de/en: the stage's language (0.80) */
-            int n = bk_set_lang(!strcmp(a, "de"));
-            printf("  language %s (%d texts)\n", bk_lang_on() ? "de" : "en", n);
+            int n = bk_set_lang_code(a);
+            printf("  language %s (%d texts)\n", bk_lang_code(), n);
         } else if (!strcmp(cmd, "expect_lang")) {
-            if (bk_lang_on() != !strcmp(a, "de")) {
-                printf("FAIL line %d: language %s, expected %s\n", ln, bk_lang_on() ? "de" : "en", a);
+            if (strncmp(bk_lang_code(), a, 2)) {
+                printf("FAIL line %d: language %s, expected %s\n", ln, bk_lang_code(), a);
                 fails++;
             } else
                 printf("  ok language %s\n", a);
+        } else if (!strcmp(cmd, "opt")) {          /* opt NAME VALUE: pscale, clock, listen, bigtext, contrast, hour (tenths), listenms (1.6) */
+            if (bk_option_set(a, atoi(b))) {
+                printf("FAIL line %d: no option %s\n", ln, a);
+                fails++;
+            }
+        } else if (!strcmp(cmd, "expect_opt")) {
+            if (bk_option_get(a) != atoi(b)) {
+                printf("FAIL line %d: option %s is %d, expected %s\n", ln, a, bk_option_get(a), b);
+                fails++;
+            } else
+                printf("  ok option %s %s\n", a, b);
+        } else if (!strcmp(cmd, "tale")) {         /* tale N: begin chapter N (1.6) */
+            bk_tale_set(atoi(a));
+        } else if (!strcmp(cmd, "coach")) {        /* coach N: the first five minutes at step N (5: done) (1.6) */
+            bk_coach_set(atoi(a));
+        } else if (!strcmp(cmd, "expect_coach")) {
+            if (bk_coach_step() != atoi(a)) {
+                printf("FAIL line %d: coach at step %d, expected %s\n", ln, bk_coach_step(), a);
+                fails++;
+            } else
+                printf("  ok coach %s\n", a);
+        } else if (!strcmp(cmd, "expect_note")) {  /* expect_note DEGREE NOTE: what play mode gives that degree (1.6) */
+            if (bk_note_for_degree(atoi(a)) != atoi(b)) {
+                printf("FAIL line %d: degree %s gives note %d, expected %s\n", ln, a, bk_note_for_degree(atoi(a)), b);
+                fails++;
+            } else
+                printf("  ok degree %s note %s\n", a, b);
+        } else if (!strcmp(cmd, "expect_journal")) {   /* expect_journal BIOMES WORLDS (-1: any) */
+            if ((atoi(a) >= 0 && bk_journal_count(0) != atoi(a)) || (atoi(b) >= 0 && bk_journal_count(1) != atoi(b))) {
+                printf("FAIL line %d: journal %d Biomes %d worlds, expected %s %s\n", ln, bk_journal_count(0), bk_journal_count(1), a, b);
+                fails++;
+            } else
+                printf("  ok journal %s %s\n", a, b);
         } else if (!strcmp(cmd, "calm")) {         /* calm 1/0: CALM MOTION */
             bk_set_calm(atoi(a));
         } else if (!strcmp(cmd, "expect_calm")) {

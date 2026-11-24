@@ -113,6 +113,15 @@ Schnellleiste, die auch den Spielmodus ein- und ausschaltet. Die Hinweiszeile ne
 rechts <k>A</k>, <k>B</k>, <k>X</k>, <k>Y</k>, <k>R1</k>, <k>R2</k>, <k>START</k> und <k>MENU</k>. Mehrere Finger gleichzeitig und
 Wischen gehen, gehaltene Tasten und Kombinationen also wie am Gerät. Die Zurück-Taste von Android ist <k>B</k>. Drückst du eine
 Gamepad-Taste, treten die Touch-Tasten für eine größere Bühne zur Seite; eine Berührung holt sie zurück.</p>
+<p><strong>Seit 1.6.1</strong> werden die Tasten des Brick standardmäßig nicht mehr gezeichnet. Eine Leiste auf einer Seite hat ZURÜCK, HOME, ORTE, SCHNELLLEISTE, KLANGLABOR, MIXER, OPTIONEN und HILFE; auf der anderen SPIELEN, SPIELMODUS (der FN-Schalter), UMSCHALT (R2 gehalten) und darunter die Tasten, die der jeweilige Ort in seiner Hinweiszeile nennt (STUMM, ÜBERRASCHUNG, BEARBEITEN, &lt; SPUR, SPUR &gt; ...). <strong>Optionen &gt; Tastenfeld auf dem Bildschirm</strong> bringt das alte Feld zurück. Das Folgende beschreibt dieses Feld und die Gesten auf der Bühne.</p>
+<p>Auf einem Android-Handheld mit Controller wählst du unter <strong>Optionen &gt; Touch-Tasten</strong>: <em>Auto</em> (die Touch-Tasten weichen bei einer Controller-Taste und kommen bei Berührung zurück), <em>Sichtbar</em> oder <em>Aus</em>, solange ein Controller da ist; die Leiste hat auch ein Feld <strong>Ausblenden</strong>, und eine Berührung holt sie zurück.</p>
+<p>Seit 1.6 hat die linke Gruppe auch <k>FN</k>, das einrastet wie der Schalter am Brick (Spielmodus). Hochkant gehalten liegt die Bühne oben
+und die beiden Tastengruppen darunter. In den <strong>Optionen</strong> stellst du die Tastengröße ein, auf welcher Seite welche Gruppe liegt
+(Linkshänder), wie deutlich sie leuchten, ein kurzes Vibrieren beim Drücken und die Höhe der Schnellleiste (über der Gestenleiste des Handys).
+Auf der Bühne selbst: ein <strong>Ziehen</strong> ist das Steuerkreuz, auf dem Feld eines Reglers dreht es diesen Regler, <strong>zwei Finger quer</strong> blättern
+(<k>L1</k>/<k>R1</k>), ein <strong>stillgehaltener Finger</strong> zeigt die Hilfe. Ein <strong>Tippen</strong> wählt, ein zweites führt aus, in Menü, Optionen, Schnellleiste, Atlas, Welten,
+Archiv, Sequenz und Sound Lab; die Pflanze einer Spur links wählt die Spur. Im Mixer folgen Schieber und Blumen dem Finger; in der Sequenz
+tippst du einen Schritt an oder aus und ziehst ihn für die Note hoch oder runter; im Spielmodus sind die acht Steine rechts Pads, mehrere zugleich, und Gleiten schlägt den nächsten an.</p>
 <h3>Am PC mit Tastatur</h3>
 <table>
   <tr><th>Brick</th><th>Tastatur</th><th>Brick</th><th>Tastatur</th></tr>
@@ -292,9 +301,9 @@ in Körner, Tides oder in die Module des Labors schicken.</p>
 
 <h2>Welten</h2>
 <p>Eine <strong>Welt</strong> ist eine ganze Szene: ein Biom mit eigenem Tempo, eigenen Reglern, eigenem Klanglabor, SYNTH, LOGIC
-und einer Zeile Geschichte. Es gibt <strong>96 Welten in 16 Familien</strong>:</p>
+und einer Zeile Geschichte. Es gibt <strong>128 Welten in 20 Familien</strong>:</p>
 <p class="label">Gardens of Number · Bells and Resonance · Drones and Overtones · Rain and Water · Night Choirs · Endless · Voices and Poems ·
-Machines and Automata · Plaits Orchestra · Rhythm Gardens · Resonant Rooms · Sky Machines · Forest Floor · Deep Waters · Glass and Air · Lullabies</p>
+Machines and Automata · Plaits Orchestra · Rhythm Gardens · Resonant Rooms · Sky Machines · Forest Floor · Deep Waters · Glass and Air · Lullabies · Seasons · Desert and Dunes · City After Dark · Moon and Tides</p>
 <p><k>L1</k>/<k>R1</k> wählt die Familie, <k>UP</k>/<k>DOWN</k> die Welt, <k>A</k> betritt sie. Mit <k>Y</k> wanderst du alle paar Minuten
 von selbst zur nächsten Welt der Familie, mit <k>LEFT</k>/<k>RIGHT</k> stellst du ein, wie viele Minuten es sind.</p>
 <fig src="29-worlds">Die Welten: links die Familien, rechts die Welten, unten Geschichte und Inhalt der gewählten Welt.</fig>
@@ -334,9 +343,10 @@ des Bioms, also klingt es immer passend. Für alle Spielzeuge gilt:</p>
 <tip>Spiel eine Weile mit den Planeten, bis dir ein Rhythmus gefällt, und drück dann <k>R2</k> + <k>X</k>. Der Rhythmus bleibt als Sequenz der Spur, auch wenn du die Spielwiese verlässt.</tip>
 
 <h2>Die Traumgeschichte</h2>
-<p>Während du spielst, wird eine Geschichte in acht Kapiteln erzählt. Jedes Kapitel hat ein paar Zeilen und eine kleine
+<p>Während du spielst, wird eine Geschichte in sechzehn Kapiteln erzählt (seit 1.6 in zwei Büchern); die ersten acht: Jedes Kapitel hat ein paar Zeilen und eine kleine
 Aufgabe, die dich an einen neuen Ort führt: zur Spielwiese, zum Glühwürmchen, zum Behalten, zum Echo-Spiel, zu den Planeten,
 in ein anderes Biom, ins Klanglabor und zuletzt zu allen Bällen auf einmal. Ist eine Aufgabe erfüllt, steigt ihre Karte über die Bühne.</p>
+<p>Das zweite Buch (Kapitel 9 bis 16) führt durch die Regler, die fallenden Sterne (STERNENFALL), eine Welt, das Echo-Spiel, drei weitere bewahrte Melodien, das Gartentagebuch, eine eigene Tonleiter und den Uhrzeit-Garten.</p>
 <p>Wo du gerade stehst, zeigt der Garten leise an seinem Fuß und die Spielwiese oben. Der Fortschritt steht in
 <span class="label">mutabledreams/save/tale.txt</span>. Löschst du die Datei, beginnt die Geschichte von vorn.</p>
 
@@ -353,7 +363,12 @@ halten) kommst du mit <k>Y</k> dorthin. <k>UP</k>/<k>DOWN</k> wählt eine Zeile,
   <tr><td><span class="label">TASTE BELEGEN</span></td><td>Mit <k>LEFT</k>/<k>RIGHT</k> eine Aufgabe wählen (A, B, X, Y, L1, R1, L2, R2, START, SELECT), <k>A</k> drücken und dann die Taste, die sie übernehmen soll. Die bisherige Taste bekommt die andere Aufgabe; es geht nie eine verloren.</td></tr>
   <tr><td><span class="label">TASTENWIEDERHOLUNG</span></td><td>Wie bald und wie schnell eine gehaltene Taste weiterläuft: ruhig, normal oder schnell.</td></tr>
   <tr><td><span class="label">SCHLAF-TIMER</span></td><td>Aus, 15, 30, 60 oder 90 Minuten. In der letzten Minute blendet die Musik sanft aus und hält an; der Bildschirm ruht dunkel und sparsam, bis eine Taste ihn weckt. Unten rechts zeigt eine Mondsichel die restlichen Minuten.</td></tr>
-  <tr><td><span class="label">SPRACHE</span></td><td>Deutsch oder Englisch.</td></tr>
+  <tr><td><span class="label">SPRACHE</span></td><td>Englisch, Deutsch, Französisch oder Spanisch: jeder Druck geht eine weiter. Jede Version startet auf Englisch.</td></tr>
+  <tr><td><span class="label">TONLEITER ZUM SPIELEN</span></td><td>Die Töne von Spielmodus und Spielwiese: <span class="label">WIE DAS BIOM</span> (die Skala des Bioms) oder Dur, Moll, Pentatonik, Moll-Pentatonik, Dorisch, Hijaz, Hirajoshi, Pelog oder Ganzton, immer von der Tonart des Bioms aus.</td></tr>
+  <tr><td><span class="label">UHRZEIT-GARTEN</span></td><td>Der Himmel folgt der Tageszeit des Handhelds: Morgenrot, ein heller Mittag, Abendrot, Nacht. Nachts kreisen Motten, ab und zu fällt eine Sternschnuppe, und in den frühen Stunden sitzt eine Eule auf ihrem Ast.</td></tr>
+  <tr><td><span class="label">NUR-HÖREN-MODUS</span></td><td>Aus, 2, 5 oder 10 Minuten: War so lange keine Taste gedrückt und die Musik spielt, ruht der Bildschirm (dunkel, vier Bilder pro Sekunde), und die Musik spielt weiter. Jede Taste weckt ihn.</td></tr>
+  <tr><td><span class="label">SCHRIFTGRÖSSE</span>, <span class="label">KONTRAST</span></td><td>Größere Kleinschrift in Menüs, Hilfe und Optionen; hellere graue Texte überall.</td></tr>
+  <tr><td><span class="label">GARTENTAGEBUCH</span></td><td><k>A</k> öffnet eine Seite mit jedem Biom und jeder Welt, in der du ein paar Sekunden geblieben bist, als kleine Lichter nach Familien. Gespeichert in <span class="label">save/journal.txt</span>.</td></tr>
   <tr><td><span class="label">LEICHTES BILD</span>, <span class="label">RUHIGE BEWEGUNG</span></td><td>wie in der Schnellleiste.</td></tr>
   <tr><td><span class="label">DER TASTENPLAN</span>, <span class="label">DER WEGWEISER</span></td><td>öffnen die Hilfe und den Wegweiser.</td></tr>
   <tr><td><span class="label">ALLE TASTEN ZURÜCK</span></td><td>nimmt jede Umbelegung zurück.</td></tr>
@@ -365,7 +380,7 @@ Alles wird gespeichert.</p>
 <p>Ab 1.1 wird das Bild auf einem eigenen Prozessorkern gezeichnet, während das vorige gezeigt wird. Tastendrücke kommen sofort durch, auch
 mitten in einem Bild. Im Menü, in der Schnellleiste, im Wegweiser und in den Optionen läuft eine gehaltene Richtungstaste weiter und wird dabei schneller.</p>
 <h3>Sprache</h3>
-<p>Jede Version startet auf Englisch. In der Schnellleiste schaltet der letzte Stein, <span class="label">DEUTSCH / ENGLISH</span>, die
+<p>Jede Version startet auf Englisch. In der Schnellleiste schaltet der letzte Stein (<span class="label">DEUTSCH</span>, <span class="label">FRANCAIS</span>, <span class="label">ESPANOL</span> oder <span class="label">ENGLISH</span>, je nachdem, was als Nächstes kommt) die
 ganze Oberfläche um, und die Wahl wird gespeichert. Die Namen der Klangparameter, Module, Biome und Welten bleiben englisch, wie auf dem FM-1. Die Übersetzung
 steht in <span class="label">mutabledreams/lang/de.txt</span> und lässt sich dort verbessern.</p>
 <h3>USB-C-Audio</h3>
@@ -382,6 +397,7 @@ Spuren. MIDI geht nur hinein: Mutable Dreams sendet keine Noten und keine Clock.
 <table>
   <tr><th>Datei</th><th>Wirkung</th></tr>
   <tr><td>calm.on</td><td>Ruhige Bewegung von Anfang an</td></tr>
+  <tr><td>edge.off</td><td>Nur Trimui Smart Pro und H700: kein Leuchten in den Farben des Gartens in den schwarzen Seitenstreifen neben der Bühne auf breiten Bildschirmen</td></tr>
   <tr><td>light.on</td><td>Leichtes Bild von Anfang an</td></tr>
   <tr><td>nosplash.on</td><td>ohne Startbildschirm</td></tr>
   <tr><td>usbaudio.off</td><td>Klang bleibt auf dem Brick, auch mit USB-Soundkarte</td></tr>

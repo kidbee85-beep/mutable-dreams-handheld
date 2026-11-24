@@ -29,6 +29,7 @@ way=surface; [ -z "${MD_PRESENT:-}" ] && way=renderer; [ -n "${MD_SCREEN:-}" ] &
 what=""
 for pair in ${FAKE//,/ }; do [ "${pair%%:*}" = "$way" ] && what="${pair#*:}"; done
 gov=$(cat "$H7_ROOT/sys/devices/system/cpu/cpufreq/policy0/scaling_governor")
+echo "${MD_EDGE:-unset}" > "$H7_ROOT/edge.txt"
 echo "$way $what out=${MD_OUT:-none} keys=${MD_KEYS:-} device=${MD_DEVICE:-} gov=$gov" >> "$TRACE"
 case "$what" in
     hang) exec sleep 30;;
@@ -91,6 +92,12 @@ d=$(new_case fit-forced drm:640x480); : > "$d/mutabledreams/fit.on"; run "$d" "f
 check "fit.on: only the fitting way, nothing kept" "$(trace "$d" | cut -d' ' -f1)/$(mode "$d")" "fit/none"
 d=$(new_case full drm:640x480); run "$d" "surface:ok0,fit:ok0" > /dev/null
 check "640x480 (the stage fills it): the window surface first, as before" "$(trace "$d" | cut -d' ' -f1)" surface
+
+# (1.6) edge.off: the side bars without the glow (MD_EDGE=0); without the file the program's own default
+d=$(new_case edgeon drm:720x720); run "$d" "fit:ok0,surface:ok0" > /dev/null
+check "720x720: the glow left to the program" "$(cat "$d/edge.txt")" unset
+d=$(new_case edgeoff drm:720x720); : > "$d/mutabledreams/edge.off"; run "$d" "fit:ok0,surface:ok0" > /dev/null
+check "edge.off: MD_EDGE=0" "$(cat "$d/edge.txt")" 0
 
 rm -rf "$ROOT"
 echo

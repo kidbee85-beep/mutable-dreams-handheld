@@ -118,6 +118,15 @@ mode on and off. The hint line names <k>SELECT</k> MENU right after the place's 
 <k>A</k>, <k>B</k>, <k>X</k>, <k>Y</k>, <k>R1</k>, <k>R2</k>, <k>START</k> and <k>MENU</k> on the right. Several fingers at once and
 sliding work, so held buttons and combinations behave as on the device. Android's back key is <k>B</k>. Press a gamepad button and the
 touch buttons step aside for a larger stage; touch the screen to bring them back.</p>
+<p><strong>Since 1.6.1</strong> the Brick's buttons are no longer drawn by default. A dock on one side holds BACK, HOME, PLACES, QUICK BAR, SOUND LAB, MIXER, OPTIONS and HELP; on the other side PLAY, PLAY MODE (the FN switch), SHIFT (R2 kept) and, below them, the buttons the place you are in names in its hint line (MUTE, SURPRISE, EDIT, &lt; TRACK, TRACK &gt; ...). <strong>Options &gt; Button pad on screen</strong> brings the old pad back. The following describes that pad and the gestures on the stage.</p>
+<p>On an Android handheld with a controller, <strong>Options &gt; Touch buttons</strong> chooses: <em>Auto</em> (the touch buttons step aside at a controller's button and return at a touch), <em>Shown</em>, or <em>Hidden</em> while a controller is connected; the dock also has a <strong>Hide</strong> button, and a touch brings them back.</p>
+<p>Since 1.6 the left group also has <k>FN</k>, which latches like the switch on the Brick (play mode). Held upright, the stage
+sits on top and the two groups of buttons below. In <strong>Options</strong> you set the buttons' size, which side each group is on
+(left-handed), how clearly they glow, a short buzz on a press, and the height of the quick bar (above a phone's gesture strip).
+On the stage itself: a <strong>drag</strong> is the D-pad, on a dial's panel it turns that dial, <strong>two fingers across</strong> turn the page
+(<k>L1</k>/<k>R1</k>), a <strong>finger held still</strong> shows the help. A <strong>tap</strong> chooses, and a second tap does it, in the menu, options, quick bar, Atlas, Worlds,
+Archive, Sequence and Sound Lab; a track's plant on the left chooses the track. In the mixer the faders and flowers follow your finger; in the sequence
+tap a step on or off and drag it up or down for its note; in play mode the eight stones on the right are pads, several at once, and a slide strikes the next.</p>
 <h3>On a PC keyboard</h3>
 <table>
   <tr><th>Brick</th><th>Keyboard</th><th>Brick</th><th>Keyboard</th></tr>
@@ -314,9 +323,9 @@ Hold <k>A</k> to hear the track alone.</p>
 
 <h2>Worlds</h2>
 <p>A <strong>world</strong> is a whole scene: a Biome with its own tempo, dials, Sound Lab, SYNTH, LOGIC and a line of story.
-There are <strong>96 worlds in 16 families</strong>:</p>
+There are <strong>128 worlds in 20 families</strong>:</p>
 <p class="label">Gardens of Number · Bells and Resonance · Drones and Overtones · Rain and Water · Night Choirs · Endless · Voices and Poems ·
-Machines and Automata · Plaits Orchestra · Rhythm Gardens · Resonant Rooms · Sky Machines · Forest Floor · Deep Waters · Glass and Air · Lullabies</p>
+Machines and Automata · Plaits Orchestra · Rhythm Gardens · Resonant Rooms · Sky Machines · Forest Floor · Deep Waters · Glass and Air · Lullabies · Seasons · Desert and Dunes · City After Dark · Moon and Tides</p>
 <ul>
   <li><k>L1</k>/<k>R1</k> choose the family, <k>UP</k>/<k>DOWN</k> the world, and <k>A</k> enters it.</li>
   <li><k>Y</k> wanders on to the family's next world every few minutes, and <k>LEFT</k>/<k>RIGHT</k> set how many minutes.</li>
@@ -357,7 +366,7 @@ always fit. For every toy:</p>
 <tip>Play with the orbits until you like a rhythm, then press <k>R2</k> + <k>X</k>. The rhythm stays as the track's sequence, even after you leave the playground.</tip>
 
 <h2>The dream tale</h2>
-<p>While you play, a story in eight chapters is told. Each chapter has a few lines and a small deed that leads you somewhere new:</p>
+<p>While you play, a story is told, in sixteen chapters (since 1.6 in two books). Each chapter has a few lines and a small deed that leads you somewhere new:</p>
 <ol>
   <li>the playground</li>
   <li>the firefly</li>
@@ -368,6 +377,7 @@ always fit. For every toy:</p>
   <li>the Sound Lab</li>
   <li>all the balls at once</li>
 </ol>
+<p>The second book (chapters 9 to 16) leads through the dials, the falling stars (STARFALL), a world, the echo game, three more kept melodies, the garden journal, a scale of your own and the clock garden.</p>
 <p>When a deed is done, its card rises over the stage.</p>
 <p>The garden shows quietly at its foot where the tale stands, and so does the playground at the top. Progress is kept in
 <span class="label">mutabledreams/save/tale.txt</span>. Delete that file to begin the tale again.</p>
@@ -387,7 +397,12 @@ always fit. For every toy:</p>
   <tr><td><span class="label">ASSIGN A BUTTON</span></td><td>Choose a part with <k>LEFT</k>/<k>RIGHT</k> (A, B, X, Y, L1, R1, L2, R2, START or SELECT), press <k>A</k>, then press the button that should play it. The button that had the part takes the other one's part, so no part is ever lost.</td></tr>
   <tr><td><span class="label">HELD BUTTONS REPEAT</span></td><td>How soon and how fast a held button goes on: calm, normal or quick.</td></tr>
   <tr><td><span class="label">SLEEP TIMER</span></td><td>Off, 15, 30, 60 or 90 minutes. In the last minute the music fades out gently and stops; the screen rests, dark and frugal, until a button wakes it. A crescent at the bottom right shows the minutes left.</td></tr>
-  <tr><td><span class="label">LANGUAGE</span></td><td>English or German.</td></tr>
+  <tr><td><span class="label">LANGUAGE</span></td><td>English, German, French or Spanish: each press goes one on. Every version starts in English.</td></tr>
+  <tr><td><span class="label">SCALE FOR PLAYING</span></td><td>The notes of play mode and the playground: <span class="label">BIOME'S OWN</span> (the Biome's scale) or major, minor, pentatonic, minor pentatonic, dorian, hijaz, hirajoshi, pelog or whole tone, always from the Biome's key.</td></tr>
+  <tr><td><span class="label">CLOCK GARDEN</span></td><td>The sky follows the time of day on the handheld: sunrise, a pale noon, sunset, night. At night moths circle, a shooting star crosses now and then, and in the small hours an owl sits on its branch.</td></tr>
+  <tr><td><span class="label">LISTEN MODE</span></td><td>Off, 2, 5 or 10 minutes: when no button was pressed for that long and the music plays, the screen rests (dark, four pictures a second) and the music plays on. Any button wakes it.</td></tr>
+  <tr><td><span class="label">TEXT SIZE</span>, <span class="label">CONTRAST</span></td><td>Larger small print in the menus, help and options; brighter grey texts everywhere.</td></tr>
+  <tr><td><span class="label">GARDEN JOURNAL</span></td><td><k>A</k> opens a page with every Biome and world you stayed in for a few seconds, as small lamps by family. Kept in <span class="label">save/journal.txt</span>.</td></tr>
   <tr><td><span class="label">LIGHT PICTURE</span>, <span class="label">CALM MOTION</span></td><td>The same as in the quick bar.</td></tr>
   <tr><td><span class="label">THE BUTTON MAP</span>, <span class="label">THE GUIDE</span></td><td>Open the button map or the guide.</td></tr>
   <tr><td><span class="label">EVERY BUTTON ITSELF AGAIN</span></td><td>Undoes every change of buttons.</td></tr>
@@ -398,7 +413,7 @@ always fit. For every toy:</p>
 <p>Since 1.1, the picture is drawn on a core of its own while the previous frame is shown, and button presses come through at once, even in the middle of a frame.</p>
 <p>In the menu, the quick bar, the guide and the options, a held arrow keeps going and gets faster.</p>
 <h3>Language</h3>
-<p>Every version starts in English. The quick bar's last stone, <span class="label">DEUTSCH / ENGLISH</span>, switches the whole
+<p>Every version starts in English. The quick bar's last stone (<span class="label">DEUTSCH</span>, <span class="label">FRANCAIS</span>, <span class="label">ESPANOL</span> or <span class="label">ENGLISH</span>, whichever comes next) switches the whole
 interface, and your choice is saved.</p>
 <p>The names of sound parameters, modules, Biomes and worlds stay in English, as on the FM-1. The translation lives in
 <span class="label">mutabledreams/lang/de.txt</span>, where you can improve it.</p>
@@ -415,6 +430,7 @@ speaker without a crash. An empty file <span class="label">mutabledreams/usbaudi
 <table>
   <tr><th>File</th><th>Effect</th></tr>
   <tr><td>calm.on</td><td>start with CALM MOTION</td></tr>
+  <tr><td>edge.off</td><td>Trimui Smart Pro and H700 only: no glow of the garden's colours in the black bars beside the stage on wide screens</td></tr>
   <tr><td>light.on</td><td>start with LIGHT PICTURE</td></tr>
   <tr><td>nosplash.on</td><td>start without the start screen</td></tr>
   <tr><td>usbaudio.off</td><td>keep the sound on the Brick, even with a USB sound card plugged in</td></tr>

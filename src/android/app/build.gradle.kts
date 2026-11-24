@@ -12,8 +12,8 @@ android {
         applicationId = "com.kidbunka.mutabledreams"
         minSdk = 28                 // Android 9: posix_spawnp (the archive starts curl); the RG405V has Android 12
         targetSdk = 34
-        versionCode = 15900         // 1.5.9; always rising, so a newer APK installs over an older one
-        versionName = "1.5.9"
+        versionCode = 16200         // 1.6.2; always rising, so a newer APK installs over an older one
+        versionName = "1.6.2"
         ndk {
             abiFilters += listOf("arm64-v8a", "x86_64")   // the RG405V (and phones); x86_64 for the emulator
         }

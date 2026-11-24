@@ -22,6 +22,7 @@ THE SCREEN
 SWITCH FILES (in mutabledreams/, content does not matter)
   light.on      the light picture from the start (it also comes by itself when the stage is slow)
   calm.on       CALM MOTION from the start
+  edge.off      no glow of the garden's colours in the black side bars (screens wider than 4:3)
   nosplash.on   no animated start screen
   selftest.on   plays 30 s by itself and writes its measurements (frame rate, sound) to log.txt
   keytest.on    every button pressed is written to log.txt

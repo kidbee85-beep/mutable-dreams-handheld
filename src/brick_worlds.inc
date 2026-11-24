@@ -25,8 +25,9 @@ typedef struct {
     struct { int p; float v; } lab[WD_SETS];
 } wd_world;
 static wd_world wd_w[WD_MAX];
-static int wd_n = -1, wd_fam, wd_pos[16], wd_top[16], wd_nfam;
-static char wd_fams[16][24];
+#define WD_FAMS 24                               /* (1.6) up to 24 families: 20 with the 128 worlds */
+static int wd_n = -1, wd_fam, wd_pos[WD_FAMS], wd_top[WD_FAMS], wd_nfam;
+static char wd_fams[WD_FAMS][24];
 static int wd_pending = -1, wd_current = -1, wd_wander, wd_wander_min = 6;
 static uint32_t wd_entered_at, wd_mark_at;
 static char wd_error[96];
@@ -88,7 +89,7 @@ static void wd_load(void)
                 int b;
                 for (b = 0; b < wd_nfam && strcmp(wd_fams[b], w->family); b++)
                     ;
-                if (b == wd_nfam && wd_nfam < 16)
+                if (b == wd_nfam && wd_nfam < WD_FAMS)
                     snprintf(wd_fams[wd_nfam++], 24, "%s", w->family);
             }
             continue;

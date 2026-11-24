@@ -1,0 +1,60 @@
+# (1.6) the new OPTIONS: a scale for playing, LISTEN MODE, the journal, the settings kept
+wait 1500
+opt pscale 0
+expect_note 0 48
+opt pscale 1
+expect_note 0 48
+expect_note 1 50
+expect_note 2 52
+expect_note 7 60
+opt pscale 3
+expect_note 5 60
+opt pscale 6
+expect_note 1 49
+expect_note 2 52
+opt pscale 99
+expect_opt pscale 9
+opt pscale 0
+# LISTEN MODE: the music plays on, the screen rests, a button wakes it
+tap START
+wait 1000
+expect_playing 1
+opt listen 1
+opt listenms 2000
+wait 2600
+expect_resting 1
+expect_playing 1
+wav out/listen-rest.wav
+wait 1500
+wavstop
+expect_sound
+shot out/listen-rest.png
+tap A
+wait 300
+expect_resting 0
+expect_playing 1
+opt listen 0
+# the journal counts a Biome after a few seconds
+wait 3500
+expect_journal 1 -1
+options 1
+shot out/options16-top.png
+tap UP
+shot out/options16-bottom.png
+options 0
+opt contrast 1
+opt bigtext 1
+expect_opt bigtext 1
+wait 400
+shot out/options16-big.png
+opt contrast 0
+opt bigtext 0
+options 1
+tap UP
+tap A
+wait 500
+shot out/journal.png
+tap B
+wait 200
+tap B
+wait 200

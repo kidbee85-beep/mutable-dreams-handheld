@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Mutable Dreams for Android, by Kid Bunka. A landscape, full-screen SDL app for handhelds such as the RG405V. -->
+<!-- Mutable Dreams for Android, by Kid Bunka. A full-screen SDL app for handhelds such as the RG405V; on a phone or tablet (Galaxy Tab A9+) it turns upright, resizes in split screen and in Samsung DeX. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-feature android:glEsVersion="0x00020000" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
@@ -22,7 +22,8 @@
             android:exported="true"
             android:alwaysRetainTaskState="true"
             android:launchMode="singleInstance"
-            android:screenOrientation="sensorLandscape"
+            android:screenOrientation="fullSensor"
+            android:resizeableActivity="true"
             android:configChanges="layoutDirection|locale|orientation|uiMode|screenLayout|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:preferMinimalPostProcessing="true">
             <intent-filter>

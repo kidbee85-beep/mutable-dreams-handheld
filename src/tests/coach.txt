@@ -1,0 +1,27 @@
+# (1.6) the first five minutes: five steps, each done by doing it
+wait 1500
+coach 0
+expect_coach 0
+shot out/coach-0.png
+tap START
+wait 1000
+expect_coach 1
+sticks 32000 0 0 0
+wait 1500
+sticks 0 0 0 0
+wait 300
+expect_coach 2
+tap R1
+wait 300
+expect_coach 3
+tap L2
+wait 300
+expect_coach 4
+tap B
+wait 300
+coach 4
+tap L2
+tap RIGHT
+tap A
+wait 800
+shot out/coach-4.png

@@ -15,6 +15,7 @@
 #   calm.on      CALM MOTION from the start                  nofast.on    the CPU governor left alone
 #   fit.on / brick.on   only the screen-fitting way / only the Brick's way (no trying)
 #   gpu.on       SDL's accelerated (GL) renderer             usbaudio.off the sound stays on the handheld
+#   edge.off     no glow of the garden's colours in the side bars (plain black bars)
 # H7_ROOT (tests only): a folder standing in for / when reading /sys and /proc.
 HERE="${BASH_SOURCE[0]%/*}"
 [ "$HERE" != "${BASH_SOURCE[0]}" ] || HERE=.
@@ -126,6 +127,7 @@ RC=124
 for MODE in "${MODES[@]}"; do
     if [ "$MODE" = fit ]; then                   # the screen's own size, the stage in proportion in the middle
         export MD_SCREEN=1; unset MD_PRESENT
+        if [ -f "$GAMEDIR/edge.off" ]; then export MD_EDGE=0; else unset MD_EDGE; fi   # (1.6) the side bars' glow
         [ -n "$FITOUT" ] && export MD_OUT="$FITOUT" || unset MD_OUT
     else                                         # the Brick's way: the stage's own size, straight into the window
         unset MD_SCREEN MD_OUT; export MD_PRESENT=window

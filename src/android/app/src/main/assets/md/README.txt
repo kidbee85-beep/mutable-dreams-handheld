@@ -1,4 +1,4 @@
-MUTABLE DREAMS FOR TRIMUI BRICK - release 1.5.9 - by Kid Bunka
+MUTABLE DREAMS FOR TRIMUI BRICK - release 1.6.2 (candidate) - by Kid Bunka
 
 Install (Knulli): copy "Mutable Dreams.sh" and the folder "mutabledreams" into roms/ports on the SD card,
 then update the game list. Start "Mutable Dreams" from Ports. Quit: MENU > QUIT.
@@ -83,10 +83,10 @@ DREAM TALES: a story in eight chapters, told while you play. Each chapter has a 
   How far the tale has come is kept in mutabledreams/save/tale.txt (delete it to begin again).
   KEEP: R2 + X turns what the chosen track played in the last bar into its sequence (16 steps, each note on its
   nearest sixteenth): a toy's music stays in the song. R2 + A brings back the sequence as it was.
-WORLDS (MENU > WORLDS): 96 whole scenes in 16 families (Gardens of Number, Bells and Resonance, Drones and
+WORLDS (MENU > WORLDS): 128 whole scenes in 20 families (Gardens of Number, Bells and Resonance, Drones and
   Overtones, Rain and Water, Night Choirs, Endless, Voices and Poems, Machines and Automata, Plaits Orchestra,
   Rhythm Gardens, Resonant Rooms, Sky Machines, Forest Floor, Deep Waters, Glass and Air,
-  Lullabies), each grown from one of
+  Lullabies, Seasons, Desert and Dunes, City After Dark, Moon and Tides), each grown from one of
   the engine's Biomes with its own tempo, macros, Sound Lab, SYNTH and LOGIC, and a line of story. A enters one,
   Y wanders to the family's next world every few minutes (L/R: how many). mutabledreams/worlds/worlds.txt is
   plain text: change the worlds or add your own.
@@ -172,6 +172,12 @@ CALM MOTION (the quick bar's last entry): what only moves for decoration holds s
   Under the tempo the transport is written out: PLAYING or RESTING.
 LIGHT PICTURE (the quick bar's second-to-last entry): less decoration (no spores, no mirror in the pond, no grain), a
   faster stage. It comes on by itself when the stage stays slow; mutabledreams/light.on starts with it.
+NEW IN 1.5.10: the Trimui Smart Pro (Knulli). Its screen is 1280 x 720: the stage is made 960 x 720 and drawn 1:1 in the
+  middle, black beside it (the launcher reads the screen's size; MD_SCREEN=1 in the program: a window of the screen's own
+  size, the stage in proportion, instead of asking for a mode of the stage's size). The two sticks turn the four dials
+  (left K1 and K2, right K3 and K4; deflection is speed), their clicks are F1 and F2; SELECT taps open the menu. The
+  H700 launcher uses the same way on screens the stage does not fill (720 x 720, 720 x 480), and a framebuffer of two
+  pages on a 16:9 screen is read correctly now. Not yet run on a Smart Pro: please send mutabledreams/log.txt.
 NEW IN 1.5.9: the menu on one key. On the handhelds without a MENU key (Miyoo Mini, Mini Plus, Mini Flip, RGB20S,
   Android with a gamepad) SELECT tapped opens the menu - every place, OPTIONS, and QUIT at the end (UP once from the
   top); SELECT or B closes it, SELECT held is still the button map. The hint line says SELECT MENU right after the
@@ -217,6 +223,31 @@ NEW IN 1.5.1: on handhelds with two cores (Miyoo Mini and Mini Plus) the stage i
   in 1.0: its own thread fought the sound for the two cores (7.5 instead of 12.6 pictures a second). The
   Brick keeps it. On the RGB20S it is off too (the picture flickered there with it); ports/mutabledreams/thread.on
   brings it back. MD_DRAW_THREAD=1 or 0 decides it either way.
+NEW IN 1.6.2: the Anbernic RG35XX family with Knulli (Plus, H, SP, 2024) has a package of its own (Anbernic-RG35XX-Knulli: a launcher
+  that logs what it finds, "Mutable Dreams Diagnose" for a report; not yet run on a device). On Android OPTIONS > TOUCH BUTTONS: AUTO (they
+  step aside at a controller's button and return at a touch), SHOWN, or HIDDEN while a controller is there; the dock has a HIDE button.
+NEW IN 1.6.1: touch without a pad: on Android the Brick's buttons are no longer drawn by default (OPTIONS > BUTTON PAD ON SCREEN brings
+  them back). Instead a dock (BACK, HOME, PLACES, QUICK BAR, SOUND LAB, MIXER, OPTIONS, HELP) and PLAY, PLAY MODE, SHIFT (R2 kept)
+  with the buttons each place names in its hint line (MUTE, SURPRISE, EDIT, < TRACK, TRACK > ...), the stage as large as it fits.
+  A finger whose lifting is lost (a system gesture, focus lost) is let go, so values no longer run on by themselves.
+NEW IN 1.6.0: 128 WORLDS in 20 families (32 new). Two more languages, FRANCAIS and
+  ESPANOL (OPTIONS > LANGUAGE cycles English, Deutsch, Francais, Espanol; tables in mutabledreams/lang/). New OPTIONS
+  rows (the list scrolls): SCALE FOR PLAYING (nine scales for play mode and the playground: major, minor, pentatonic,
+  dorian, hijaz, hirajoshi, pelog, whole tone), CLOCK GARDEN (the sky follows the handheld's time of day; at night moths,
+  shooting stars and an owl), LISTEN MODE (after 2, 5 or 10 minutes without a button the screen rests and the music
+  plays on), TEXT SIZE and CONTRAST (more legible small print in the menus), GARDEN JOURNAL (every Biome and world you
+  stayed in a few seconds, kept in save/journal.txt). The dream tale has eight more chapters (IX to XVI). A first start
+  with no settings kept shows FIVE SMALL STEPS (the first five minutes) where the tale's line is. Ten sounds come with
+  the game in samples/ (made by arithmetic, CC0). Smart Pro and H700: edge.off switches the side bars' glow off.
+  TOUCH (Android phones and tablets, tested so far only on the Mac): the pad has an FN key (it latches, like the
+  switch) and works upright too (the stage on top, the buttons below) and in split screen. OPTIONS: TOUCH BUTTON
+  SIZE, TOUCH BUTTONS SIDE (left-handed), TOUCH BUTTON GLOW, TOUCH BUZZ, QUICK BAR HEIGHT (above a phone's gesture
+  strip), PERFORMANCE METER (how busy the sound is). On the stage itself: a drag is the D-pad (in a list too), on a
+  dial's panel it turns that dial, two fingers across turn the page (L1/R1), a held finger shows the help; a tap
+  chooses (a second tap does it) in the menu, options, quick bar, Atlas, Worlds, Archive, Sequence and Sound Lab, a
+  track's plant chooses the track, in the mixer the faders and flowers follow the finger, in the sequence a step is
+  tapped on or off and dragged up or down for its note, in play mode the eight stones are pads (several fingers,
+  slides). The left stick moves the cursor in the menus (Brick Pro, Smart Pro).
 NEW IN 1.5: the Brick's lit F1 and F2 work (F1 the Sound Lab, F2 the mixer; in the Sound Lab F2 shows every module).
   A and B as printed on the Brick (they came swapped: brick-buttons.txt SWAP_AB), and the drawn Brick in the help
   shows A B X Y as on the device: Y X above, B A below. The Sound Lab's module map: L1 and R1 together (or F2), all

@@ -29,6 +29,7 @@ way=brick; [ -n "${MD_SCREEN:-}" ] && way=fit
 what=""
 for pair in ${FAKE//,/ }; do [ "${pair%%:*}" = "$way" ] && what="${pair#*:}"; done
 gov=$(cat "$H7_ROOT/sys/devices/system/cpu/cpufreq/policy0/scaling_governor")
+echo "${MD_EDGE:-unset}" > "$H7_ROOT/edge.txt"
 echo "$way $what out=${MD_OUT:-none} screen=${MD_SCREEN:-none} present=${MD_PRESENT:-none} keys=${MD_KEYS:-} device=${MD_DEVICE:-} gov=$gov" >> "$TRACE"
 case "$what" in
     hang) exec sleep 30;;
@@ -82,6 +83,12 @@ d=$(new_case forced-fit drm:1280x720); : > "$d/mutabledreams/fit.on"; run "$d" "
 check "fit.on: only the fitting way (it hangs: no fallback)" "$(trace "$d" | cut -d' ' -f1)" fit
 d=$(new_case nofast drm:1280x720); : > "$d/mutabledreams/nofast.on"; run "$d" "fit:ok0" > /dev/null
 check "nofast.on: the governor left alone" "$(trace "$d" | sed 's/.*gov=//')" schedutil
+
+# (1.6) edge.off: the side bars without the glow (MD_EDGE=0); without the file the program's own default
+d=$(new_case edgeon drm:720x720); run "$d" "fit:ok0,surface:ok0" > /dev/null
+check "720x720: the glow left to the program" "$(cat "$d/edge.txt")" unset
+d=$(new_case edgeoff drm:720x720); : > "$d/mutabledreams/edge.off"; run "$d" "fit:ok0,surface:ok0" > /dev/null
+check "edge.off: MD_EDGE=0" "$(cat "$d/edge.txt")" 0
 
 rm -rf "$ROOT"
 echo

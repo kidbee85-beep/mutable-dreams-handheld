@@ -735,3 +735,238 @@ tempo  = 40
 macros = 10 10 30 80
 sleep  = 90
 lab    = SYNTH.LEVEL 45; SYNTH.ENGINE 0; SYNTH.DECAY 90; SYNTH.CHARACTER 20; SYNTH.MOTION 20; COLOUR.TAPE_DRIVE 15
+
+# ---------------------------------------------------------------- SEASONS: the year turns, slowly and gently
+
+[SEASONS] First Thaw
+biome  = 8
+story  = Meltwater finds the stones again, and a plucked string answers each drop.
+tempo  = 58
+macros = 30 30 40 55
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 3; SYNTH.DENSITY 30; SYNTH.DECAY 60; SYNTH.BRIGHTNESS 55; TEXTURES.WATER 22; SHIMMER.MIX 25; SHIMMER.DECAY 60; SENDS.SYNTH_>_SHIMMER 35
+
+[SEASONS] Blossom Wind
+biome  = 34
+story  = Petals leave the branch on a warm breath; a flute follows them down the lane.
+tempo  = 66
+macros = 30 40 55 55
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 11; SYNTH.DENSITY 35; SYNTH.MOTION 45; SYNTH.DECAY 65; TEXTURES.AIR 18; POLY.LEVEL 40; POLY.MODEL 6; POLY.ATTACK 55; POLY.RELEASE 70; CLOUD.MIX 20; SENDS.SYNTH_>_CLOUD 30
+
+[SEASONS] Green Rain Hours
+biome  = 51
+story  = A soft spring rain on new leaves, and a marimba that cannot decide to stop.
+tempo  = 72
+macros = 40 35 45 45
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 1; SYNTH.PLAYED_BY 1; SYNTH.DECAY 50; SYNTH.CHARACTER 30; LOGIC.PLAY 1; LOGIC.RULE 4; LOGIC.VOICE_1_TO 7; LOGIC.RATE 1; LOGIC.DENSITY 55; LOGIC.SHAPE 30; TEXTURES.FOREST 20; TEXTURES.WATER 15
+
+[SEASONS] Midsummer Heat
+biome  = 76
+story  = The air hums over the meadow; a low drone and one slow bell in the haze.
+tempo  = 52
+macros = 25 25 50 65
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 0; SYNTH.CHARACTER 60; SYNTH.MOTION 35; SYNTH.BRIGHTNESS 60; TEXTURES.AIR 14; COLOUR.AGE 25; COLOUR.WOW_+_FLUTTER 15; SHIMMER.MIX 30; SHIMMER.DECAY 80; SENDS.SYNTH_>_SHIMMER 40
+
+[SEASONS] Long Light Evening
+biome  = 104
+story  = The sun will not go down; the choir stretches the last light across the field.
+tempo  = 60
+macros = 30 30 55 65
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 5; SYNTH.CHARACTER 40; SYNTH.DENSITY 30; SYNTH.DECAY 75; SYNTH.SPREAD 70; SHIMMER.MIX 28; SHIMMER.SHIMMER 35; SENDS.SYNTH_>_SHIMMER 40; TEXTURES.FOREST 12
+
+[SEASONS] Harvest Moon
+biome  = 139
+story  = A heavy orange moon over the stubble; plucked strings count the sheaves.
+tempo  = 64
+macros = 35 30 45 55
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 3; SYNTH.PLAYED_BY 1; SYNTH.DECAY 70; SYNTH.CHARACTER 45; LOGIC.PLAY 1; LOGIC.RULE 0; LOGIC.VOICE_1_TO 7; LOGIC.RATE 0; LOGIC.DENSITY 60; COLOUR.TAPE_DRIVE 20; SEEDS.MIX 20; SENDS.SYNTH_>_SEEDS 30
+
+[SEASONS] First Frost
+biome  = 168
+story  = Every blade of grass turns to glass overnight; the world rings very softly.
+tempo  = 56
+macros = 25 20 35 70
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 8; SYNTH.DECAY 80; SYNTH.BRIGHTNESS 70; SYNTH.DENSITY 25; SYNTH.SPREAD 75; SHIMMER.MIX 40; SHIMMER.SHIMMER 50; SHIMMER.DECAY 85; SENDS.SYNTH_>_SHIMMER 50; TEXTURES.STARDUST 15
+
+[SEASONS] Snow Under Lamplight
+biome  = 212
+story  = Quiet snow falls through a street lamp's cone; a box of tones plays to no one.
+tempo  = 48
+macros = 20 20 40 65
+lab    = SYNTH.LEVEL 50; SYNTH.ENGINE 10; SYNTH.PLAYED_BY 1; SYNTH.CHARACTER 35; SYNTH.DECAY 60; LOGIC.PLAY 1; LOGIC.RULE 2; LOGIC.VOICE_1_TO 7; LOGIC.RATE 1; LOGIC.DENSITY 40; POLY.LEVEL 35; POLY.MODEL 4; POLY.ATTACK 60; POLY.RELEASE 85; TEXTURES.AIR 10; SHIMMER.MIX 30
+
+
+# ---------------------------------------------------------------- DESERT AND DUNES: dry air, long shadows, far bells
+
+[DESERT AND DUNES] Dry Night Sky
+biome  = 16
+story  = No cloud for a thousand miles; a drone and a thousand stars.
+tempo  = 44
+macros = 15 15 40 80
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 0; SYNTH.CHARACTER 35; SYNTH.MOTION 25; SYNTH.DECAY 85; TEXTURES.AIR 14; TEXTURES.STARDUST 25; SHIMMER.MIX 35; SHIMMER.DECAY 90; SENDS.SYNTH_>_SHIMMER 45
+
+[DESERT AND DUNES] Wind Over Sand
+biome  = 65
+story  = A reed flute made of wind itself, drawing lines across the dune's back.
+tempo  = 54
+macros = 25 40 40 65
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 11; SYNTH.DENSITY 35; SYNTH.MOTION 55; SYNTH.CHARACTER 30; SYNTH.DECAY 70; TEXTURES.AIR 30; CLOUD.MIX 20; SENDS.SYNTH_>_CLOUD 30
+
+[DESERT AND DUNES] Distant Caravan Bell
+biome  = 119
+story  = One bell, many days away, carried to you on the cooling air.
+tempo  = 60
+macros = 20 25 45 75
+lab    = SYNTH.LEVEL 65; SYNTH.ENGINE 4; SYNTH.CHARACTER 25; SYNTH.DENSITY 20; SYNTH.DECAY 85; SYNTH.SPREAD 70; TEXTURES.AIR 12; SHIMMER.MIX 30; SHIMMER.DECAY 85; SENDS.SYNTH_>_SHIMMER 45; COLOUR.AGE 20
+
+[DESERT AND DUNES] Heat Shimmer
+biome  = 143
+story  = The horizon trembles and bends; strings waver as if seen through the air.
+tempo  = 68
+macros = 30 50 55 50
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 3; SYNTH.PLAYED_BY 1; SYNTH.DECAY 65; SYNTH.CHARACTER 60; SYNTH.MOTION 55; LOGIC.PLAY 1; LOGIC.RULE 1; LOGIC.VOICE_1_TO 7; LOGIC.RATE 3; LOGIC.DENSITY 45; COLOUR.WOW_+_FLUTTER 30; TEXTURES.AIR 14
+
+[DESERT AND DUNES] Oasis at Midnight
+biome  = 187
+story  = Still water under palms; a choir hums where the camels drink.
+tempo  = 50
+macros = 25 25 50 70
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 5; SYNTH.CHARACTER 55; SYNTH.DENSITY 25; SYNTH.DECAY 80; TEXTURES.WATER 20; TEXTURES.AIR 10; POLY.LEVEL 35; POLY.MODEL 9; POLY.ATTACK 65; POLY.RELEASE 80; SHIMMER.MIX 30
+
+[DESERT AND DUNES] Salt Flat Mirror
+biome  = 229
+story  = A white plain and a white sky, and no line between them; glass notes drift in it.
+tempo  = 46
+macros = 15 15 35 85
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 8; SYNTH.DECAY 90; SYNTH.BRIGHTNESS 65; SYNTH.DENSITY 20; SHIMMER.MIX 45; SHIMMER.DECAY 90; SHIMMER.SIZE 80; SENDS.SYNTH_>_SHIMMER 55; TEXTURES.AIR 8
+
+[DESERT AND DUNES] Ruins in the Moonlight
+biome  = 244
+story  = Half a wall and a lot of silence; a plucked lute remembers the rest.
+tempo  = 62
+macros = 30 30 50 70
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 3; SYNTH.PLAYED_BY 1; SYNTH.CHARACTER 25; SYNTH.DECAY 75; LOGIC.PLAY 1; LOGIC.RULE 6; LOGIC.VOICE_1_TO 7; LOGIC.RATE 0; LOGIC.DENSITY 45; SEEDS.MIX 22; SENDS.SYNTH_>_SEEDS 35; TEXTURES.AIR 12
+
+[DESERT AND DUNES] Sandstorm Lullaby
+biome  = 268
+story  = A far wall of sand, a soft roar; the singers wait inside it.
+tempo  = 56
+macros = 35 50 35 60
+lab    = SYNTH.LEVEL 50; SYNTH.ENGINE 7; SYNTH.CHARACTER 40; SYNTH.MOTION 60; SYNTH.DECAY 70; TEXTURES.AIR 40; POLY.LEVEL 35; POLY.MODEL 7; POLY.ATTACK 70; POLY.RELEASE 75; PARTICLES.MIX 20; SENDS.SYNTH_>_PARTICLES 30
+
+
+# ---------------------------------------------------------------- CITY AFTER DARK: soft machines, warm pads, a light swing
+
+[CITY AFTER DARK] Rain on the Window
+biome  = 26
+story  = Drops race down the glass; a soft beat taps along in the next room.
+tempo  = 84
+macros = 45 35 50 45
+lab    = GRIDS.PLAY 1; GRIDS.MAP_X 25; GRIDS.MAP_Y 70; GRIDS.KICK_DENSITY 35; GRIDS.SNARE_DENSITY 25; GRIDS.HAT_DENSITY 60; GRIDS.CHAOS 20; TEXTURES.WATER 20; POLY.LEVEL 40; POLY.MODEL 6; POLY.ATTACK 55; POLY.RELEASE 70; SHIMMER.MIX 25
+
+[CITY AFTER DARK] Last Tram Home
+biome  = 44
+story  = A lit carriage sways through empty streets; the rails keep an easy time.
+tempo  = 92
+macros = 50 40 45 40
+lab    = GRIDS.PLAY 1; GRIDS.MAP_X 45; GRIDS.MAP_Y 40; GRIDS.KICK_DENSITY 50; GRIDS.SNARE_DENSITY 30; GRIDS.HAT_DENSITY 45; GRIDS.ACCENT 55; SYNTH.LEVEL 40; SYNTH.ENGINE 9; SYNTH.CHARACTER 40; SYNTH.DECAY 75; COLOUR.TAPE_DRIVE 20
+
+[CITY AFTER DARK] Neon Hum
+biome  = 98
+story  = Pink and blue tubes buzz over a shuttered shop; one chord leans on the glow.
+tempo  = 78
+macros = 40 30 55 50
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 9; SYNTH.BRIGHTNESS 60; SYNTH.MOTION 40; SYNTH.DECAY 80; LOGIC.PLAY 1; LOGIC.RULE 6; LOGIC.VOICE_1_TO 6; LOGIC.RATE 0; LOGIC.DENSITY 55; POLY.LEVEL 45; POLY.MODEL 12; POLY.ATTACK 50; POLY.RELEASE 75; COLOUR.ENSEMBLE 40
+
+[CITY AFTER DARK] Rooftop Quiet
+biome  = 146
+story  = Far above the traffic the air is thin and clear; the town murmurs below.
+tempo  = 70
+macros = 25 25 45 70
+lab    = SYNTH.LEVEL 50; SYNTH.ENGINE 10; SYNTH.PLAYED_BY 1; SYNTH.CHARACTER 30; SYNTH.DECAY 70; LOGIC.PLAY 1; LOGIC.RULE 2; LOGIC.VOICE_1_TO 7; LOGIC.RATE 1; LOGIC.DENSITY 45; TEXTURES.AIR 14; SHIMMER.MIX 35; SHIMMER.DECAY 80; SENDS.SYNTH_>_SHIMMER 40
+
+[CITY AFTER DARK] Empty Station
+biome  = 179
+story  = Footsteps on tile, a distant announcement, one pad holding the whole hall.
+tempo  = 74
+macros = 30 35 45 70
+lab    = GRIDS.PLAY 1; GRIDS.MAP_X 60; GRIDS.MAP_Y 30; GRIDS.KICK_DENSITY 30; GRIDS.SNARE_DENSITY 20; GRIDS.HAT_DENSITY 40; GRIDS.CHAOS 30; VOICES.LEVEL 40; VOICES.MODE 0; VOICES.TRIGGER 0; VOICES.DENSITY 25; VOICES.SPREAD 40; POLY.LEVEL 40; POLY.MODEL 9; POLY.ATTACK 65; POLY.RELEASE 85; SHIMMER.MIX 40; SHIMMER.SIZE 70
+
+[CITY AFTER DARK] Taxi Light Reflections
+biome  = 193
+story  = Yellow smears on wet asphalt; bells in a lightly swung loop go by and fade.
+tempo  = 96
+macros = 50 45 55 45
+lab    = LOGIC.PLAY 1; LOGIC.RULE 3; LOGIC.VOICE_1_TO 7; LOGIC.RATE 3; LOGIC.SHAPE 20; LOGIC.DENSITY 50; SYNTH.LEVEL 60; SYNTH.ENGINE 4; SYNTH.PLAYED_BY 1; SYNTH.DECAY 50; SYNTH.CHARACTER 40; GRIDS.PLAY 1; GRIDS.MAP_X 70; GRIDS.MAP_Y 20; GRIDS.KICK_DENSITY 30; GRIDS.HAT_DENSITY 55; TEXTURES.WATER 12
+
+[CITY AFTER DARK] Vending Machine Glow
+biome  = 233
+story  = A blue cube of light on the corner; it hums a little tune to the pavement.
+tempo  = 88
+macros = 40 35 50 40
+lab    = LOGIC.PLAY 1; LOGIC.RULE 5; LOGIC.VOICE_1_TO 7; LOGIC.RATE 1; LOGIC.SHAPE 15; LOGIC.DENSITY 55; SYNTH.LEVEL 55; SYNTH.ENGINE 6; SYNTH.PLAYED_BY 1; SYNTH.DECAY 55; COLOUR.AGE 30; COLOUR.WOW_+_FLUTTER 20; SEEDS.MIX 20; SENDS.SYNTH_>_SEEDS 30
+
+[CITY AFTER DARK] Midnight Laundromat
+biome  = 259
+story  = Drums turning in warm light; a slow soft groove, and nobody there but you.
+tempo  = 80
+macros = 45 40 45 45
+lab    = GRIDS.PLAY 1; GRIDS.MAP_X 35; GRIDS.MAP_Y 55; GRIDS.KICK_DENSITY 40; GRIDS.SNARE_DENSITY 30; GRIDS.HAT_DENSITY 50; GRIDS.CHAOS 25; GRIDS.ACCENT 45; POLY.LEVEL 45; POLY.MODEL 3; POLY.ATTACK 40; POLY.RELEASE 70; COLOUR.TAPE_DRIVE 25; COLOUR.AGE 25; PARTICLES.MIX 15
+
+
+# ---------------------------------------------------------------- MOON AND TIDES: slow cycles, harbour bells, deep water
+
+[MOON AND TIDES] Slow Tide In
+biome  = 3
+story  = The sea climbs the shore one patient breath at a time.
+tempo  = 42
+macros = 20 25 40 75
+lab    = TEXTURES.WATER 35; TEXTURES.AIR 10; SYNTH.LEVEL 50; SYNTH.ENGINE 0; SYNTH.CHARACTER 30; SYNTH.MOTION 30; SYNTH.DECAY 90; SHIMMER.MIX 30; SHIMMER.DECAY 85; SENDS.SYNTH_>_SHIMMER 40
+
+[MOON AND TIDES] Harbour Bells at Dusk
+biome  = 36
+story  = Buoy bells ring out of step across the water as the boats come in.
+tempo  = 56
+macros = 30 30 45 65
+lab    = SYNTH.LEVEL 65; SYNTH.ENGINE 4; SYNTH.CHARACTER 45; SYNTH.DENSITY 35; SYNTH.DECAY 80; SYNTH.SPREAD 80; TEXTURES.WATER 20; SHIMMER.MIX 30; SENDS.SYNTH_>_SHIMMER 40
+
+[MOON AND TIDES] New Moon Dark
+biome  = 81
+story  = No moon, and the water has no top or bottom; only a low hum.
+tempo  = 38
+macros = 10 15 30 85
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 0; SYNTH.CHARACTER 15; SYNTH.OCTAVE -1; SYNTH.MOTION 20; SYNTH.DECAY 95; TEXTURES.WATER 15; COLOUR.TAPE_DRIVE 15; SHIMMER.MIX 25; SHIMMER.DECAY 90
+
+[MOON AND TIDES] Crescent Over Kelp
+biome  = 122
+story  = A thin silver rim above the forest below; strings sway like the weed.
+tempo  = 50
+macros = 25 35 45 65
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 1; SYNTH.PLAYED_BY 1; SYNTH.DECAY 70; SYNTH.CHARACTER 40; LOGIC.PLAY 1; LOGIC.RULE 4; LOGIC.VOICE_1_TO 7; LOGIC.RATE 0; LOGIC.DENSITY 55; LOGIC.SHAPE 20; TEXTURES.WATER 22; CLOUD.MIX 20; SENDS.SYNTH_>_CLOUD 30
+
+[MOON AND TIDES] Full Moon Spring Tide
+biome  = 164
+story  = The highest water of the month, bright and slow, silvering every wave.
+tempo  = 60
+macros = 35 40 60 60
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 9; SYNTH.BRIGHTNESS 70; SYNTH.MOTION 45; SYNTH.DECAY 85; POLY.LEVEL 35; POLY.MODEL 11; POLY.ATTACK 60; POLY.RELEASE 80; TEXTURES.WATER 22; SHIMMER.MIX 40; SHIMMER.SHIMMER 50; SENDS.SYNTH_>_SHIMMER 50
+
+[MOON AND TIDES] Seaweed Lullaby
+biome  = 203
+story  = The weed lets the current rock it; a choir hums from the shallows.
+tempo  = 46
+macros = 20 30 40 65
+lab    = SYNTH.LEVEL 50; SYNTH.ENGINE 5; SYNTH.CHARACTER 35; SYNTH.DENSITY 25; SYNTH.DECAY 85; TEXTURES.WATER 28; COLOUR.WOW_+_FLUTTER 20; COLOUR.AGE 20; SEEDS.MIX 18; SENDS.SYNTH_>_SEEDS 30
+
+[MOON AND TIDES] Neap Tide Stillness
+biome  = 238
+story  = The sea barely moves; a lone glass note touches the surface now and then.
+tempo  = 40
+macros = 10 15 35 80
+lab    = SYNTH.LEVEL 55; SYNTH.ENGINE 8; SYNTH.DECAY 90; SYNTH.BRIGHTNESS 50; SYNTH.DENSITY 15; SYNTH.SPREAD 80; TEXTURES.WATER 18; TEXTURES.STARDUST 12; SHIMMER.MIX 40; SHIMMER.SIZE 80; SENDS.SYNTH_>_SHIMMER 50
+
+[MOON AND TIDES] Moon Pool Clock
+biome  = 262
+story  = Round the pool of the moon a slow clock turns, one soft bell per phase.
+tempo  = 52
+macros = 25 25 45 70
+lab    = SYNTH.LEVEL 60; SYNTH.ENGINE 6; SYNTH.PLAYED_BY 1; SYNTH.DECAY 75; SYNTH.CHARACTER 45; LOGIC.PLAY 1; LOGIC.RULE 1; LOGIC.VOICE_1_TO 7; LOGIC.RATE 0; LOGIC.DENSITY 40; TEXTURES.WATER 20; SHIMMER.MIX 30; SHIMMER.DECAY 80; SENDS.SYNTH_>_SHIMMER 40

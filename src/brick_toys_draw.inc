@@ -509,7 +509,7 @@ static void ty_draw_echo(float t, uint32_t col)
 
 /* DREAM TALES: a chapter's card over the stage, rising out of the night (brick_story.inc). Also where the tale is
    read and written: here, on the drawing side, never from the sound's thread */
-static const char *const ST_ROMAN[9] = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+static const char *const ST_ROMAN[ST_N + 1] = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII"};
 static void st_draw_card(void)
 {
     uint32_t now = bk_ms(), age;
@@ -529,7 +529,10 @@ static void st_draw_card(void)
         && !((bk_held >> BK_FN) & 1u)) {         /* (0.80: not in play mode - its stepping stones' names are there) */
         /* (0.72) in the garden, quietly at its foot: where the tale stands, so it is found without the playground */
         float br = 0.65f + 0.35f * sinf((float)now / 900.0f);
-        snprintf(buf, sizeof buf, T("A DREAM TALE, CHAPTER %s: %s   (L2: PLAYGROUND)"), ST_ROMAN[st_chapter], T(ST_CHAPTERS[st_chapter].deed));
+        if (bk_coach < 5)                        /* (1.6) the first five minutes come first */
+            snprintf(buf, sizeof buf, "%d / 5   %s", bk_coach + 1, T(BK_COACH[bk_coach]));
+        else
+            snprintf(buf, sizeof buf, T("A DREAM TALE, CHAPTER %s: %s   (L2: PLAYGROUND)"), ST_ROMAN[st_chapter], T(ST_CHAPTERS[st_chapter].deed));
         {
             int tw = bk_text_w(BK_TINY, buf, 1);
             tw = tw > 660 ? 660 : tw;            /* (0.80: a longer line, as German makes it, kept in the stage) */

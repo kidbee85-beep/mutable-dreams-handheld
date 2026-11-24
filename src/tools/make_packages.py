@@ -27,6 +27,8 @@ PROFILES = {
     "h700": ("brick", "knulli-h700", "Anbernic-H700-Knulli", "", "mutabledreams"),
     # (1.5.10) the Trimui Smart Pro (TG5040 like the Brick, 1280 x 720, two sticks): the Brick's program, its own launcher
     "smartpro": ("brick", "knulli-smartpro", "Trimui-Smart-Pro-Knulli", "", "mutabledreams"),
+    # (1.6.2) the Anbernic RG35XX family with Knulli (Plus, H, SP, 2024; H700, 640 x 480): the same program, a launcher of its own
+    "rg35xx": ("brick", "knulli-rg35xx", "Anbernic-RG35XX-Knulli", "", "mutabledreams"),
 }
 
 

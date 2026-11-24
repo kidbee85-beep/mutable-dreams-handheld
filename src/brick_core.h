@@ -24,6 +24,15 @@ void bk_init(const char *save_dir);
 void bk_input(uint32_t held);
 /* Brick Pro: the sticks, -32768..32767 each (0 at rest) */
 void bk_sticks(int lx, int ly, int rx, int ry);
+int bk_touch_overlay(void);                       /* (1.6) a menu, options, quick bar, help, guide or journal is open */
+void bk_touch_event(int phase, int id, float x, float y);   /* a finger on the stage: 0 down, 1 move, 2 up; id a slot 0..9 */
+typedef struct { int8_t btn; char label[26]; } bk_chip;   /* (1.6) an action of the place you are in, named, for a touch button */
+int bk_touch_chips(bk_chip *out, int max);        /* what the hint line names, as touch buttons (the stage's thread makes them) */
+void bk_touch_cmd(int cmd);                       /* 0 home, 1 options, 2 help (the touch dock's own things) */
+const char *bk_touch_text(const char *en);        /* a label in the stage's language */
+int bk_touch_state(int what);                     /* 0 playing, 1 FN (play mode) latched in the core, 2 R2 held */
+void bk_touch_tick(uint32_t now);                 /* (held fingers: the help) */
+void bk_touch_tap(int x, int y);                  /* a tap at a point of the stage (0..BK_W, 0..BK_H) */
 /* n frames of stereo float into lr (interleaved), running the device as long as that takes */
 void bk_render(float *lr, uint32_t n);
 /* the stage as 0xAARRGGBB pixels, BK_W x BK_H, drawn now */
@@ -49,7 +58,16 @@ void bk_set_light(int on);               /* the light picture: less decoration, 
 int bk_light_on(void);
 void bk_set_calm(int on);
 void bk_set_small(int on);
-int bk_set_lang(int on);                         /* (0.80) 1 Deutsch, 0 English: its table's size, -1 none found */
+int bk_set_lang(int on);
+int bk_option_set(const char *name, int value);          /* (1.6) the tests: "pscale", "clock", "listen", "bigtext", "contrast"; "hour" fixes the clock (x10 = tenths), "listenms" the wait */
+int bk_option_get(const char *name);
+int bk_coach_step(void);                                 /* (1.6, the tests) the first five minutes: step 0..4, 5 done */
+void bk_coach_set(int step);
+void bk_tale_set(int chapter);                           /* (1.6, the tests) the tale begins that chapter (0-based) */
+int bk_note_for_degree(int degree);                      /* (1.6) the note play mode gives a button's degree 0..7 */
+int bk_journal_count(int worlds);                        /* (1.6) Biomes (0) or worlds (1) in the garden journal */
+int bk_set_lang_code(const char *code);          /* (1.6) "en", "de", "fr", "es": the table's count, 0 English, -1 none found */
+const char *bk_lang_code(void);                         /* (0.80) 1 Deutsch, 0 English: its table's size, -1 none found */
 int bk_lang_on(void);
 void bk_lang_default(int on);
 int bk_options_shown(void);                      /* (1.1) OPTIONS open (tests) */

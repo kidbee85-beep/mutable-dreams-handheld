@@ -84,6 +84,8 @@ static void gd_emit(float x, float y, float vx, float vy, float size, uint32_t c
 /* the Biome drift as the time of day: 0 night (scene A, or no drift) .. 1 dawn (scene B, at full depth) */
 static float gd_dawn(const md_patch *p)
 {
+    if (bk_clock_on)                             /* (1.6) the handheld's clock is the time of day */
+        return bk_clock_dawn();
     if (!p->drift.mode || !p->drift.depth || p->drift.captured != 3)
         return 0;
     return (float)md_drift_position() / 1000.0f * (float)p->drift.depth / 1000.0f;
@@ -852,6 +854,63 @@ static void gd_lock_lantern(float t)
     bk_text((int)x - 34, (int)y + 28, &FONT_T, 1, "LOCK", ARGB(160, 255, 220, 160));
 }
 
+/* (1.6) NIGHT LIFE: moths round a light, a shooting star now and then, and - with CLOCK GARDEN - an owl that blinks in the
+ * small hours. All of it only while it is dark (night 0..1: no dawn drift, no daytime on the clock), never in the light
+ * picture or CALM MOTION: a few discs and lines, nothing kept between frames. */
+static void gd_moth(float x, float y, float t, float ph)
+{
+    float flap = fabsf(sinf(t * 17.0f + ph)), wing = 2.0f + 5.0f * flap;
+    bk_disc(x, y, 7.0f, ARGB(24, 255, 236, 170));
+    bk_disc(x - wing, y - 1.0f, 3.2f, ARGB(210, 214, 200, 176));
+    bk_disc(x + wing, y - 1.0f, 3.2f, ARGB(210, 214, 200, 176));
+    bk_disc(x, y, 1.8f, ARGB(240, 120, 104, 90));
+}
+static void gd_owl(float t)
+{
+    float ox = (float)(GD_X + GD_W) - 92.0f, oy = (float)GD_Y + 168.0f;
+    float blink = fmodf(t, 7.0f) > 6.85f ? 0.0f : 1.0f, bob = sinf(t * 0.9f) * 1.2f;
+    uint32_t body = ARGB(255, 70, 58, 52), face = ARGB(255, 120, 104, 88);
+    bk_line((float)(GD_X + GD_W), oy + 34.0f, ox - 30.0f, oy + 30.0f, 5.0f, ARGB(255, 70, 52, 40));   /* the branch */
+    bk_disc(ox, oy + bob, 17.0f, body);
+    bk_disc(ox - 11.0f, oy - 14.0f + bob, 5.0f, body);          /* the ear tufts */
+    bk_disc(ox + 11.0f, oy - 14.0f + bob, 5.0f, body);
+    bk_disc(ox - 7.0f, oy - 3.0f + bob, 8.0f, face);             /* the face discs */
+    bk_disc(ox + 7.0f, oy - 3.0f + bob, 8.0f, face);
+    bk_disc(ox - 7.0f, oy - 3.0f + bob, 5.0f * blink + 0.7f, ARGB(255, 250, 214, 96));
+    bk_disc(ox + 7.0f, oy - 3.0f + bob, 5.0f * blink + 0.7f, ARGB(255, 250, 214, 96));
+    bk_disc(ox - 7.0f, oy - 3.0f + bob, 2.2f * blink, ARGB(255, 12, 10, 8));
+    bk_disc(ox + 7.0f, oy - 3.0f + bob, 2.2f * blink, ARGB(255, 12, 10, 8));
+    bk_disc(ox, oy + 3.0f + bob, 2.4f, ARGB(255, 226, 170, 70));  /* the beak */
+}
+static void gd_night_life(float t, float night)
+{
+    float a;
+    if (night < 0.25f || bk_light || bk_calm)
+        return;
+    a = night;
+    {   /* two moths, circling slowly round a point above the pond */
+        float cx = (float)GD_X + 0.62f * (float)GD_W, cy = (float)GD_Y + 250.0f;
+        for (int k = 0; k < 2; k++) {
+            float ph = (float)k * 2.7f, u = t * (0.5f + 0.17f * (float)k) + ph;
+            gd_moth(cx + 120.0f * sinf(u) * (0.6f + 0.4f * sinf(t * 0.21f + ph)), cy + 44.0f * sinf(u * 1.7f + 1.0f) + 10.0f * sinf(t * 3.1f + ph), t, ph);
+        }
+    }
+    {   /* a shooting star about every 23 seconds, in the upper sky, 0.9 s long */
+        float cyc = fmodf(t + 9.0f, 23.0f), u = cyc / 0.9f;
+        if (cyc < 0.9f) {
+            int seed = (int)((t + 9.0f) / 23.0f);
+            float sx = (float)GD_X + 120.0f + (float)((seed * 7919) % 520), sy = (float)GD_Y + 30.0f + (float)((seed * 104729) % 90);
+            float hx = sx + 240.0f * u, hy = sy + 110.0f * u;
+            for (int k = 0; k < 10; k++) {
+                float f = (float)k / 10.0f;
+                bk_disc(hx - 240.0f * 0.12f * f, hy - 110.0f * 0.12f * f, 2.6f * (1.0f - f) + 0.6f, BK_ALPHA(ARGB(255, 255, 250, 235), (uint32_t)(220.0f * (1.0f - f) * (1.0f - u) * a)));
+            }
+        }
+    }
+    if (bk_clock_on && night > 0.9f && (bk_clock_hour() >= 21.0f || bk_clock_hour() < 5.0f))
+        gd_owl(t);                               /* (the small hours, only by the clock) */
+}
+
 /* VOICES: a bird on a branch at the garden's left edge opens its beak as the voice speaks; when a new sentence
  * starts, the voice's title and credit float by on a little scroll */
 static void gd_bird(float t)
@@ -1203,6 +1262,7 @@ static void bk_draw_garden(float t)
     gd_synth_sky(t);                             /* (1.3) */
     gd_frog(p, pl, t);
     gd_bird(t);
+    gd_night_life(t, 1.0f - gd_dawn(p));
     if (p->locked)
         gd_lock_lantern(t);
     if ((bk_held >> BK_FN) & 1u) {               /* play mode: eight stepping stones over the pond, one per scale tone */

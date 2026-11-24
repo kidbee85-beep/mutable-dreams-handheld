@@ -2752,3 +2752,225 @@ en SETTINGS
 de EINSTELLUNGEN
 en TAP: MENU / HOLD: HELP
 de TIPPEN: MENÜ / HALTEN: HILFE
+
+# (1.6) options, journal, listen mode, the tale's second book
+en SCALE FOR PLAYING
+de TONLEITER ZUM SPIELEN
+en CLOCK GARDEN
+de UHRZEIT-GARTEN
+en LISTEN MODE
+de NUR-HÖREN-MODUS
+en TEXT SIZE
+de SCHRIFTGRÖSSE
+en CONTRAST
+de KONTRAST
+en GARDEN JOURNAL
+de GARTENTAGEBUCH
+en LARGE
+de GROSS
+en NORMAL
+de NORMAL
+en HIGH
+de HOCH
+en BIOMES
+de BIOME
+en BIOME'S OWN
+de WIE DAS BIOM
+en MAJOR
+de DUR
+en MINOR
+de MOLL
+en PENTATONIC
+de PENTATONIK
+en MINOR PENTATONIC
+de MOLL-PENTATONIK
+en DORIAN
+de DORISCH
+en WHOLE TONE
+de GANZTON
+en The whole garden in English, German, French or Spanish
+de Der ganze Garten auf Englisch, Deutsch, Französisch oder Spanisch
+en The notes of play mode and the playground: the Biome's own scale, or another one of the world's
+de Die Töne von Spielmodus und Spielwiese: die Skala des Bioms oder eine andere der Welt
+en Evening, night and morning of the garden follow the time on your handheld
+de Abend, Nacht und Morgen des Gartens folgen der Uhrzeit des Handhelds
+en After a while without a button the screen rests, dark and frugal, and the music plays on
+de Nach einer Weile ohne Tastendruck ruht der Bildschirm dunkel und sparsam, die Musik spielt weiter
+en A little larger small print in the menus, help and options
+de Etwas größere Kleinschrift in Menüs, Hilfe und Optionen
+en Brighter, clearer small print
+de Hellere, klarere Kleinschrift
+en Every Biome and world you have visited
+de Jedes Biom und jede Welt, in der du warst
+en THE NOTES OF PLAY MODE AND THE PLAYGROUND
+de DIE TÖNE VON SPIELMODUS UND SPIELWIESE
+en WELCOME BACK
+de SCHÖN, DASS DU DA BIST
+en THE MUSIC PLAYED ON
+de DIE MUSIK SPIELTE WEITER
+en THE GARDEN LISTENS
+de DER GARTEN HÖRT ZU
+en THE MUSIC PLAYS ON   ANY BUTTON WAKES IT
+de DIE MUSIK SPIELT WEITER   JEDE TASTE WECKT IHN
+en Garden journal
+de Gartentagebuch
+en A BIOME OR WORLD COUNTS WHEN YOU STAY A FEW SECONDS
+de EIN BIOM ODER EINE WELT ZÄHLT, WENN DU EINIGE SEKUNDEN BLEIBST
+en ANY BUTTON: BACK
+de JEDE TASTE: ZURÜCK
+en THE FIRST WIND
+de DER ERSTE WIND
+en Wind rises from nowhere, and the dials
+de Wind erhebt sich aus dem Nichts, und die Regler
+en are its hands: turn them, and feel the weather.
+de sind seine Hände: dreh sie und fühle das Wetter.
+en TURN THE DIALS 12 TIMES
+de DREH DIE REGLER 12 MAL
+en STARS THAT FALL
+de STERNE, DIE FALLEN
+en Some nights the sky lets go of its lights;
+de Manche Nacht lässt der Himmel seine Lichter los;
+en whoever is quick enough may catch them.
+de wer schnell genug ist, fängt sie auf.
+en CATCH 5 STARS (STARFALL)
+de FANG 5 STERNE (STERNENFALL)
+en A SECOND SKY
+de EIN ZWEITER HIMMEL
+en Beyond this garden lie worlds, each with
+de Hinter diesem Garten liegen Welten, jede mit
+en its own weather and its own song.
+de eigenem Wetter und eigenem Lied.
+en ENTER A WORLD (L2: ALL PLACES)
+de BETRITT EINE WELT (L2: ALLE ORTE)
+en THE LONG ECHO
+de DAS LANGE ECHO
+en A listener's patience is the pond's favourite song:
+de Die Geduld der Zuhörenden ist das Lieblingslied des Teichs:
+en wait longer, and it answers longer.
+de wart länger, und er antwortet länger.
+en REACH ROUND 8 IN ECHO
+de ERREICHE RUNDE 8 IM ECHO
+en THREE KEPT SONGS
+de DREI BEWAHRTE LIEDER
+en A garden becomes a home by what it keeps.
+de Ein Garten wird zur Heimat durch das, was er bewahrt.
+en Keep three melodies, and they will remember you.
+de Bewahre drei Melodien, und sie erinnern sich an dich.
+en KEEP 3 MORE MELODIES: R2 + X
+de BEWAHRE 3 WEITERE MELODIEN: R2 + X
+en THE MAP OF DREAMS
+de DIE KARTE DER TRÄUME
+en Every place you rest in is written down,
+de Jeder Ort, an dem du ruhst, wird aufgeschrieben,
+en in a book that only the garden can read.
+de in einem Buch, das nur der Garten lesen kann.
+en STAY IN 4 NEW BIOMES (JOURNAL: OPTIONS)
+de BLEIB IN 4 NEUEN BIOMEN (TAGEBUCH: OPTIONEN)
+en ANOTHER SCALE
+de EINE ANDERE TONLEITER
+en Music is what we agree to call a note.
+de Musik ist, was wir als Ton vereinbaren.
+en Other peoples chose other steps. Try theirs.
+de Andere Völker wählten andere Stufen. Probier ihre.
+en CHOOSE A SCALE FOR PLAYING (OPTIONS)
+de WÄHLE EINE TONLEITER ZUM SPIELEN (OPTIONEN)
+en THE GARDEN KEEPS TIME
+de DER GARTEN HÄLT DIE ZEIT
+en Morning is not the same as midnight.
+de Der Morgen ist nicht die Mitternacht.
+en Let the garden know what hour it is.
+de Sag dem Garten, wie spät es ist.
+en TURN ON CLOCK GARDEN (OPTIONS)
+de SCHALTE DEN UHRZEIT-GARTEN EIN (OPTIONEN)
+
+# (1.6) the first five minutes
+en PRESS START: THE GARDEN BEGINS TO PLAY
+de DRÜCK START: DER GARTEN BEGINNT ZU SPIELEN
+en TURN A DIAL: THE WEATHER OF THE GARDEN
+de DREH EINEN REGLER: DAS WETTER DES GARTENS
+en CHOOSE ANOTHER TRACK: A NEW PLANT
+de WÄHL EINE ANDERE SPUR: EINE NEUE PFLANZE
+en OPEN THE MENU: ALL PLACES AND THE GUIDE
+de ÖFFNE DAS MENÜ: ALLE ORTE UND DER WEGWEISER
+en VISIT THE PLAYGROUND: A TOY TO PLAY
+de BESUCH DIE SPIELWIESE: EIN SPIELZEUG ZUM SPIELEN
+en TOUCH BUTTON SIZE
+de TOUCH: TASTENGRÖSSE
+en TOUCH BUTTONS SIDE
+de TOUCH: SEITEN GETAUSCHT
+en TOUCH BUTTON GLOW
+de TOUCH: TASTENLEUCHTEN
+en TOUCH BUZZ
+de TOUCH: VIBRATION
+en The size of the buttons on a touch screen
+de Die Größe der Tasten auf einem Touchscreen
+en Swap the left and right button groups on a touch screen
+de Linke und rechte Tastengruppe auf dem Touchscreen tauschen
+en How clearly the touch buttons show on the screen
+de Wie deutlich die Touch-Tasten zu sehen sind
+en A short buzz when a touch button is pressed
+de Ein kurzes Vibrieren beim Druck auf eine Touch-Taste
+en SMALL
+de KLEIN
+en SWAPPED
+de GETAUSCHT
+en FAINT
+de DEZENT
+en BRIGHT
+de HELL
+en PERFORMANCE METER
+de LEISTUNGSANZEIGE
+en Shows in a corner how busy the sound is, in percent: for trying a new device
+de Zeigt in einer Ecke, wie ausgelastet der Ton ist, in Prozent: zum Ausprobieren eines neuen Geräts
+en Lift the quick bar above the phone's gesture strip
+de Setzt die Schnellleiste über die Gestenleiste des Handys
+en QUICK BAR HEIGHT
+de HÖHE DER SCHNELLLEISTE
+en LOW
+de TIEF
+en BUTTON PAD ON SCREEN
+de TASTENFELD AUF DEM BILDSCHIRM
+en Show the Brick's buttons on a touch screen, as a pad (off: the places name their own touch buttons)
+de Zeigt die Tasten des Brick auf dem Touchscreen als Feld (aus: die Orte nennen ihre eigenen Touch-Tasten)
+en BUTTON MAP
+de TASTENBELEGUNG
+en DRIFT
+de DRIFT
+en FREEZE
+de EINFRIEREN
+en GLOBAL
+de GLOBAL
+en GUIDE
+de WEGWEISER
+en KEEP
+de BEHALTEN
+en LFOS
+de LFOS
+en LOCK
+de FIX
+en MIXER
+de MIXER
+en NOTE
+de NOTE
+en QUARTERS/EIGHTHS/16THS
+de VIERTEL/ACHTEL/16TEL
+en QUICK BAR
+de SCHNELLLEISTE
+en RELEASE
+de LOSLASSEN
+en SAMPLER
+de SAMPLER
+en SHIFT
+de UMSCHALT
+en TOUCH BUTTONS
+de TOUCH-TASTEN
+en AUTO: they step aside at a controller's button and return at a touch; SHOWN: always; HIDDEN: away while a controller is there
+de AUTO: weichen bei einer Controller-Taste und kommen bei Berührung zurück; SICHTBAR: immer; AUS: weg, solange ein Controller da ist
+en AUTO
+de AUTO
+en SHOWN
+de SICHTBAR
+en HIDDEN
+de AUS
+en HIDE
+de AUSBLENDEN

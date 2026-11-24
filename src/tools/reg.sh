@@ -9,6 +9,7 @@ for f in tests/*.txt; do
   [ $n = archive-catalogue ] && continue
   case $n in
     archive) mkdir -p out/arcreg$$; MD_ARCHIVE_BASE=file://${PWD// /%20}/out/fake-archive MD_ARCHIVE_CATALOGUE=tests/archive-catalogue.tsv ./build/mac/brick-headless $f out/arcreg$$/save > $R/$n.log 2>&1;;
+    touchviews) MD_ARCHIVE_BASE=file://${PWD// /%20}/out/fake-archive MD_ARCHIVE_CATALOGUE=tests/archive-catalogue.tsv ./build/mac/brick-headless $f out/reg42s-$n-$$ > $R/$n.log 2>&1;;
     labbiome|labbiome2) ./build/mac/brick-headless $f out/reg42-lb$$ > $R/$n.log 2>&1;;
     *) ./build/mac/brick-headless $f out/reg42s-$n-$$ > $R/$n.log 2>&1;;
   esac

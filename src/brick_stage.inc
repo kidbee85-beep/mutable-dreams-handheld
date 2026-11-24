@@ -599,9 +599,11 @@ static const struct bk_tr_e *bk_tr_get(const char *s)
     return 0;
 }
 /* the table from a file (again when the language is chosen); its count, -1 when there is none */
-static int bk_lang_load(const char *path)
+static int bk_lang_load(const char *path, const char *code)
 {
     FILE *f = fopen(path, "rb");
+    char pre[8];
+    snprintf(pre, sizeof pre, "%s ", code);            /* (1.6) the target language's line starts with its code: "de ", "fr ", "es " */
     long n;
     char *en = 0;
     free(bk_tr_tab), free(bk_tr_mem);
@@ -641,7 +643,7 @@ static int bk_lang_load(const char *path)
         }
         if (!strncmp(l, "en ", 3))
             en = l + 3;
-        else if (!strncmp(l, "de ", 3) && en) {
+        else if (!strncmp(l, pre, 3) && en) {
             uint32_t h = bk_tr_hash(en), i;
             {   /* (a format: the German must have the same %-fields in the same order, else it is not taken) */
                 const char *p = en, *q = l + 3;
@@ -662,7 +664,7 @@ static int bk_lang_load(const char *path)
                     p += 2, q += 2;
                 }
                 if (!ok) {
-                    fprintf(stderr, "lang: the fields of \"%s\" differ in German, kept English\n", en);
+                    fprintf(stderr, "lang: the fields of \"%s\" differ in %s, kept English\n", en, code);
                     en = 0;
                     goto next_line;
                 }
@@ -679,32 +681,63 @@ static int bk_lang_load(const char *path)
     }
     return bk_tr_n;
 }
-/* German on (its table read from mutabledreams/lang/de.txt beside save/, else from the package in the working folder)
-   or off; -1 and English when no table is found */
-static int bk_lang_choose(int on)
+/* (1.6) the languages: English (no table) and German, French, Spanish (mutabledreams/lang/de.txt, fr.txt, es.txt, pairs of
+   lines "en ..." / "de ..." and so on); the quick bar's stone and the options' row go round them. A table is read
+   beside save/, else from the package in the working folder; -1 and the old language when none is found */
+static int bk_tr_idx = -1;                       /* the language the table in memory belongs to */
+static int bk_lang_choose_idx(int idx)
 {
     char path[600];
     int n = -1;
-    if (!on) {
-        bk_lang = 0;
+    if (idx <= 0 || idx >= BK_NLANG) {
+        bk_lang = bk_lang_idx = 0;
         return 0;
     }
-    if (bk_tr_n > 0) {                           /* (read already) */
-        bk_lang = 1;
+    if (bk_tr_n > 0 && bk_tr_idx == idx) {       /* (read already) */
+        bk_lang = 1, bk_lang_idx = idx;
         return bk_tr_n;
     }
     if (bk_dir[0]) {
-        snprintf(path, sizeof path, "%s/../lang/de.txt", bk_dir);
-        n = bk_lang_load(path);
+        snprintf(path, sizeof path, "%s/../lang/%s.txt", bk_dir, BK_LANG_CODE[idx]);
+        n = bk_lang_load(path, BK_LANG_CODE[idx]);
     }
-    if (n <= 0)
-        n = bk_lang_load("package/knulli/mutabledreams/lang/de.txt");
-    bk_lang = n > 0;
-    return n > 0 ? n : -1;
+    if (n <= 0) {
+        snprintf(path, sizeof path, "package/knulli/mutabledreams/lang/%s.txt", BK_LANG_CODE[idx]);
+        n = bk_lang_load(path, BK_LANG_CODE[idx]);
+    }
+    if (n <= 0) {                                /* (no table: English, and the next try reads again) */
+        bk_tr_idx = -1;
+        bk_lang = bk_lang_idx = 0;
+        return -1;
+    }
+    bk_tr_idx = idx;
+    bk_lang = 1, bk_lang_idx = idx;
+    return n;
+}
+static int bk_lang_choose(int on) { return bk_lang_choose_idx(on ? 1 : 0); }
+static int bk_lang_by_code(const char *c)
+{
+    for (int i = 0; i < BK_NLANG; i++)
+        if (c && !strncmp(c, BK_LANG_CODE[i], 2))
+            return i;
+    return 0;
+}
+/* the next language that has a table (English always has none to need): the stone and the row go round; -1 when none worked */
+static int bk_lang_cycle(void)
+{
+    int from = bk_lang_idx;
+    for (int k = 1; k <= BK_NLANG; k++) {
+        int idx = (from + k) % BK_NLANG;
+        if (bk_lang_choose_idx(idx) >= 0)
+            return bk_lang_idx;
+    }
+    return -1;
 }
 int bk_set_lang(int on) { bk_lang_forced = 1; return bk_lang_choose(on); }
+int bk_set_lang_code(const char *code) { bk_lang_forced = 1; return bk_lang_choose_idx(bk_lang_by_code(code)); }
 void bk_lang_default(int on) { if (!bk_lang_forced) bk_lang_choose(on); }   /* (the system's language: the saved choice still wins) */
 int bk_lang_on(void) { return bk_lang; }
+const char *bk_lang_code(void) { return BK_LANG_CODE[bk_lang_idx]; }
 #ifdef BK_LOG_TEXT                               /* (collecting what the stage writes: every text once, digits as #) */
 static void bk_tr_log(const char *t)
 {
@@ -720,6 +753,7 @@ static void bk_tr_log(const char *t)
 }
 #endif
 /* s in the chosen language (s itself in English, or when the table does not know it) */
+const char *bk_touch_text(const char *s);
 static const char *bk_tr(const char *s)
 {
     static char ring[16][256];
@@ -772,6 +806,7 @@ static const char *bk_tr(const char *s)
     }
     return o;
 }
+const char *bk_touch_text(const char *s) { return bk_tr(s); }   /* (1.6) the touch buttons' labels in the stage's language */
 #define T(s) bk_tr(s)
 
 /* the face for a character: German letters (UTF-8, two bytes from 0xC3) from the face's _X part; *s moves on */
@@ -813,14 +848,32 @@ static int bk_tw(const felucca_font_t *f, const char *s)   /* width in pixels, G
 }
 
 /* text in one of the firmware's own faces (felucca_font.h, built unpacked for the host), scaled s x */
+/* (1.6) LARGE TEXT: the smallest face is drawn one size up (and measured so); MORE CONTRAST: the dim greys brighter */
+static int bk_big_ctx;                           /* (only on the screens with room: menus, help, guide, options, journal) */
+static const felucca_font_t *bk_bigf(const felucca_font_t *f) { return bk_big_text && bk_big_ctx && f == &FONT_T ? &FONT_S : f; }
+static uint32_t bk_contrast_col(uint32_t c)
+{
+    uint32_t a = c >> 24;
+    if (c == BK_FAINT)
+        return ARGB(255, 178, 188, 206);
+    if (c == BK_DIM)
+        return ARGB(255, 226, 232, 240);
+    if (a >= 60u && a < 255u)
+        a = a + 90u > 255u ? 255u : a + 90u;
+    return a << 24 | (c & 0xFFFFFFu);
+}
 static int bk_text_w(const felucca_font_t *f, const char *s, int sc)
 {
-    return bk_tw(f, bk_tr(s)) * sc;
+    return bk_tw(bk_bigf(f), bk_tr(s)) * sc;
 }
 static int bk_text(int x, int y0, const felucca_font_t *f0, int sc, const char *s, uint32_t c)
 {
     const int y = y0;
-    const felucca_font_t *f = f0;
+    const felucca_font_t *f;
+    f0 = bk_bigf(f0);
+    f = f0;
+    if (bk_contrast)
+        c = bk_contrast_col(c);
     s = bk_tr(s);
 #ifdef BK_LOG_FIT                                /* (finding texts off the screen: every one, once, to stderr) */
     {
@@ -1181,6 +1234,108 @@ void bk_set_calm(int on) { bk_calm = on != 0; }
 void bk_set_small(int on) { bk_small = on != 0; }
 #define BK_TINY (bk_small ? &FONT_S : &FONT_T)
 int bk_calm_on(void) { return bk_calm; }
+/* ---- (1.6) the hint line as touch buttons: every segment that starts with a button names an action of this place; the
+   D-pad's ones (drags), START, MENU, F1, F2, SELECT (the dock) and BACK (the dock) are left out ---- */
+static bk_chip bk_chips_w[12], bk_chips_pub[12];
+static int bk_chips_nw, bk_chips_npub;
+static volatile uint32_t bk_chips_ver;
+static void bk_chip_add(int btn, const char *label)
+{
+    char buf[26];
+    size_t n;
+    if (bk_chips_nw >= 12 || !label[0])
+        return;
+    for (int i = 0; i < bk_chips_nw; i++)
+        if (bk_chips_w[i].btn == btn)
+            return;
+    snprintf(buf, sizeof buf, "%s", label);
+    {   /* (what is in brackets goes; a colon only for HOLD: ...) */
+        char *br = strstr(buf, " ("), *co = strchr(buf, ':');
+        if (br)
+            *br = 0;
+        if (co && strncmp(buf, "HOLD:", 5))
+            *co = 0;
+    }
+    n = strlen(buf);
+    while (n && buf[n - 1] == ' ')
+        buf[--n] = 0;
+    bk_chips_w[bk_chips_nw].btn = (int8_t)btn;
+    snprintf(bk_chips_w[bk_chips_nw].label, sizeof bk_chips_w[0].label, "%s", buf);
+    bk_chips_nw++;
+}
+static void bk_chips_hint(const char *hint, int shift)
+{
+    static const struct { const char *t; int b; int n; int shifted; } TK[] = {
+        {"A ", BK_A, 2, 0}, {"B ", BK_B, 2, 0}, {"X ", BK_X, 2, 0}, {"Y ", BK_Y, 2, 0}, {"L1 ", BK_L1, 3, 0}, {"R1 ", BK_R1, 3, 0},
+        {"START ", BK_START, 6, 1}, {"MENU ", BK_MENU, 5, 1}, {"F1 ", BK_F1, 3, 1}, {"F2 ", BK_F2, 3, 1}, {"SELECT ", BK_SELECT, 7, 1}};
+    const char *s = hint;
+    while (*s) {
+        char seg[100];
+        int len = 0;
+        const char *r;
+        while (*s == ' ')
+            s++;
+        while (s[len] && !(s[len] == ' ' && s[len + 1] == ' '))
+            len++;
+        if (!len)
+            break;
+        snprintf(seg, sizeof seg, "%.*s", len, s);
+        s += len;
+        r = seg;
+        if (!strncmp(r, "L1/R1 ", 6)) {          /* a pair: one each way */
+            char a[26], b[26];
+            snprintf(a, sizeof a, "< %.20s", r + 6);
+            snprintf(b, sizeof b, "%.20s >", r + 6);
+            bk_chip_add(BK_L1, a), bk_chip_add(BK_R1, b);
+            continue;
+        }
+        if (!strncmp(r, "L1+R1 ", 6)) {          /* (the Sound Lab: both at once; F2 does the same) */
+            bk_chip_add(BK_F2, r + 6);
+            continue;
+        }
+        if (!strncmp(r, "X OR L1/R1 ", 11)) {      /* (SPACE: X or L1/R1 for the next panel) */
+            bk_chip_add(BK_X, r + 11);
+            continue;
+        }
+        for (unsigned k = 0; k < sizeof TK / sizeof TK[0]; k++)
+            if (!strncmp(r, TK[k].t, (size_t)TK[k].n)) {
+                const char *lab = r + TK[k].n;
+                if (TK[k].shifted && !shift)
+                    break;                       /* (START, MENU, F1, F2, SELECT are the dock's, unless R2 changes what they do) */
+                if (!strncmp(lab, "OR ", 3)) {   /* "X OR B DONE", "B OR F2 BACK": the second key's name goes */
+                    lab += 3;
+                    while (*lab && *lab != ' ')
+                        lab++;
+                    while (*lab == ' ')
+                        lab++;
+                }
+                if (TK[k].b == BK_B && (!strncmp(lab, "BACK", 4) || !strncmp(lab, "CLOSE", 5) || !strncmp(lab, "DONE", 4)))
+                    break;                       /* (the dock's BACK) */
+                bk_chip_add(TK[k].b, lab);
+                break;
+            }
+    }
+}
+static void bk_chips_publish(void)
+{
+    bk_chips_ver++;                              /* (odd: being written) */
+    memcpy(bk_chips_pub, bk_chips_w, sizeof bk_chips_w);
+    bk_chips_npub = bk_chips_nw;
+    bk_chips_ver++;
+}
+int bk_touch_chips(bk_chip *out, int max)
+{
+    for (int tries = 0; tries < 4; tries++) {
+        uint32_t v1 = bk_chips_ver;
+        int n = bk_chips_npub < max ? bk_chips_npub : max;
+        if (v1 & 1u)
+            continue;
+        memcpy(out, bk_chips_pub, (size_t)n * sizeof(bk_chip));
+        if (v1 == bk_chips_ver)
+            return n;
+    }
+    return 0;
+}
 static void bk_draw_hint_at(const char *hint, uint32_t col, int by)
 {
     if (bk_handheld)
@@ -2322,6 +2477,18 @@ static void bk_draw_right(float t)
 }
 
 /* (1.4) resting after the sleep timer: the night alone, a slow moon, the words faint */
+static void bk_draw_perf(void)                   /* (1.6) the sound's load in a corner: now and the highest of the last ten seconds */
+{
+    static uint32_t peak, peak_at;
+    uint32_t now = bk_ms(), c = web_cpu();
+    char buf[48];
+    if (c >= peak || now - peak_at > 10000u)
+        peak = c, peak_at = now;
+    snprintf(buf, sizeof buf, "SOUND %u%%   PEAK %u%%", (unsigned)c, (unsigned)peak);
+    bk_rrect(BK_W - 226, BK_H - 30, 220, 24, 10, ARGB(190, 0, 0, 0));
+    bk_text(BK_W - 216, BK_H - 26, &FONT_T, 1, buf, c >= 85u ? ARGB(255, 255, 150, 120) : BK_INK);
+}
+
 static void bk_draw_resting(void)
 {
     float t = (float)bk_ms() / 1000.0f, br = 0.5f + 0.5f * sinf(t * 0.5f);
@@ -2337,8 +2504,9 @@ static void bk_draw_resting(void)
         bk_disc(BK_W / 2.0f, 300.0f, 44.0f + (float)k * 18.0f + 6.0f * br, ARGB((uint32_t)(7 - k), 250, 240, 210));
     bk_disc(BK_W / 2.0f, 300.0f, 36.0f, ARGB(200, 230, 226, 205));
     bk_disc(BK_W / 2.0f + 14.0f, 292.0f, 32.0f, ARGB(255, 3, 4, 9));
-    bk_text_c(BK_W / 2, 420, &FONT_B, 1, "THE GARDEN SLEEPS", ARGB(150, 200, 205, 215));
-    bk_text_c(BK_W / 2, 460, &FONT_T, 1, "ANY BUTTON WAKES IT", ARGB(110, 160, 166, 180));
+    bk_text_c(BK_W / 2, 420, &FONT_B, 1, bk_listen_rest ? "THE GARDEN LISTENS" : "THE GARDEN SLEEPS", ARGB(150, 200, 205, 215));
+    bk_text_c(BK_W / 2, 460, &FONT_T, 1, bk_listen_rest ? "THE MUSIC PLAYS ON   ANY BUTTON WAKES IT" : "ANY BUTTON WAKES IT",
+              ARGB(110, 160, 166, 180));
 }
 
 static void bk_draw_top(void)
@@ -2559,13 +2727,13 @@ static void bk_draw_quick(float t)
     static int last_sel = -1;
     static uint32_t moved_at;
     uint32_t col = bk_track_col(dream_ui.track);
-    int i, cw = (BK_W - 24) / BK_NQUICK, by = BK_H - 62;
+    int i, cw = (BK_W - 24) / BK_NQUICK, by = BK_H - 62 - bk_quick_lift();
     float px = 0, py = 0;
     if (shown < 0)
         shown = (float)bk_quick_sel;
     shown += ((float)bk_quick_sel - shown) * bk_glide(13.0f);
-    for (int yy = BK_H - 112; yy < BK_H; yy++)   /* a band of night along the bottom: the stage above stays in sight */
-        bk_rect(0, yy, BK_W, 1, ARGB((uint32_t)(150 + (yy - (BK_H - 112)) * 9 / 10), 3, 6, 12));
+    for (int yy = BK_H - 112 - bk_quick_lift(); yy < BK_H; yy++)   /* a band of night along the bottom: the stage above stays in sight */
+        bk_rect(0, yy, BK_W, 1, ARGB((uint32_t)(150 + (yy - (BK_H - 112 - bk_quick_lift())) * 9 / 10 > 255 ? 255 : 150 + (yy - (BK_H - 112 - bk_quick_lift())) * 9 / 10), 3, 6, 12));
     for (int x = 4; x <= BK_W - 4; x += 12) {    /* the vine the stones sit on (row fills, cheap), with a leaf now and then */
         float y = (float)by + 22.0f + 4.0f * sinf((float)x * 0.021f + (bk_calm ? 0.0f : t * 0.8f));
         if (x > 4)
@@ -2608,7 +2776,7 @@ static void bk_draw_quick(float t)
         if (bk_quick_sel == 16 || bk_quick_sel == 17)
             snprintf(line, sizeof line, "%s - %s", T((bk_quick_sel == 16 ? bk_light : bk_calm) ? "ON" : "OFF"), T(ab)), ab = line;
         else if (bk_quick_sel == 18)
-            ab = bk_lang ? "NOW: DEUTSCH - A: ENGLISH" : "NOW: ENGLISH - A: DEUTSCH";
+            snprintf(line, sizeof line, "NOW: %s - A: %s", BK_LANG_NAME[bk_lang_idx], BK_LANG_NAME[(bk_lang_idx + 1) % BK_NLANG]), ab = line;
         int w1 = bk_text_w(&FONT_H, nm[bk_quick_sel], 1), w2 = bk_text_w(BK_TINY, ab, 1), w = (w1 > w2 ? w1 : w2) + 32;
         int lx = (int)cx - w / 2, ly = BK_H - 178;
         lx = lx < 6 ? 6 : lx + w > BK_W - 6 ? BK_W - 6 - w : lx;
@@ -2626,14 +2794,31 @@ static void bk_draw_quick(float t)
 
 static void bk_draw_bottom(void)
 {
+    bk_chips_nw = 0;
+    if (bk_opt_open || bk_journal_on || (lab_mapview && lab_open)) {   /* (what lies over the place has its own few) */
+        if (bk_opt_open && bk_opt_capture < 0)
+            bk_chip_add(BK_LEFT, "<"), bk_chip_add(BK_RIGHT, ">");
+        if (lab_mapview && lab_open && !bk_opt_open)
+            bk_chip_add(BK_A, "GO");
+        bk_chips_publish();
+        return;
+    }
     if (bk_quick_open) {
+        bk_chip_add(BK_A, "GO");
+        bk_chips_publish();
         bk_draw_quick((float)bk_ms() / 1000.0f);
         return;
     }
     const char *hint;
     int shift = (bk_held >> BK_R2) & 1u, play = (bk_held >> BK_FN) & 1u;
-    if (bk_help_open || bk_guide_open)
+    if (bk_help_open || bk_guide_open) {
+        bk_chip_add(BK_L1, "< PAGE"), bk_chip_add(BK_R1, "PAGE >");
+        bk_chip_add(bk_help_open ? BK_X : BK_Y, bk_help_open ? "GUIDE" : "BUTTON MAP");
+        if (bk_help_open)
+            bk_chip_add(BK_Y, "OPTIONS");
+        bk_chips_publish();
         return;                                  /* (the help says it itself, larger) */
+    }
     if (bk_menu_open)
         hint = "MENU   UP/DOWN CHOOSE   LEFT/RIGHT OTHER SIDE   A GO   B CLOSE";
     else if (bk_view == V_TOYS && shift && !play)
@@ -2677,6 +2862,9 @@ static void bk_draw_bottom(void)
                                             "R2+   L1/R1 OCTAVE   START RECORD   SELECT HOLD: SAVE   MENU DREAM MAP   F2 ATLAS"};
         for (int yy = BK_H - 76; yy < BK_H - 40; yy++)
             bk_rect(0, yy, BK_W, 1, ARGB((uint32_t)(120 + (yy - (BK_H - 76)) * 3), 3, 5, 12));
+        bk_chips_hint(rows[0], 1);
+        bk_chips_hint(rows[1], 1);
+        bk_chips_publish();
         bk_draw_hint_at(rows[0], BK_INK, BK_H - 72);
         bk_draw_hint_at(rows[1], BK_INK, BK_H - 33);
         return;
@@ -2684,6 +2872,8 @@ static void bk_draw_bottom(void)
     else
         hint = bk_garden_shown() ? "GARDEN   UP/DOWN DIAL   L/R TURN   L1/R1 TRACK   START PLAY   F1 SOUND LAB   F2 MIXER   MENU WHERE TO   SELECT HOLD: HELP   A SELECT   B BACK   X EDIT   Y EFFECTS   R2 MORE"
                                  : "PAGE   UP/DOWN DIAL   L/R TURN   L1/R1 TRACK   A SELECT   B BACK   X EDIT   Y EFFECTS   START PLAY   F1 SOUND LAB   F2 MIXER   SELECT HOLD: HELP   MENU WHERE TO";
+    bk_chips_hint(hint, shift);
+    bk_chips_publish();
     bk_draw_hint(hint, shift ? BK_INK : bk_track_col(dream_ui.track));
 }
 
@@ -2811,7 +3001,7 @@ static void bk_icon(int id, float cx, float cy, float r, uint32_t c, float t)
         bk_disc(cx - r * 0.2f, cy - r * 0.05f, r * 0.62f, BK_ALPHA(c, 230));
         bk_disc(cx + r * 0.2f, cy - r * 0.05f, r * 0.62f, BK_ALPHA(c, 230));
         bk_disc(cx - r * 0.45f, cy + r * 0.55f, r * 0.16f, BK_ALPHA(c, 230));
-        bk_text_c((int)cx, (int)(cy - r * 0.42f), &FONT_T, 1, bk_lang ? "DE" : "EN", ARGB(255, 22, 28, 42));
+        bk_text_c((int)cx, (int)(cy - r * 0.42f), &FONT_T, 1, bk_lang_idx == 1 ? "DE" : bk_lang_idx == 2 ? "FR" : bk_lang_idx == 3 ? "ES" : "EN", ARGB(255, 22, 28, 42));
         break;
     case 13:                                     /* PLAY MODE: three keys, one lit in turn */
         for (int k = 0; k < 3; k++)
@@ -2827,6 +3017,7 @@ static void bk_icon(int id, float cx, float cy, float r, uint32_t c, float t)
 
 /* MENU: the Brick's own places as stepping stones along a winding garden path, each with its sign and a line on
    what it is; the FM-1's pages beside them as leaves. UP/DOWN walks the path, LEFT/RIGHT crosses over, A goes */
+static float bk_menu_hx[BK_MENU_SPLIT], bk_menu_hy[BK_MENU_SPLIT];   /* (1.6) where the stones were drawn: a finger's targets */
 static void bk_draw_menu(void)
 {
     static const char *const about[BK_MENU_SPLIT] = {
@@ -2875,6 +3066,7 @@ static void bk_draw_menu(void)
                 name[L - 5] = 0;
         }
         if (i < BK_MENU_SPLIT) {                 /* a stone, its sign, its name; the chosen one lifted, with its line */
+            bk_menu_hx[i] = sx[i], bk_menu_hy[i] = sy[i];
             uint32_t ic = sel ? ARGB(255, 22, 28, 42) : bk_track_col(i % 6);
             float r = sel ? 24.0f + 1.5f * sinf(t * 4.0f) : 19.0f, lift = sel ? -3.0f : 0.0f;
             if (sel) {
@@ -4271,7 +4463,7 @@ static void bk_draw_notice(void)
     int wa, wb, w, h, x, y;
     static int last_screen = -1;
     int screen = bk_view | lab_open << 6 | bk_menu_open << 7 | bk_help_open << 8 | bk_guide_open << 9 | bk_opt_open << 10 |
-                 bk_quick_open << 11;
+                 bk_quick_open << 11 | bk_journal_on << 12;
     if (screen != last_screen) {                 /* another screen: what was said about the last one goes (a notice
                                                     made by the change itself, within 250 ms, stays) */
         if (last_screen >= 0 && age > 250u)
@@ -4491,6 +4683,8 @@ const uint32_t *bk_draw(void)
     bk_draw_toast();                             /* (toast, card and notice: all inside the stage's 720 x 720) */
     st_draw_card();                              /* DREAM TALES: a chapter's card (brick_toys_draw.inc) */
     bk_draw_notice();                            /* (1.3) what was just said, on every screen */
+    if (bk_perf)
+        bk_draw_perf();
     if (!side_skip) {
         bk_draw_bottom();
         if (side_keep)                           /* (a whole frame: its columns kept for the next) */
@@ -4500,6 +4694,7 @@ const uint32_t *bk_draw(void)
     bk_draw_yield();
     if (lab_open && lab_mapview)
         bk_draw_lab_map(t);                      /* (1.5) the Sound Lab's module map */
+    bk_big_ctx = 1;
     if (bk_menu_open)
         bk_draw_menu();
     if (bk_help_open)
@@ -4508,6 +4703,9 @@ const uint32_t *bk_draw(void)
         bk_draw_guide(t);                        /* THE GUIDE (0.73) */
     if (bk_opt_open)
         bk_draw_options(t);                      /* OPTIONS (1.1) */
+    if (bk_journal_on)
+        bk_draw_journal(t);                      /* THE GARDEN JOURNAL (1.6) */
+    bk_big_ctx = 0;
     bk_splash_over();                            /* (its fade, over the stage) */
     bk_ground_frame_end();                       /* (1.3: grounds that changed are baked for the next frame) */
     bk_draw_gen++;                               /* (buffers let go of before this frame may now be freed) */

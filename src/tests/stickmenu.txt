@@ -1,0 +1,16 @@
+# (1.6) the left stick is a cursor in OPTIONS: one tilt down = one row, so A then changes row 1, not row 0
+wait 1500
+options 1
+wait 300
+sticks 0 30000 0 0
+wait 100
+sticks 0 0 0 0
+wait 200
+tap A
+wait 200
+# row 0 (SWAP A AND B) untouched: the button still plays its own part
+expect_part 4 4
+expect_options 1
+# the right stick does not move the cursor (it still turns the dials elsewhere)
+options 0
+expect_options 0

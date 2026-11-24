@@ -14,6 +14,7 @@
 #   keytest.on   every button pressed written to log.txt     selftest.on  plays 30 s by itself, measures, quits
 #   nosplash.on  no animated start screen                    light.on     the light picture from the start
 #   calm.on      CALM MOTION from the start                  nofast.on    the CPU governor left alone
+#   edge.off     no glow of the garden's colours in the side bars (plain black bars)
 #   surface.on / nosurface.on / fit.on   only the window's own pixels / only SDL's renderer / only the screen-fitting way (no trying)
 #   gpu.on       SDL's accelerated (GL) renderer             usbaudio.off the sound stays on the handheld
 # H7_ROOT (tests only): a folder standing in for / when reading /sys and /proc.
@@ -132,6 +133,7 @@ chmod +x -- "$GAMEDIR/mutable-dreams" 2>/dev/null
 RC=124
 for MODE in "${MODES[@]}"; do
     if [ "$MODE" = fit ]; then export MD_SCREEN=1; unset MD_PRESENT
+        if [ -f "$GAMEDIR/edge.off" ]; then export MD_EDGE=0; else unset MD_EDGE; fi   # (1.6) the side bars' glow
     else unset MD_SCREEN; if [ "$MODE" = surface ]; then export MD_PRESENT=window; else unset MD_PRESENT; fi; fi
     echo "video: trying the picture's way: $MODE"
     MARK=$(grep -c 'startup: first frame presented' "$LOG" 2>/dev/null)

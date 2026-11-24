@@ -1,0 +1,19 @@
+# (1.6) CLOCK GARDEN: the sky follows the hour; at night moths and (by the clock) an owl; at noon a pale sun
+wait 1500
+tap START
+wait 1500
+opt clock 1
+opt hour 30
+wait 1500
+shot out/clock-night.png
+opt hour 70
+wait 1500
+shot out/clock-dawn.png
+opt hour 120
+wait 1500
+shot out/clock-noon.png
+opt hour 190
+wait 1500
+shot out/clock-dusk.png
+opt hour -1
+opt clock 0
