@@ -11,3 +11,5 @@ Mutable-Dreams-Trimui-Smart-Pro-Knulli-1.5.10.zip	2029265
 Mutable-Dreams-Handbuch-DE.pdf	9824624
 Mutable-Dreams-Manual-EN.pdf	9767328
 SHA256SUMS.txt	529
+Mutable-Dreams-Brick-1.6.2.zip	6407560
+Mutable-Dreams-GKD-350H-Ultra-Rocknix-1.7.0-rc1.zip	5945848

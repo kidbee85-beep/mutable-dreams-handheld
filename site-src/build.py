@@ -17,7 +17,16 @@ REL = f"https://github.com/{REPO}/releases/download/v{VERSION}/"
 REL_OLD = f"https://github.com/{REPO}/releases/download/v{OLD}/"
 
 
+BRICK = "Mutable-Dreams-Brick-1.6.2.zip"         # the Brick: 1.6.2 with the play-mode fix (27.11.2026)
+GKD = "Mutable-Dreams-GKD-350H-Ultra-Rocknix-1.7.0-rc1.zip"   # in a pre-release of its own, with its sources
+GKD_TAG = "v1.7.0-rc1-gkd350hultra"
+
+
 def rel(name):                                  # where a file is: the packages of 1.5.9 that did not change, else the newest release
+    if name == BRICK:
+        return f"https://github.com/{REPO}/releases/download/v1.6.2/" + name
+    if name == GKD:
+        return f"https://github.com/{REPO}/releases/download/{GKD_TAG}/" + name
     return (REL_OLD if f"-{OLD}." in name else REL) + name
 SITE = "https://kidbee85-beep.github.io/mutable-dreams-handheld/"
 FM1 = "https://github.com/kidbee85-beep/mutable-dreams"
@@ -75,6 +84,7 @@ T = {
     ("Powkiddy RGB20S", "AmberELEC · 640×480", "RGB20S", "ok", "1.5.9 confirmed on the device. Earlier 1.5.7 measurements: 20 fps and one audio underrun in 60 seconds."),
     ("Trimui Smart Pro", "Knulli · 1280×720 · two sticks", "SmartPro", "test", "Community test (new in 1.5.10): the garden sits in the middle of the 16:9 screen; the sticks turn the dials. Not yet run on a real Smart Pro."),
     ("Anbernic H700", "Knulli · RG35XX, RG40XX, CubeXX, RG34XX", "H700", "test", "Community test: the launcher fits the stage to the screen. Not yet run on a real H700."),
+    ("GKD 350H Ultra", "ROCKNIX · 1600×1440", "GKD", "ok", "New: a layout of its own that fills the almost square screen without stretching, with the last seconds of the six tracks drifting under the garden. Tried on the device. No touch functions."),
     ("Android", "Phones, tablets, gamepads", "Android", "ok", "1.5.9 confirmed on a device. Touch buttons beside the stage, several fingers at once; or play with a gamepad."),
     ("Linux PC", "x86_64 and aarch64", "Linux", "new", "Packages built for x86_64 and aarch64, with a “Dream Garden” start-menu entry. No real-PC run confirmed in this review; feedback welcome."),
   ],
@@ -95,7 +105,7 @@ T = {
             ("L1 R1", "choose a track", "octave"), ("A", "select, mute a track", "LOCK: keep the Biome"), ("B", "back; hold: home", "FREEZE everything"),
             ("X", "edit pages", "envelope"), ("Y", "effect pages", "global"), ("START", "play / stop", "record"),
             ("SELECT", "tap: where am I? · hold: help", "hold 1 s: save everything"), ("MENU", "where to? the menu", "dream map"),
-            ("F1 · F2", "Sound Lab · mixer", "· Biome atlas"), ("L2", "tap: quick bar", ""), ("FN", "switch: play mode, the buttons play notes", "")],
+            ("F1 · F2", "Sound Lab · mixer", "· Biome atlas"), ("L2", "tap: quick bar", ""), ("FN", "switch: play mode, the buttons play notes (Brick: use L2, SELECT ends it)", "")],
   "ideas_h": "Ideas for making music",
   "ideas_p": "Seven small recipes, from falling asleep to playing live.",
   "ideas": [
@@ -104,10 +114,10 @@ T = {
     ("A melody that stays", "34-toy", ["Catch four or five notes with the <strong>Firefly</strong>.", f"Listen for a few bars, then keep them as a sequence with {k('R2')} + {k('X')}.", f"Refine it in the <strong>Sequence</strong> with {k('X')}, for example with chance and gate."]),
     ("Voices in the garden", "28-archive", ["Fetch a poem in the <strong>Archive</strong> (needs WiFi).", f"Send it to VOICES with {k('A')}, and choose FRAGMENTS or GRAINS.", "Add a little SHIMMER, and the words float through the garden."]),
     ("Falling asleep", "60-options", ["Enter one of the <em>Lullabies</em> in Worlds: it sets the sleep timer itself. Or choose 15, 30, 60 or 90 minutes in the options.", "Turn GLOW down.", "In the last minute the music fades out, and the screen rests dark until a button wakes it."]),
-    ("Playing live", "06-playmode", [f"Switch on play mode: the {k('FN')} switch on the Brick, or PLAY MODE in the quick bar ({k('L2')}).", f"The D-pad and {k('A')} {k('B')} {k('X')} {k('Y')} now play the Biome's scale, so nothing can sound wrong; {k('L1')}/{k('R1')} change the track.", f"Let a sequence run with {k('START')} and play over it; hold {k('R2')} for chords."]),
+    ("Playing live", "06-playmode", [f"Switch on play mode: PLAY MODE in the quick bar ({k('L2')}). On the Brick, {k('SELECT')} ends it again.", f"The D-pad and {k('A')} {k('B')} {k('X')} {k('Y')} now play the Biome's scale, so nothing can sound wrong; {k('L1')}/{k('R1')} change the track.", f"Let a sequence run with {k('START')} and play over it; hold {k('R2')} for chords."]),
     ("On the go", "05-menu", [f"Tap {k('SELECT')} for the menu and pick a place; on a phone, use the touch buttons.", f"Tap {k('L2')} for the quick bar: PLAY MODE, LIGHT PICTURE and DEUTSCH / ENGLISH are at its end.", f"To stop, tap {k('SELECT')}, press {k('UP')} once to reach <strong>Quit</strong>, then {k('A')}. The Sound Lab and your settings are kept."]),
   ],
-  "dl_h": "Download", "dl_p": f"Version {VERSION} · the files are in the GitHub releases {VERSION} (new) and {OLD} (unchanged packages). Checksums are in SHA256SUMS.txt of each release.",
+  "dl_h": "Download", "dl_p": f"Version {VERSION} · the files are in the GitHub releases {VERSION} (new) and {OLD} (unchanged packages); the Trimui Brick (1.6.2) and the GKD 350H Ultra have releases of their own. Checksums are in SHA256SUMS.txt of each release.",
   "dl_cols": ["For", "File"], "dl_all": "All files and checksums on GitHub",
   "inst_h": "Installing", "inst_p": "You can copy a new version over an older one: your saved Biomes, settings, tale progress and samples stay as they are.",
   "inst": [
@@ -115,6 +125,7 @@ T = {
     ("Trimui Smart Pro (Knulli) – community test", "Copy <b>Mutable Dreams.sh</b> and <b>mutabledreams</b> into <b>roms/ports</b>. The screen is 16:9: the garden sits in the middle with black beside it. The sticks turn the four dials (the further, the faster), clicking them is F1 and F2, <b>SELECT</b> opens the menu. <b>SMARTPRO.txt</b> lists switch files; if something is wrong, please send <b>mutabledreams/log.txt</b>."),
     ("Miyoo Mini Plus, Mini, Mini Flip (Onion OS)", "Unpack the zip for your device and copy its folders <b>App</b> and <b>Roms</b> onto the SD card, merging them with the ones there. Start <strong>Mutable Dreams</strong> under <em>Ports</em> or <em>Apps</em>. <b>MIYOO.txt</b> beside the program lists switch files (for example <b>fps15.on</b>)."),
     ("Powkiddy RGB20S (AmberELEC)", "Unpack the zip into <b>roms/ports</b>, update the game list and start <strong>Mutable Dreams</strong> under <em>Ports</em>."),
+    ("GKD 350H Ultra (ROCKNIX)", "Copy <b>Mutable Dreams.sh</b> and the folder <b>mutabledreams</b> into <b>roms/ports</b> on the games card, restart and open Mutable Dreams under Ports. Everything is played with the buttons (no touch functions). If something is wrong, please send <b>mutabledreams/log.txt</b>; <b>GKD350HULTRA.txt</b> in the package lists the switches."),
     ("Anbernic H700 (Knulli) – community test", "Copy <b>Mutable Dreams.sh</b> and <b>mutabledreams</b> into <b>roms/ports</b>. The launcher reads the screen size and fits the stage to it. If something is wrong, please send <b>mutabledreams/log.txt</b>."),
     ("Android", "Install the APK. The app keeps its files (saves, your samples, worlds) in <b>Android/data/com.kidbunka.mutabledreams/files</b>. With a gamepad, play as on a handheld; without, by touch."),
     ("Linux PC", "The Linux package installs the program as <strong>Dream Garden</strong>, with a start-menu icon. Without a game controller, every hint names the keyboard keys instead."),
@@ -172,6 +183,7 @@ T = {
     ("Powkiddy RGB20S", "AmberELEC · 640×480", "RGB20S", "ok", "1.5.9 am Gerät bestätigt. Frühere Messung mit 1.5.7: 20 fps und ein Audio-Aussetzer in 60 Sekunden."),
     ("Trimui Smart Pro", "Knulli · 1280×720 · zwei Sticks", "SmartPro", "test", "Community-Test (neu in 1.5.10): Der Garten sitzt in der Mitte des 16:9-Bildschirms; die Sticks drehen die Regler. Auf einem echten Smart Pro noch nicht gelaufen."),
     ("Anbernic H700", "Knulli · RG35XX, RG40XX, CubeXX, RG34XX", "H700", "test", "Community-Test: Der Starter passt die Bühne dem Bildschirm an. Auf einem echten H700 noch nicht gelaufen."),
+    ("GKD 350H Ultra", "ROCKNIX · 1600×1440", "GKD", "ok", "Neu: ein eigenes Layout, das den fast quadratischen Bildschirm ohne Strecken füllt; unter dem Garten ziehen die letzten Sekunden der sechs Spuren vorbei. Auf dem Gerät ausprobiert. Ohne Touch-Funktionen."),
     ("Android", "Handys, Tablets, Gamepads", "Android", "ok", "1.5.9 am Gerät bestätigt. Touch-Tasten neben der Bühne, mehrere Finger gleichzeitig; oder mit Gamepad spielen."),
     ("Linux-PC", "x86_64 und aarch64", "Linux", "new", "Pakete für x86_64 und aarch64 mit „Dream Garden“ im Startmenü sind gebaut. Kein echter PC-Lauf in dieser Prüfung bestätigt; Rückmeldungen willkommen."),
   ],
@@ -192,7 +204,7 @@ T = {
             ("L1 R1", "Spur wählen", "Oktave"), ("A", "auswählen, Spur stummschalten", "LOCK: Biom behalten"), ("B", "zurück; gehalten: nach Hause", "alles EINFRIEREN"),
             ("X", "Bearbeiten-Seiten", "Hüllkurve"), ("Y", "Effekt-Seiten", "global"), ("START", "spielen / stoppen", "aufnehmen"),
             ("SELECT", "tippen: wo bin ich? · halten: Hilfe", "1 s halten: alles sichern"), ("MENU", "wohin? das Menü", "Traumkarte"),
-            ("F1 · F2", "Klanglabor · Mixer", "· Biom-Atlas"), ("L2", "tippen: Schnellleiste", ""), ("FN", "Schalter: Spielmodus, die Tasten spielen Töne", "")],
+            ("F1 · F2", "Klanglabor · Mixer", "· Biom-Atlas"), ("L2", "tippen: Schnellleiste", ""), ("FN", "Schalter: Spielmodus, die Tasten spielen Töne (Brick: über L2, SELECT beendet ihn)", "")],
   "ideas_h": "Ideen zum Musikmachen",
   "ideas_p": "Sieben kleine Rezepte, vom Einschlafen bis zum Live-Spielen.",
   "ideas": [
@@ -201,10 +213,10 @@ T = {
     ("Eine Melodie, die bleibt", "34-toy", ["Fang mit dem <strong>Glühwurm</strong> vier oder fünf Noten.", f"Hör ein paar Takte zu und behalte sie mit {k('R2')} + {k('X')} als Sequenz.", f"Verfeinere sie in der <strong>Sequenz</strong> mit {k('X')}, zum Beispiel mit Chance und Länge."]),
     ("Stimmen im Garten", "28-archive", ["Hol im <strong>Archiv</strong> ein Gedicht (braucht WLAN).", f"Schick es mit {k('A')} in VOICES und wähle FRAGMENTS oder GRAINS.", "Etwas SHIMMER dazu, und die Worte schweben durch den Garten."]),
     ("Einschlafen", "60-options", ["Betritt in den Welten eines der <em>Lullabies</em>: Es stellt den Schlaf-Timer selbst ein. Oder wähle in den Optionen 15, 30, 60 oder 90 Minuten.", "Dreh GLÜHEN herunter.", "In der letzten Minute blendet die Musik aus, und der Bildschirm ruht dunkel, bis eine Taste ihn weckt."]),
-    ("Live spielen", "06-playmode", [f"Schalte den Spielmodus ein: am Brick mit dem {k('FN')}-Schalter, sonst mit SPIELMODUS in der Schnellleiste ({k('L2')}).", f"Steuerkreuz und {k('A')} {k('B')} {k('X')} {k('Y')} spielen jetzt die Tonleiter des Bioms, es kann also nichts falsch klingen; {k('L1')}/{k('R1')} wechseln die Spur.", f"Lass mit {k('START')} eine Sequenz laufen und spiel darüber; {k('R2')} gehalten spielt Akkorde."]),
+    ("Live spielen", "06-playmode", [f"Schalte den Spielmodus ein: mit SPIELMODUS in der Schnellleiste ({k('L2')}). Am Brick beendet ihn {k('SELECT')} wieder.", f"Steuerkreuz und {k('A')} {k('B')} {k('X')} {k('Y')} spielen jetzt die Tonleiter des Bioms, es kann also nichts falsch klingen; {k('L1')}/{k('R1')} wechseln die Spur.", f"Lass mit {k('START')} eine Sequenz laufen und spiel darüber; {k('R2')} gehalten spielt Akkorde."]),
     ("Unterwegs", "05-menu", [f"Ein Tipp auf {k('SELECT')} öffnet das Menü, such dir einen Ort aus; auf dem Handy nimmst du die Touch-Tasten.", f"Ein Tipp auf {k('L2')} öffnet die Schnellleiste: SPIELMODUS, LEICHTES BILD und DEUTSCH / ENGLISH liegen an ihrem Ende.", f"Zum Aufhören {k('SELECT')} tippen, einmal {k('UP')} zu <strong>Beenden</strong>, dann {k('A')}. Klanglabor und Einstellungen bleiben erhalten."]),
   ],
-  "dl_h": "Download", "dl_p": f"Version {VERSION} · die Dateien liegen in den GitHub-Releases {VERSION} (neu) und {OLD} (unveränderte Pakete). Die Prüfsummen stehen in der SHA256SUMS.txt jedes Releases.",
+  "dl_h": "Download", "dl_p": f"Version {VERSION} · die Dateien liegen in den GitHub-Releases {VERSION} (neu) und {OLD} (unveränderte Pakete); der Trimui Brick (1.6.2) und der GKD 350H Ultra haben eigene Releases. Die Prüfsummen stehen in der SHA256SUMS.txt jedes Releases.",
   "dl_cols": ["Für", "Datei"], "dl_all": "Alle Dateien und Prüfsummen auf GitHub",
   "inst_h": "Installieren", "inst_p": "Eine ältere Version darfst du einfach überschreiben: Deine gespeicherten Biome, Einstellungen, die Traumgeschichte und deine Samples bleiben erhalten.",
   "inst": [
@@ -212,6 +224,7 @@ T = {
     ("Trimui Smart Pro (Knulli) – Community-Test", "Kopiere <b>Mutable Dreams.sh</b> und <b>mutabledreams</b> nach <b>roms/ports</b>. Der Bildschirm ist 16:9: Der Garten sitzt in der Mitte, daneben bleibt es schwarz. Die Sticks drehen die vier Regler (je weiter, desto schneller), ein Klick darauf ist F1 und F2, <b>SELECT</b> öffnet das Menü. <b>SMARTPRO.txt</b> nennt die Schalterdateien; wenn etwas nicht stimmt, schick bitte <b>mutabledreams/log.txt</b>."),
     ("Miyoo Mini Plus, Mini, Mini Flip (Onion OS)", "Entpacke das Zip für dein Gerät und kopiere seine Ordner <b>App</b> und <b>Roms</b> auf die SD-Karte, zusammengeführt mit den vorhandenen. Gestartet wird <strong>Mutable Dreams</strong> unter <em>Ports</em> oder <em>Apps</em>. <b>MIYOO.txt</b> neben dem Programm nennt Schalterdateien (zum Beispiel <b>fps15.on</b>)."),
     ("Powkiddy RGB20S (AmberELEC)", "Entpacke das Zip nach <b>roms/ports</b>, aktualisiere die Spieleliste und starte <strong>Mutable Dreams</strong> unter <em>Ports</em>."),
+    ("GKD 350H Ultra (ROCKNIX)", "Kopiere <b>Mutable Dreams.sh</b> und den Ordner <b>mutabledreams</b> auf der Spielekarte nach <b>roms/ports</b>, starte neu und öffne Mutable Dreams unter Ports. Alles wird mit den Tasten gespielt (keine Touch-Funktionen). Wenn etwas nicht stimmt, schick bitte <b>mutabledreams/log.txt</b>; <b>GKD350HULTRA.txt</b> im Paket nennt die Schalter."),
     ("Anbernic H700 (Knulli) – Community-Test", "Kopiere <b>Mutable Dreams.sh</b> und <b>mutabledreams</b> nach <b>roms/ports</b>. Der Starter liest die Bildschirmgröße und passt die Bühne an. Wenn etwas nicht stimmt, schick bitte <b>mutabledreams/log.txt</b>."),
     ("Android", "Installiere die APK. Die App legt ihre Dateien (Spielstände, deine Samples, Welten) in <b>Android/data/com.kidbunka.mutabledreams/files</b> ab. Mit Gamepad spielst du wie auf einem Handheld, ohne per Touch."),
     ("Linux-PC", "Das Linux-Paket installiert das Programm als <strong>Dream Garden</strong> mit Symbol im Startmenü. Ohne Gamecontroller nennt es in allen Hinweisen die Tasten der Tastatur."),
@@ -288,8 +301,8 @@ def tour(L):
                if en else f"Ein kurzer Tipp auf {k('L2')} öffnet die Schnellleiste: Jeder Ort liegt dort als lebendiger Stein an einer Ranke. LEFT/RIGHT wählen, A geht hin, B schließt. Sie öffnet sich immer am zuletzt verlassenen Ort, mit L2, A springst du also zwischen zwei Orten hin und her. An ihrem Ende liegen die Schalter SPIELMODUS, LEICHTES BILD, RUHIGE BEWEGUNG und DEUTSCH / ENGLISH. Das Menü zeigt die Orte als Steine an einem Gartenweg und die Seiten des FM-1 als Blätter; Beenden ist sein letztes Blatt."),
               ["04-quickbar", "05-menu"], ""))
     C.append(("play", "03", "Playing yourself: play mode" if en else "Selbst spielen: der Spielmodus",
-              (f"Slide the FN switch, or choose PLAY MODE in the quick bar, and the buttons become notes. The D-pad and A B X Y play eight tones of the Biome's scale, so nothing can sound wrong. R2 adds a chord, L1/R1 choose the track. Eight stepping stones lie over the pond, one per tone, and light up as you play. If the POLY voice is on, you play it: eight voices with all 24 synthesis models of Plaits."
-               if en else f"Schieb den FN-Schalter um oder wähle SPIELMODUS in der Schnellleiste, und die Tasten werden zu Tönen. Steuerkreuz und A B X Y spielen acht Töne der Tonleiter des Bioms, es kann also nichts falsch klingen. R2 fügt einen Akkord hinzu, L1/R1 wählen die Spur. Acht Trittsteine liegen über dem Teich, einer je Ton, und leuchten beim Spielen. Ist die Stimme POLY an, spielst du sie: acht Stimmen mit allen 24 Synthesemodellen von Plaits."),
+              (f"Choose PLAY MODE in the quick bar (on handhelds with a working FN switch, slide it), and the buttons become notes; on the Trimui Brick a press of SELECT ends it (1.6.2, 27 November). The D-pad and A B X Y play eight tones of the Biome's scale, so nothing can sound wrong. R2 adds a chord, L1/R1 choose the track. Eight stepping stones lie over the pond, one per tone, and light up as you play. If the POLY voice is on, you play it: eight voices with all 24 synthesis models of Plaits."
+               if en else f"Wähle SPIELMODUS in der Schnellleiste (auf Geräten mit funktionierendem FN-Schalter schieb ihn um), und die Tasten werden zu Tönen; auf dem Trimui Brick beendet ihn ein Druck auf SELECT (1.6.2, 27. November). Steuerkreuz und A B X Y spielen acht Töne der Tonleiter des Bioms, es kann also nichts falsch klingen. R2 fügt einen Akkord hinzu, L1/R1 wählen die Spur. Acht Trittsteine liegen über dem Teich, einer je Ton, und leuchten beim Spielen. Ist die Stimme POLY an, spielst du sie: acht Stimmen mit allen 24 Synthesemodellen von Plaits."),
               ["06-playmode"], ""))
     C.append(("lab", "04", "The Sound Lab" if en else "Das Klanglabor",
               (f"{k('F1')} opens the Sound Lab, where the sound itself can be bent, folded and set alight. Its modules stand in two rows, sources and effects, and each draws a live picture of what it is doing. With everything at neutral the sound is exactly that of Mutable Dreams 2.1; nothing can break, because A brings any setting back. X silences a module (the quickest way to hear what an effect adds), Y jumps to the next module that sounds, and L1+R1 together show all modules at once."
@@ -539,7 +552,7 @@ def build(L):
     A("</div></section>")
     # devices
     A(f'<section id="devices"><div class="wrap reveal"><h2>{t["devices_h"]}</h2><p class="lead">{t["devices_p"]}</p><div class="devices">')
-    cols = {"SmartPro": "#8fd3ff", "Brick": "#aecfb6", "Plus": "#dcc694", "Mini": "#86c2b4", "RGB20S": "#a5bed9", "H700": "#face8c", "Android": "#c8b1d8", "Linux": "#cca091"}
+    cols = {"GKD": "#b9d98a", "SmartPro": "#8fd3ff", "Brick": "#aecfb6", "Plus": "#dcc694", "Mini": "#86c2b4", "RGB20S": "#a5bed9", "H700": "#face8c", "Android": "#c8b1d8", "Linux": "#cca091"}
     for name, sysname, key, st, txt in t["dev"]:
         A(f'<div class="dev" style="--c:{cols[key]}"><h3>{name}</h3><div class="sys">{sysname}</div><p>{txt}</p><span class="badge {st}">{t["badge"][st]}</span></div>')
     A("</div>")
@@ -558,7 +571,7 @@ def build(L):
         A(f'<div class="recipe">{img(L, im, title)}<div class="body"><h3>{title}</h3><ol>' + "".join(f"<li>{s}</li>" for s in steps) + "</ol></div></div>")
     A("</div></div></section>")
     # download
-    files = [("Trimui Brick (Knulli)", f"Mutable-Dreams-Brick-{OLD}.zip"), ("Trimui Smart Pro (Knulli) · " + t["badge"]["test"], f"Mutable-Dreams-Trimui-Smart-Pro-Knulli-{VERSION}.zip"),
+    files = [("Trimui Brick (Knulli) · 1.6.2", BRICK), ("GKD 350H Ultra (ROCKNIX) · 1.7.0-rc1", GKD), ("Trimui Smart Pro (Knulli) · " + t["badge"]["test"], f"Mutable-Dreams-Trimui-Smart-Pro-Knulli-{VERSION}.zip"),
              ("Miyoo Mini Plus (Onion OS)", f"Mutable-Dreams-Miyoo-Mini-Plus-Onion-{OLD}.zip"),
              ("Miyoo Mini · Mini Flip (Onion OS)", f"Mutable-Dreams-Miyoo-Mini-Onion-{OLD}.zip"), ("Powkiddy RGB20S (AmberELEC)", f"Mutable-Dreams-RGB20S-AmberELEC-{OLD}.zip"),
              ("Anbernic H700 (Knulli) · " + t["badge"]["test"], f"Mutable-Dreams-Anbernic-H700-Knulli-{VERSION}.zip"), ("Android (APK)", f"Mutable-Dreams-Android-{OLD}.apk"),
