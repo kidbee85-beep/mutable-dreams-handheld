@@ -44,12 +44,40 @@ static void bk_opt_swap(int a, int b)
     st_dirty = 1;
 }
 
+static int bk_no_touch;                          /* (1.6.2 fix) a device without touch: the touch rows are not in the list */
+void bk_set_no_touch(int on) { bk_no_touch = on != 0; }
+static int bk_opt_hidden(int r) { return bk_no_touch && r >= OP_TSIZE && r <= OP_TLIFT; }
+static int bk_opt_count(void)
+{
+    int r, n = 0;
+    for (r = 0; r < OP_COUNT; r++)
+        n += !bk_opt_hidden(r);
+    return n;
+}
+static int bk_opt_pos(int row)
+{
+    int r, n = 0;
+    for (r = 0; r < row; r++)
+        n += !bk_opt_hidden(r);
+    return n;
+}
+static int bk_opt_at(int pos)
+{
+    int r, n = 0;
+    for (r = 0; r < OP_COUNT; r++)
+        if (!bk_opt_hidden(r) && n++ == pos)
+            return r;
+    return OP_COUNT - 1;
+}
+
 static void bk_opt_press(int b)
 {
     if (bk_opt_capture >= 0)                     /* (assigning: brick_core.c takes the next press itself) */
         return;
     if (b == BK_UP || b == BK_DOWN)
-        bk_opt_row = (bk_opt_row + OP_COUNT + (b == BK_DOWN ? 1 : -1)) % OP_COUNT;
+        do
+            bk_opt_row = (bk_opt_row + OP_COUNT + (b == BK_DOWN ? 1 : -1)) % OP_COUNT;
+        while (bk_opt_hidden(bk_opt_row));
     else if (b == BK_B || b == BK_MENU)
         bk_opt_open = 0;
     else if (b == BK_LEFT || b == BK_RIGHT || b == BK_A) {
@@ -180,12 +208,12 @@ static void bk_draw_options(float t)
     if (bk_opt_capture >= 0 && now - bk_opt_cap_at > 6000u)   /* (nothing pressed: nothing changes) */
         bk_opt_capture = -1;
     if (bk_opt_glide < 0)
-        bk_opt_glide = (float)bk_opt_row;
-    bk_opt_glide += ((float)bk_opt_row - bk_opt_glide) * bk_glide(14.0f);
-    if (bk_opt_row < bk_opt_top)                 /* (1.6) the list scrolls: the chosen row stays in the window */
-        bk_opt_top = bk_opt_row;
-    if (bk_opt_row >= bk_opt_top + OP_VIS)
-        bk_opt_top = bk_opt_row - OP_VIS + 1;
+        bk_opt_glide = (float)bk_opt_pos(bk_opt_row);
+    bk_opt_glide += ((float)bk_opt_pos(bk_opt_row) - bk_opt_glide) * bk_glide(14.0f);
+    if (bk_opt_pos(bk_opt_row) < bk_opt_top)     /* (1.6) the list scrolls: the chosen row stays in the window */
+        bk_opt_top = bk_opt_pos(bk_opt_row);
+    if (bk_opt_pos(bk_opt_row) >= bk_opt_top + OP_VIS)
+        bk_opt_top = bk_opt_pos(bk_opt_row) - OP_VIS + 1;
     bk_rect(0, 0, BK_W, BK_H, ARGB(255, 4, 7, 14));
     if (!bk_light)
         bk_vines_at(t, col, 40.0f, 30.0f, (float)(BK_W - 40), (float)(BK_H - 60));
@@ -198,12 +226,13 @@ static void bk_draw_options(float t)
         ty_blob((float)(x - 2), gy + (float)(rh - 4) * 0.5f - 6.0f, 9.0f, col, t, 5, 255);
     }
     if (OP_COUNT > OP_VIS) {                     /* a thin scroll bar beside the rows */
-        int bh = OP_VIS * rh - 10, th = bh * OP_VIS / OP_COUNT, ty0 = y + (bh - th) * bk_opt_top / (OP_COUNT - OP_VIS);
+        int bh = OP_VIS * rh - 10, th = bh * OP_VIS / bk_opt_count(), ty0 = y + (bh - th) * bk_opt_top / (bk_opt_count() - OP_VIS);
         bk_rrect(x + 596, y, 4, bh, 2, ARGB(30, 255, 255, 255));
         bk_rrect(x + 596, ty0, 4, th, 2, BK_ALPHA(col, 200));
     }
-    for (i = bk_opt_top; i < OP_COUNT && i < bk_opt_top + OP_VIS; i++) {
-        int ry = y + (i - bk_opt_top) * rh, sel = i == bk_opt_row;
+    for (int k = bk_opt_top; k < bk_opt_count() && k < bk_opt_top + OP_VIS; k++) {
+        i = bk_opt_at(k);
+        int ry = y + (k - bk_opt_top) * rh, sel = i == bk_opt_row;
         const char *v = bk_opt_value(i, buf, sizeof buf);
         int vw;
         bk_text_fit(x + 16, ry, &FONT_S, OP_NAMES[i], 330, sel ? BK_INK : BK_DIM);

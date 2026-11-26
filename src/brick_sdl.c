@@ -1486,6 +1486,9 @@ int main(int argc, char **argv)
         audio_ahead = 256u;
     if (getenv("MD_DEVICE"))
         bk_set_device(getenv("MD_DEVICE"));
+#ifndef MD_HAVE_TOUCH
+    bk_set_no_touch(1);                          /* (the handhelds: no touch layer built in) */
+#endif
     if (env_is("MD_KEYS", "handheld"))
         bk_set_handheld(1);                      /* (no MENU, F1, F2, FN: hints and help point to the quick bar) */
     if (env_is("MD_SIDE_HALF", "1")) {           /* (1.5.8) the columns every other frame in the light picture (Miyoo) */

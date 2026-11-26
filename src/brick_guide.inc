@@ -61,7 +61,7 @@ static const struct { int page; bk_guide_page_t g; } BK_GUIDE_HH[] = {
          "Modulation, Voice, Space, the Archive, Worlds and the Playground.", "L2 opens the quick bar: every place is a stone in it.",
          "L2: GO SOMEWHERE"}},
     {6, {"Play it yourself", "In the quick bar, PLAY MODE turns the buttons into notes:",
-         "the D-pad and A B X Y play eight tones that always fit.", "R2 adds a chord. PLAY MODE again: the buttons steer again.",
+         "the D-pad and A B X Y play eight tones that always fit.", "R2 adds a chord. SELECT ends it: the buttons steer again.",
          "L2, PLAY MODE   R2: CHORD"}},
     {9, {"The Sound Lab", "Here the sound itself can be bent: synths, Mutable Instruments",
          "modules, effects, and at the end MASTER - EQ, warmth, a limiter.", "L1/R1 choose a module, UP/DOWN a setting, LEFT/RIGHT change it.",

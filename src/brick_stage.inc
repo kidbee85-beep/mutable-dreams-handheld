@@ -2854,6 +2854,9 @@ static void bk_draw_bottom(void)
                                   : "SEQUENCE   UP/DOWN TRACK   A MUTE   X EDIT   B BACK   START PLAY";
     else if (lab_open && !shift && !play)
         hint = "SOUND LAB   L1/R1 MODULE   L1+R1 ALL MODULES   UP/DN PARAMETER   L/R VALUE (L2 FINE)   A NEUTRAL/BACK   X SILENT/BACK   Y NEXT SOUNDING   B OR F1 CLOSE   START PLAY";
+    else if (play && bk_fn_soft)
+        hint = shift ? "R2 + NOTE: CHORD   L1/R1 OCTAVE   START PLAY   SELECT END PLAY MODE"
+                     : "SELECT END PLAY MODE   D-PAD + ABXY: SCALE TONES   R2: CHORD   L1/R1 TRACK";
     else if (play)
         hint = shift ? "R2 + NOTE: CHORD   L1/R1 OCTAVE   START PLAY   FN OFF: CONTROL"
                      : "D-PAD + ABXY: SCALE TONES   R2: CHORD   L1/R1 TRACK   FN OFF: CONTROL";

@@ -13,6 +13,8 @@ Controls
   F1              SOUND LAB              R2 + F1           REC
   FN switch       play mode: D-pad + ABXY play eight scale tones, R2 adds a chord (with POLY on: on the
                   polyphonic voice, else on the selected track)
+  PLAY MODE       on the Brick the side FN switch does not reach the program: switch play mode on with L2 (the
+                  quick bar) -> PLAY MODE; SELECT ends it at once
   L2 (tap)        the quick bar: every place (garden, mixer, Sound Lab, atlas, sequence, dream map, worlds,
                   archive, modulation, voice, space, playground, help), MENU and PLAY MODE - on handhelds without MENU, F1,
                   F2 or the FN switch (RGB20S, Miyoo) this is how to reach them; see RGB20S.txt or MIYOO.txt

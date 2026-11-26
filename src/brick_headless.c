@@ -694,6 +694,8 @@ int main(int argc, char **argv)
             bk_set_keyboard(atoi(a));
         } else if (!strcmp(cmd, "small")) {       /* small 1/0: as on a 640 x 480 handheld (the small labels one size up) */
             bk_set_small(atoi(a));
+        } else if (!strcmp(cmd, "notouch")) {
+            bk_set_no_touch(atoi(a));
         } else if (!strcmp(cmd, "options")) {     /* options 1/0: OPTIONS opened / closed (1.1) */
             bk_options_show(atoi(a));
         } else if (!strcmp(cmd, "expect_options")) {

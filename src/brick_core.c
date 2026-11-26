@@ -841,7 +841,7 @@ static void bk_quick_press(int b)
             bk_notice(bk_light ? "LIGHT PICTURE" : "FULL PICTURE", bk_light ? "LESS DECORATION, MORE SPEED" : "");
         } else if (BK_QUICK[bk_quick_sel] == -3) {
             bk_fn_soft ^= 1u << BK_FN;
-            bk_notice(bk_fn_soft ? "PLAY MODE" : "PLAY MODE OFF", bk_fn_soft ? "L2: QUICK BAR TO END IT" : "");
+            bk_notice(bk_fn_soft ? "PLAY MODE" : "PLAY MODE OFF", bk_fn_soft ? "SELECT: BACK TO THE BUTTONS" : "");
         } else if (BK_QUICK[bk_quick_sel] < 0)
             bk_go_garden();
         else
@@ -900,6 +900,14 @@ static void bk_press(int b)
     }
     if (bk_menu_open) {
         bk_menu_press(b);
+        bk_tgt[b] = t;
+        return;
+    }
+    if (b == BK_SELECT && bk_fn_soft && !shift) {   /* (1.6.2 fix) play mode from the quick bar: SELECT ends it at once.
+                                                       On the Brick the side FN switch does not reach the program, so
+                                                       until now only the quick bar could end it */
+        bk_fn_soft = 0;
+        bk_notice("PLAY MODE OFF", "");
         bk_tgt[b] = t;
         return;
     }
