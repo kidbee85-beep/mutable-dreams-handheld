@@ -8,8 +8,8 @@ Mutable-Dreams-Linux-OS-aarch64-1.5.9.zip	16841665
 Mutable-Dreams-Anbernic-H700-Knulli-1.5.10.zip	2029155
 Mutable-Dreams-Handheld-Source-1.5.10.zip	16387125
 Mutable-Dreams-Trimui-Smart-Pro-Knulli-1.5.10.zip	2029265
-Mutable-Dreams-Handbuch-DE.pdf	9824624
-Mutable-Dreams-Manual-EN.pdf	9767328
+Mutable-Dreams-Handbuch-DE.pdf	9924461
+Mutable-Dreams-Manual-EN.pdf	9867648
 SHA256SUMS.txt	529
-Mutable-Dreams-Brick-1.6.2.zip	6407560
+Mutable-Dreams-Brick-1.6.2.zip	6407704
 Mutable-Dreams-GKD-350H-Ultra-Rocknix-1.7.0-rc1.zip	5945848

@@ -22,8 +22,11 @@ GKD = "Mutable-Dreams-GKD-350H-Ultra-Rocknix-1.7.0-rc1.zip"   # in a pre-release
 GKD_TAG = "v1.7.0-rc1-gkd350hultra"
 
 
+MANUALS = ("Mutable-Dreams-Manual-EN.pdf", "Mutable-Dreams-Handbuch-DE.pdf")   # the 1.6.2 ones (play mode: SELECT)
+
+
 def rel(name):                                  # where a file is: the packages of 1.5.9 that did not change, else the newest release
-    if name == BRICK:
+    if name == BRICK or name in MANUALS:
         return f"https://github.com/{REPO}/releases/download/v1.6.2/" + name
     if name == GKD:
         return f"https://github.com/{REPO}/releases/download/{GKD_TAG}/" + name
@@ -105,7 +108,7 @@ T = {
             ("L1 R1", "choose a track", "octave"), ("A", "select, mute a track", "LOCK: keep the Biome"), ("B", "back; hold: home", "FREEZE everything"),
             ("X", "edit pages", "envelope"), ("Y", "effect pages", "global"), ("START", "play / stop", "record"),
             ("SELECT", "tap: where am I? · hold: help", "hold 1 s: save everything"), ("MENU", "where to? the menu", "dream map"),
-            ("F1 · F2", "Sound Lab · mixer", "· Biome atlas"), ("L2", "tap: quick bar", ""), ("FN", "switch: play mode, the buttons play notes (Brick: use L2, SELECT ends it)", "")],
+            ("F1 · F2", "Sound Lab · mixer", "· Biome atlas"), ("L2", "tap: quick bar", ""), ("L2 → PLAY MODE", "the buttons play notes; SELECT ends it (the Brick's FN switch is not used)", "")],
   "ideas_h": "Ideas for making music",
   "ideas_p": "Seven small recipes, from falling asleep to playing live.",
   "ideas": [
@@ -204,7 +207,7 @@ T = {
             ("L1 R1", "Spur wählen", "Oktave"), ("A", "auswählen, Spur stummschalten", "LOCK: Biom behalten"), ("B", "zurück; gehalten: nach Hause", "alles EINFRIEREN"),
             ("X", "Bearbeiten-Seiten", "Hüllkurve"), ("Y", "Effekt-Seiten", "global"), ("START", "spielen / stoppen", "aufnehmen"),
             ("SELECT", "tippen: wo bin ich? · halten: Hilfe", "1 s halten: alles sichern"), ("MENU", "wohin? das Menü", "Traumkarte"),
-            ("F1 · F2", "Klanglabor · Mixer", "· Biom-Atlas"), ("L2", "tippen: Schnellleiste", ""), ("FN", "Schalter: Spielmodus, die Tasten spielen Töne (Brick: über L2, SELECT beendet ihn)", "")],
+            ("F1 · F2", "Klanglabor · Mixer", "· Biom-Atlas"), ("L2", "tippen: Schnellleiste", ""), ("L2 → SPIELMODUS", "die Tasten spielen Töne; SELECT beendet ihn (der FN-Schalter des Brick wird nicht benutzt)", "")],
   "ideas_h": "Ideen zum Musikmachen",
   "ideas_p": "Sieben kleine Rezepte, vom Einschlafen bis zum Live-Spielen.",
   "ideas": [
@@ -301,8 +304,8 @@ def tour(L):
                if en else f"Ein kurzer Tipp auf {k('L2')} öffnet die Schnellleiste: Jeder Ort liegt dort als lebendiger Stein an einer Ranke. LEFT/RIGHT wählen, A geht hin, B schließt. Sie öffnet sich immer am zuletzt verlassenen Ort, mit L2, A springst du also zwischen zwei Orten hin und her. An ihrem Ende liegen die Schalter SPIELMODUS, LEICHTES BILD, RUHIGE BEWEGUNG und DEUTSCH / ENGLISH. Das Menü zeigt die Orte als Steine an einem Gartenweg und die Seiten des FM-1 als Blätter; Beenden ist sein letztes Blatt."),
               ["04-quickbar", "05-menu"], ""))
     C.append(("play", "03", "Playing yourself: play mode" if en else "Selbst spielen: der Spielmodus",
-              (f"Choose PLAY MODE in the quick bar (on handhelds with a working FN switch, slide it), and the buttons become notes; on the Trimui Brick a press of SELECT ends it (1.6.2, 27 November). The D-pad and A B X Y play eight tones of the Biome's scale, so nothing can sound wrong. R2 adds a chord, L1/R1 choose the track. Eight stepping stones lie over the pond, one per tone, and light up as you play. If the POLY voice is on, you play it: eight voices with all 24 synthesis models of Plaits."
-               if en else f"Wähle SPIELMODUS in der Schnellleiste (auf Geräten mit funktionierendem FN-Schalter schieb ihn um), und die Tasten werden zu Tönen; auf dem Trimui Brick beendet ihn ein Druck auf SELECT (1.6.2, 27. November). Steuerkreuz und A B X Y spielen acht Töne der Tonleiter des Bioms, es kann also nichts falsch klingen. R2 fügt einen Akkord hinzu, L1/R1 wählen die Spur. Acht Trittsteine liegen über dem Teich, einer je Ton, und leuchten beim Spielen. Ist die Stimme POLY an, spielst du sie: acht Stimmen mit allen 24 Synthesemodellen von Plaits."),
+              (f"Tap L2, choose PLAY MODE in the quick bar, and the buttons become notes. On the Trimui Brick a press of SELECT ends it (1.6.2, 27 November); the Brick's side FN switch is not used. The D-pad and A B X Y play eight tones of the Biome's scale, so nothing can sound wrong. R2 adds a chord, L1/R1 choose the track. Eight stepping stones lie over the pond, one per tone, and light up as you play. If the POLY voice is on, you play it: eight voices with all 24 synthesis models of Plaits."
+               if en else f"Tippe L2, wähle SPIELMODUS in der Schnellleiste, und die Tasten werden zu Tönen. Auf dem Trimui Brick beendet ihn ein Druck auf SELECT (1.6.2, 27. November); der seitliche FN-Schalter des Brick wird nicht benutzt. Steuerkreuz und A B X Y spielen acht Töne der Tonleiter des Bioms, es kann also nichts falsch klingen. R2 fügt einen Akkord hinzu, L1/R1 wählen die Spur. Acht Trittsteine liegen über dem Teich, einer je Ton, und leuchten beim Spielen. Ist die Stimme POLY an, spielst du sie: acht Stimmen mit allen 24 Synthesemodellen von Plaits."),
               ["06-playmode"], ""))
     C.append(("lab", "04", "The Sound Lab" if en else "Das Klanglabor",
               (f"{k('F1')} opens the Sound Lab, where the sound itself can be bent, folded and set alight. Its modules stand in two rows, sources and effects, and each draws a live picture of what it is doing. With everything at neutral the sound is exactly that of Mutable Dreams 2.1; nothing can break, because A brings any setting back. X silences a module (the quickest way to hear what an effect adds), Y jumps to the next module that sounds, and L1+R1 together show all modules at once."
