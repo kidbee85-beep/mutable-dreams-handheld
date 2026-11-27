@@ -2720,7 +2720,7 @@ static void bk_draw_quick(float t)
                                                  "Whole scenes to enter", "Free voices to fetch", "LFOs, links and macros",
                                                  "One track's whole sound", "Echo, room and grains", "Toys and little games",
                                                  "Every button, explained", "Buttons as you like them, repeat, language",
-                                                 "All places, and the FM-1's", "The buttons play notes",
+                                                 "All places, and the FM-1's", "Notes on the buttons; SELECT ends it",
                                                  "Less drawing, more speed", "Shapes held still",
                                                  "The garden's language"};
     static float shown = -1;

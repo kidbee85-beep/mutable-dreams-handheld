@@ -2984,3 +2984,9 @@ en SELECT END PLAY MODE   D-PAD + ABXY: SCALE TONES   R#: CHORD   L#/R# TRACK
 fr SELECT QUITTER LE JEU   CROIX + ABXY : NOTES DE LA GAMME   R# : ACCORD   L#/R# PISTE
 en R# + NOTE: CHORD   L#/R# OCTAVE   START PLAY   SELECT END PLAY MODE
 fr R# + NOTE : ACCORD   L#/R# OCTAVE   START JOUER   SELECT QUITTER LE JEU
+en In play mode (from the quick bar)
+fr En mode jeu (depuis la barre rapide)
+en NOT USED: L#, PLAY MODE
+fr INUTILISÉ : L#, MODE JEU
+en Notes on the buttons; SELECT ends it
+fr Des notes sur les touches ; SELECT quitte

@@ -87,6 +87,7 @@ inc = [f"-I{p}" for p in (HERE, A, B / "host", B / "device", B / "include", B / 
 flags = ["-O2", "-ffp-contract=off", "-DPLAT_HOST", "-DPLAT_WEB", "-DTEST", "-DFM1B_MIRROR=1", "-DFM1B_UAC_CH=8",
          "-ffunction-sections", "-fdata-sections", *inc]
 flags += os.environ.get("EXTRA_CFLAGS", "").split()
+flags += [f"-ffile-prefix-map={os.path.realpath(HERE)}=md", f"-ffile-prefix-map={HERE}=md"]   # (no private paths in a published program)
 link = []
 if target in ("headless", "sdl", "studio") and sys.platform == "darwin":
     sdk = os.environ.get("SDKROOT", "/Library/Developer/CommandLineTools/SDKs/MacOSX15.4.sdk")

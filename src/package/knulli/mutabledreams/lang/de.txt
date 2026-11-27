@@ -2984,3 +2984,9 @@ en SELECT END PLAY MODE   D-PAD + ABXY: SCALE TONES   R#: CHORD   L#/R# TRACK
 de SELECT SPIELMODUS AUS   D-PAD + ABXY: SKALENTÖNE   R#: AKKORD   L#/R# SPUR
 en R# + NOTE: CHORD   L#/R# OCTAVE   START PLAY   SELECT END PLAY MODE
 de R# + NOTE: AKKORD   L#/R# OKTAVE   START SPIELEN   SELECT SPIELMODUS AUS
+en In play mode (from the quick bar)
+de Im Spielmodus (aus der Schnellleiste)
+en NOT USED: L#, PLAY MODE
+de OHNE FUNKTION: L#, SPIELMODUS
+en Notes on the buttons; SELECT ends it
+de Die Tasten spielen Töne; SELECT beendet es

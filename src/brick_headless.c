@@ -694,6 +694,12 @@ int main(int argc, char **argv)
             bk_set_keyboard(atoi(a));
         } else if (!strcmp(cmd, "small")) {       /* small 1/0: as on a 640 x 480 handheld (the small labels one size up) */
             bk_set_small(atoi(a));
+        } else if (!strcmp(cmd, "expect_held")) {    /* expect_held 0/1: any play-mode note still held */
+            if ((bk_play_lit() != 0) != atoi(a)) {
+                printf("FAIL line %d: held notes %x, expected %s\n", ln, (unsigned)bk_play_lit(), a);
+                fails++;
+            } else
+                printf("  ok held %s\n", a);
         } else if (!strcmp(cmd, "notouch")) {
             bk_set_no_touch(atoi(a));
         } else if (!strcmp(cmd, "options")) {     /* options 1/0: OPTIONS opened / closed (1.1) */

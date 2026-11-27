@@ -661,6 +661,7 @@ static void bk_menu_press(int b)
 /* -4: the light picture on/off (bk_light) */
 static const int BK_QUICK[] = {-1, 1, 0, 2, 3, 4, 10, 9, 5, 6, 7, 12, 11, -7, -2, -3, -4, -5, -6};   /* (-7: OPTIONS, 1.1) */   /* (12: PLAYGROUND, 0.65; -5: CALM MOTION, 0.75; -6: DEUTSCH / ENGLISH, 0.80) */
 static uint32_t bk_fn_soft;                      /* play mode latched from the quick bar: held as if FN were on */
+static int bk_fn_ended;                          /* (SELECT just ended it: the FN bit not taken over again) */
 #define BK_NQUICK ((int)(sizeof BK_QUICK / sizeof BK_QUICK[0]))
 static int bk_quick_open, bk_quick_sel = 1, bk_l2_clean;
 static uint32_t bk_l2_at;
@@ -854,6 +855,28 @@ static void bk_press(int b)
 {
     int shift = (bk_held >> BK_R2) & 1u, play = (bk_held >> BK_FN) & 1u;
     bk_target t = {T_NONE, 0, 0};
+    if (bk_tgt[b].kind == T_NOTE) {              /* (1.6.2 fix) a button still sounding is pressed again (its repeat in an
+                                                    overlay opened meanwhile): its note let go first, or it would hang */
+        bk_note_up(b);
+        bk_tgt[b].kind = T_NONE;
+    }
+    if (b == BK_SELECT && bk_fn_soft && !(bk_opt_open && bk_opt_capture >= 0)) {
+        /* (1.6.2 fix) play mode from the quick bar: SELECT ends it at once, wherever one is (R2 held or not). On the
+           Brick the side FN switch does not reach the program, so until now only the quick bar could end it */
+        bk_fn_soft = 0;
+        bk_fn_ended = 1;
+        bk_held &= ~(1u << BK_FN);
+        for (int q = 0; q < BK_NBUTTONS; q++)
+            if (bk_tgt[q].kind == T_NOTE) {
+                bk_note_up(q);
+                bk_tgt[q].kind = T_NONE;
+            }
+        bk_quick_open = 0, bk_menu_open = 0, bk_help_open = 0;
+        bk_l2_clean = 0;
+        bk_notice("PLAY MODE OFF", "");
+        bk_tgt[b] = t;
+        return;
+    }
     if (bk_opt_open) {                           /* (1.1) OPTIONS: its own keys */
         bk_opt_press(b);
         bk_tgt[b] = t;
@@ -900,14 +923,6 @@ static void bk_press(int b)
     }
     if (bk_menu_open) {
         bk_menu_press(b);
-        bk_tgt[b] = t;
-        return;
-    }
-    if (b == BK_SELECT && bk_fn_soft && !shift) {   /* (1.6.2 fix) play mode from the quick bar: SELECT ends it at once.
-                                                       On the Brick the side FN switch does not reach the program, so
-                                                       until now only the quick bar could end it */
-        bk_fn_soft = 0;
-        bk_notice("PLAY MODE OFF", "");
         bk_tgt[b] = t;
         return;
     }
@@ -1370,6 +1385,8 @@ void bk_input(uint32_t held)
             bk_release(b);
         }
     }
+    if (bk_fn_ended)
+        held &= ~(1u << BK_FN), bk_fn_ended = 0;
     bk_held = held;
     bk_tick(0);
 }
@@ -1599,6 +1616,7 @@ void bk_help_first_run(int on) { bk_help_first = on; }
 int bk_help_shown(void) { return bk_help_open ? bk_help_page + 1 : 0; }
 int bk_guide_shown(void) { return bk_guide_open ? bk_guide_page + 1 : 0; }
 void bk_guide_show(int on) { bk_guide_open = on != 0, bk_guide_page = 0; }
+uint32_t bk_play_lit(void) { return bk_notes_lit; }   /* (the tests: which play-mode notes are held) */
 int bk_play_mode(void) { return (bk_held >> BK_FN) & 1u; }
 int bk_menu_shown(void) { return bk_menu_open != 0; }
 void bk_list_biomes(void)                        /* (the test runner: every Biome, for writing worlds) */

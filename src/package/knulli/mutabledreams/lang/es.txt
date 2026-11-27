@@ -2984,3 +2984,9 @@ en SELECT END PLAY MODE   D-PAD + ABXY: SCALE TONES   R#: CHORD   L#/R# TRACK
 es SELECT SALIR   D-PAD + ABXY: NOTAS DE LA ESCALA   R#: ACORDE   L#/R# PISTA
 en R# + NOTE: CHORD   L#/R# OCTAVE   START PLAY   SELECT END PLAY MODE
 es R# + NOTA: ACORDE   L#/R# OCTAVA   START TOCAR   SELECT SALIR
+en In play mode (from the quick bar)
+es En modo tocar (desde la barra rápida)
+en NOT USED: L#, PLAY MODE
+es SIN USO: L#, MODO TOCAR
+en Notes on the buttons; SELECT ends it
+es Notas en los botones; SELECT lo termina

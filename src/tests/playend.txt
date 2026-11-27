@@ -28,3 +28,34 @@ tap B
 wait 200
 expect_menu 0
 handheld 0
+# and with R2 held
+tap L2
+tap A
+wait 400
+expect_play 1
+press R2
+wait 100
+tap SELECT
+wait 200
+release R2
+expect_play 0
+# a direction held in play mode while the quick bar opens: its repeat there must not leave the note hanging
+tap L2
+tap A
+wait 400
+expect_play 1
+press RIGHT
+wait 200
+expect_held 1
+tap L2
+wait 1500
+release RIGHT
+wait 200
+expect_held 0
+# SELECT in the open quick bar ends play mode and closes the bar
+tap SELECT
+wait 300
+expect_play 0
+expect_menu 0
+wait 300
+expect_held 0

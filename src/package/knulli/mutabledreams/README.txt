@@ -11,10 +11,9 @@ Controls
   START / SELECT  PLAY / WHERE AM I      R2 + START        REC     R2 + SELECT (hold 1 s) SAVE
   MENU            jump menu              F2                MIXER view       R2 + F2   BIOME ATLAS
   F1              SOUND LAB              R2 + F1           REC
-  FN switch       play mode: D-pad + ABXY play eight scale tones, R2 adds a chord (with POLY on: on the
-                  polyphonic voice, else on the selected track)
-  PLAY MODE       on the Brick the side FN switch does not reach the program: switch play mode on with L2 (the
-                  quick bar) -> PLAY MODE; SELECT ends it at once
+  PLAY MODE       L2 (the quick bar) -> PLAY MODE: D-pad + ABXY play eight scale tones, R2 adds a chord (with
+                  POLY on: on the polyphonic voice, else on the selected track). SELECT ends it at once.
+                  The Brick's side FN switch does not reach the program and is not used.
   L2 (tap)        the quick bar: every place (garden, mixer, Sound Lab, atlas, sequence, dream map, worlds,
                   archive, modulation, voice, space, playground, help), MENU and PLAY MODE - on handhelds without MENU, F1,
                   F2 or the FN switch (RGB20S, Miyoo) this is how to reach them; see RGB20S.txt or MIYOO.txt
@@ -49,7 +48,7 @@ The GARDEN (home, on the LIVE page): a living night garden instead of the FM-1's
   The garden answers the music: each hit ripples the pond, the fireflies light up on the beat; FREEZE ices
   the pond over, frosts the plants and lets it snow; the Biome drift turns night into dawn towards scene B
   (the moon becomes the sun).
-  In play mode (FN) eight stepping stones lie over the pond, one per scale tone, and light up and ripple when
+  In play mode eight stepping stones lie over the pond, one per scale tone, and light up and ripple when
   played; the butterfly flies over to the track you choose.
   More creatures: living links are glowing vines between the plants (a light runs along them), POLY's voices
   float as lanterns on the pond, a frog jumps whenever RANDOM plays, SHIMMER is a band of light in the sky,

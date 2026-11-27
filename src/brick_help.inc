@@ -12,7 +12,7 @@ static const char *const HB_NAMES[HB_COUNT] = {"L2", "L1", "R1", "R2", "UP/DOWN"
                                                "SELECT", "START", "MENU", "F1", "F2", "FN"};
 #define HELP_PAGES 5
 static const char *const HELP_TITLES[HELP_PAGES] = {"In the garden and on the FM-1's pages", "With R2 held", "In the Sound Lab",
-                                                     "In play mode (the FN switch)", "In the full views"};
+                                                     "In play mode (from the quick bar)", "In the full views"};
 static const char *const HELP_TEXT[HELP_PAGES][HB_COUNT] = {
     {"TAP: QUICK BAR, HOLD: FINE", "TRACK", "TRACK", "HOLD: MORE (IN THE BAR)", "CHOOSE ONE OF THE FOUR DIALS", "TURN THE DIAL", "SELECT, MUTE", "BACK, HOLD: HOME",
      "EDIT PAGES", "EFFECT PAGES", "TAP: WHERE AM I / HOLD: HELP", "PLAY / STOP", "WHERE TO? THE MENU", "SOUND LAB", "MIXER", "PLAY MODE"},
@@ -47,6 +47,8 @@ static const char *hb_text(int page, int b)
         return "TAP: QUICK BAR (ALL)";
     if (bk_handheld && b == HB_SELECT && (page == 0 || page == 4))
         return "TAP: MENU / HOLD: HELP";     /* (1.5.8: the menu on one key) */
+    if (b == HB_FN && !bk_keyboard)              /* (1.6.2 fix) the Brick's side FN switch does not reach the program */
+        return page == 3 ? 0 : "NOT USED: L2, PLAY MODE";
     return HELP_TEXT[page][b];
 }   /* (also declared in brick_core.c) */
 

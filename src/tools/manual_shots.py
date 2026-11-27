@@ -29,7 +29,7 @@ S += ["press R2", "wait 700"]; shot("03-garden-r2", 100); S += ["release R2"]
 S += ["tap L2", "wait 300", "tap RIGHT", "tap RIGHT"]; shot("04-quickbar", 500); S += ["tap B"]
 S += ["tap MENU", "wait 300", "tap DOWN", "tap DOWN"]; shot("05-menu", 500); S += ["tap B", "wait 300"]
 cur[0] = 2
-S += ["press FN", "wait 400", "tap A", "tap RIGHT", "tap UP"]; shot("06-playmode", 300); S += ["release FN", "wait 300"]
+S += ["tap L2", "wait 300"] + ["tap LEFT"] * 7 + ["tap A", "wait 2800", "press A", "wait 150", "press RIGHT", "wait 150"]; shot("06-playmode", 200); S += ["expect_play 1"]; S += ["release A", "release RIGHT", "wait 200", "tap SELECT", "wait 400"]
 S += ["tap F1", "wait 900"]; shot("10-lab")
 for k in range(1, 12):
     S += ["tap R1", "wait 500"]

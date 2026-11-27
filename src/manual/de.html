@@ -99,7 +99,7 @@ bringt dich von überall sofort nach Hause in den Garten.</p>
   <tr><td><k>F1</k></td><td>Klanglabor</td><td></td></tr>
   <tr><td><k>F2</k></td><td>Mixer</td><td>Biom-Atlas</td></tr>
   <tr><td><k>L2</k></td><td>tippen: Schnellleiste</td><td></td></tr>
-  <tr><td><k>FN</k> (Schalter)</td><td>Spielmodus: Die Tasten spielen Töne</td><td></td></tr>
+  <tr><td><k>FN</k> (Schalter)</td><td>am Brick ohne Funktion: Sein Signal kommt im Programm nicht an. Spielmodus: <k>L2</k> &gt; SPIELMODUS, <k>SELECT</k> beendet ihn</td><td></td></tr>
 </table>
 <fig src="50-help">Die Hilfe: <k>SELECT</k> gedrückt halten. Ein gezeichneter Brick zeigt jede Taste mit ihrer Bedeutung. Mit <k>L1</k>/<k>R1</k> blätterst du durch fünf Seiten: Garten, mit <k>R2</k>, Klanglabor, Spielmodus und die großen Ansichten.</fig>
 <p>Unten am Bildschirm steht immer, was die Tasten gerade tun. Jede Taste ist dort ein kleiner Kiesel, daneben ihre
@@ -113,9 +113,9 @@ Schnellleiste, die auch den Spielmodus ein- und ausschaltet. Die Hinweiszeile ne
 rechts <k>A</k>, <k>B</k>, <k>X</k>, <k>Y</k>, <k>R1</k>, <k>R2</k>, <k>START</k> und <k>MENU</k>. Mehrere Finger gleichzeitig und
 Wischen gehen, gehaltene Tasten und Kombinationen also wie am Gerät. Die Zurück-Taste von Android ist <k>B</k>. Drückst du eine
 Gamepad-Taste, treten die Touch-Tasten für eine größere Bühne zur Seite; eine Berührung holt sie zurück.</p>
-<p><strong>Seit 1.6.1</strong> werden die Tasten des Brick standardmäßig nicht mehr gezeichnet. Eine Leiste auf einer Seite hat ZURÜCK, HOME, ORTE, SCHNELLLEISTE, KLANGLABOR, MIXER, OPTIONEN und HILFE; auf der anderen SPIELEN, SPIELMODUS (der FN-Schalter), UMSCHALT (R2 gehalten) und darunter die Tasten, die der jeweilige Ort in seiner Hinweiszeile nennt (STUMM, ÜBERRASCHUNG, BEARBEITEN, &lt; SPUR, SPUR &gt; ...). <strong>Optionen &gt; Tastenfeld auf dem Bildschirm</strong> bringt das alte Feld zurück. Das Folgende beschreibt dieses Feld und die Gesten auf der Bühne.</p>
+<p><strong>Seit 1.6.1</strong> werden die Tasten des Brick standardmäßig nicht mehr gezeichnet. Eine Leiste auf einer Seite hat ZURÜCK, HOME, ORTE, SCHNELLLEISTE, KLANGLABOR, MIXER, OPTIONEN und HILFE; auf der anderen SPIELEN, SPIELMODUS, UMSCHALT (R2 gehalten) und darunter die Tasten, die der jeweilige Ort in seiner Hinweiszeile nennt (STUMM, ÜBERRASCHUNG, BEARBEITEN, &lt; SPUR, SPUR &gt; ...). <strong>Optionen &gt; Tastenfeld auf dem Bildschirm</strong> bringt das alte Feld zurück. Das Folgende beschreibt dieses Feld und die Gesten auf der Bühne.</p>
 <p>Auf einem Android-Handheld mit Controller wählst du unter <strong>Optionen &gt; Touch-Tasten</strong>: <em>Auto</em> (die Touch-Tasten weichen bei einer Controller-Taste und kommen bei Berührung zurück), <em>Sichtbar</em> oder <em>Aus</em>, solange ein Controller da ist; die Leiste hat auch ein Feld <strong>Ausblenden</strong>, und eine Berührung holt sie zurück.</p>
-<p>Seit 1.6 hat die linke Gruppe auch <k>FN</k>, das einrastet wie der Schalter am Brick (Spielmodus). Hochkant gehalten liegt die Bühne oben
+<p>Seit 1.6 hat die linke Gruppe auch <k>FN</k>, das einrastet (Spielmodus). Hochkant gehalten liegt die Bühne oben
 und die beiden Tastengruppen darunter. In den <strong>Optionen</strong> stellst du die Tastengröße ein, auf welcher Seite welche Gruppe liegt
 (Linkshänder), wie deutlich sie leuchten, ein kurzes Vibrieren beim Drücken und die Höhe der Schnellleiste (über der Gestenleiste des Handys).
 Auf der Bühne selbst: ein <strong>Ziehen</strong> ist das Steuerkreuz, auf dem Feld eines Reglers dreht es diesen Regler, <strong>zwei Finger quer</strong> blättern
@@ -176,7 +176,7 @@ schwebt ein Blatt mit seinem Namen und einer Zeile, was dort zu finden ist.</p>
 blitzschnell zwischen zwei Orten hin und her. Am Ende der Leiste liegen außerdem vier Schalter:</p>
 <table>
   <tr><th>Stein</th><th>Was er schaltet</th></tr>
-  <tr><td><span class="label">SPIELMODUS</span></td><td>Die Tasten spielen Töne (auf Handhelds ohne FN-Schalter).</td></tr>
+  <tr><td><span class="label">SPIELMODUS</span></td><td>Die Tasten spielen Töne; <k>SELECT</k> beendet es.</td></tr>
   <tr><td><span class="label">LEICHTES BILD</span></td><td>Weniger Verzierung, schnellere Bühne. Schaltet sich von selbst ein, wenn das Bild zu langsam wird.</td></tr>
   <tr><td><span class="label">RUHIGE BEWEGUNG</span></td><td>Was sich nur zur Zierde bewegt, steht still. Was die Musik zeigt, bewegt sich weiter.</td></tr>
   <tr><td><span class="label">DEUTSCH / ENGLISH</span></td><td>Die Sprache der ganzen Oberfläche. Sie wird gespeichert.</td></tr>
@@ -189,12 +189,18 @@ Druck auf <k>UP</k>. Auf Geräten ohne <k>MENU</k>-Taste öffnet und schließt <
 <fig src="05-menu">Das Menü: links die Orte des Brick, rechts die Seiten des FM-1.</fig>
 
 <h2>Selbst spielen: der Spielmodus</h2>
-<p>Schiebst du den <k>FN</k>-Schalter an der Seite um, werden die Tasten zu Tönen. Das Steuerkreuz und <k>A</k> <k>B</k> <k>X</k> <k>Y</k>
+<p>So schaltest du ihn ein und aus:</p>
+<ol>
+  <li><strong>Ein:</strong> <k>L2</k> tippen (Schnellleiste), mit <k>LEFT</k>/<k>RIGHT</k> zum Stein <strong>SPIELMODUS</strong> gehen und <k>A</k> drücken.</li>
+  <li><strong>Aus:</strong> <k>SELECT</k> drücken. Die Tasten steuern wieder.</li>
+</ol>
+<tip>Der seitliche <k>FN</k>-Schalter des Trimui Brick kommt im Programm nicht an. Du brauchst ihn nicht, und keine Einstellung im System ändert das.</tip>
+<p>Beim Spielen: Das Steuerkreuz und <k>A</k> <k>B</k> <k>X</k> <k>Y</k>
 spielen acht Töne der Tonleiter, die immer zum Biom passen. Es kann also nichts falsch klingen. <k>R2</k> dazu spielt einen Akkord,
 <k>L1</k>/<k>R1</k> wählen die Spur. Über dem Teich liegen dann acht Trittsteine, einer pro Ton, und sie leuchten, wenn du spielst.</p>
 <fig src="06-playmode">Der Spielmodus: Rechts steht, welche Taste welchen Ton spielt, unten liegen die Trittsteine über dem Teich.</fig>
 <tip>Ist im Klanglabor die POLY-Stimme an, spielst du sie. Das sind acht Stimmen mit allen 24 Synthesemodellen von Plaits. Sonst spielst du die gewählte Spur.</tip>
-<p>Auf Handhelds ohne <k>FN</k>-Schalter schaltest du den Spielmodus über die Schnellleiste ein und aus.</p>
+<p>Auf den anderen Handhelds geht es genauso. An einer PC-Tastatur schaltet auch <k>TAB</k> um, auf einem Touch-Bildschirm die Taste SPIELMODUS.</p>
 
 <h2>Das Klanglabor</h2>
 <p>Mit <k>F1</k> öffnest du das <strong>Klanglabor</strong>. Hier lässt sich der Klang selbst biegen, falten und zum Leuchten bringen.
@@ -445,7 +451,7 @@ Spuren. MIDI geht nur hinein: Mutable Dreams sendet keine Noten und keine Clock.
 <fig src="60-options">Die Optionen: Schlaf-Timer, Wiederholtempo, Tasten und mehr.</fig>
 <h3>Live spielen</h3>
 <ol>
-  <li>Schalte den Spielmodus ein: am Brick mit dem <k>FN</k>-Schalter, sonst mit <strong>SPIELMODUS</strong> in der Schnellleiste (<k>L2</k>).</li>
+  <li>Schalte den Spielmodus ein: <strong>SPIELMODUS</strong> in der Schnellleiste (<k>L2</k>). <k>SELECT</k> beendet ihn wieder.</li>
   <li>Steuerkreuz und <k>A</k> <k>B</k> <k>X</k> <k>Y</k> spielen jetzt die Tonleiter des Bioms; <k>L1</k>/<k>R1</k> wechseln die Spur.</li>
   <li>Lass mit <k>START</k> eine Sequenz laufen und spiel darüber; <k>R2</k> gehalten spielt Akkorde.</li>
 </ol>

@@ -89,6 +89,7 @@ uint32_t bk_gfx_notes(void);
 void bk_garden_fx(int mode);          /* force the musical aurora (1) or rain (2), 0 as the Biome says (tests) */          /* notes the garden's musical aurora / rain answered (tests) */                   /* the garden's four dials 0..1000: FIREFLIES, WIND, GLOW, MIST (tests) */            /* DREAM TALES: the chapter under way (tests) */
 int bk_seq_notes(int track);           /* the notes of a track's sequence, -1 when it is off (tests) */
 uint32_t bk_seq_print(int track);     /* a fingerprint of a track's whole sequence (tests) */          /* how many notes the PLAYGROUND has played (tests) */
+uint32_t bk_play_lit(void);                       /* the play-mode notes held (tests) */
 void bk_set_no_touch(int on);                    /* a device without touch: OPTIONS without the touch rows */
 void bk_set_device(const char *name);            /* the handheld's name for title and start screen (default TRIMUI BRICK) */                    /* no MENU, F1, F2, FN keys: hints and help point to the quick bar */                          /* play mode on (the FN switch, or latched from the quick bar) */
 int bk_menu_shown(void);                         /* the jump menu open */

@@ -104,7 +104,7 @@ minutes, how everything fits together.</p>
   <tr><td><k>F1</k></td><td>Sound Lab</td><td></td></tr>
   <tr><td><k>F2</k></td><td>mixer</td><td>Biome atlas</td></tr>
   <tr><td><k>L2</k></td><td>tap: quick bar</td><td></td></tr>
-  <tr><td><k>FN</k> (switch)</td><td>play mode: the buttons play notes</td><td></td></tr>
+  <tr><td><k>FN</k> (switch)</td><td>not used on the Brick: its signal does not reach the program. Play mode: <k>L2</k> &gt; PLAY MODE, <k>SELECT</k> ends it</td><td></td></tr>
 </table>
 <fig src="50-help">The help appears while you hold <k>SELECT</k>. A drawn Brick shows every button and what it does. <k>L1</k>/<k>R1</k> turn through five pages: garden, with <k>R2</k>, Sound Lab, play mode and the full views.</fig>
 <p>The bottom of the screen always says what the buttons do right now. Each button there is a small pebble, with its meaning beside
@@ -118,9 +118,9 @@ mode on and off. The hint line names <k>SELECT</k> MENU right after the place's 
 <k>A</k>, <k>B</k>, <k>X</k>, <k>Y</k>, <k>R1</k>, <k>R2</k>, <k>START</k> and <k>MENU</k> on the right. Several fingers at once and
 sliding work, so held buttons and combinations behave as on the device. Android's back key is <k>B</k>. Press a gamepad button and the
 touch buttons step aside for a larger stage; touch the screen to bring them back.</p>
-<p><strong>Since 1.6.1</strong> the Brick's buttons are no longer drawn by default. A dock on one side holds BACK, HOME, PLACES, QUICK BAR, SOUND LAB, MIXER, OPTIONS and HELP; on the other side PLAY, PLAY MODE (the FN switch), SHIFT (R2 kept) and, below them, the buttons the place you are in names in its hint line (MUTE, SURPRISE, EDIT, &lt; TRACK, TRACK &gt; ...). <strong>Options &gt; Button pad on screen</strong> brings the old pad back. The following describes that pad and the gestures on the stage.</p>
+<p><strong>Since 1.6.1</strong> the Brick's buttons are no longer drawn by default. A dock on one side holds BACK, HOME, PLACES, QUICK BAR, SOUND LAB, MIXER, OPTIONS and HELP; on the other side PLAY, PLAY MODE, SHIFT (R2 kept) and, below them, the buttons the place you are in names in its hint line (MUTE, SURPRISE, EDIT, &lt; TRACK, TRACK &gt; ...). <strong>Options &gt; Button pad on screen</strong> brings the old pad back. The following describes that pad and the gestures on the stage.</p>
 <p>On an Android handheld with a controller, <strong>Options &gt; Touch buttons</strong> chooses: <em>Auto</em> (the touch buttons step aside at a controller's button and return at a touch), <em>Shown</em>, or <em>Hidden</em> while a controller is connected; the dock also has a <strong>Hide</strong> button, and a touch brings them back.</p>
-<p>Since 1.6 the left group also has <k>FN</k>, which latches like the switch on the Brick (play mode). Held upright, the stage
+<p>Since 1.6 the left group also has <k>FN</k>, which latches (play mode). Held upright, the stage
 sits on top and the two groups of buttons below. In <strong>Options</strong> you set the buttons' size, which side each group is on
 (left-handed), how clearly they glow, a short buzz on a press, and the height of the quick bar (above a phone's gesture strip).
 On the stage itself: a <strong>drag</strong> is the D-pad, on a dial's panel it turns that dial, <strong>two fingers across</strong> turn the page
@@ -185,7 +185,7 @@ the next Biome. The <strong>Biome atlas</strong> (<k>R2</k> + <k>F2</k>) shows t
 At its end lie four switches:</p>
 <table>
   <tr><th>Stone</th><th>What it switches</th></tr>
-  <tr><td><span class="label">PLAY MODE</span></td><td>The buttons play notes (for handhelds without the FN switch).</td></tr>
+  <tr><td><span class="label">PLAY MODE</span></td><td>The buttons play notes; <k>SELECT</k> ends it.</td></tr>
   <tr><td><span class="label">LIGHT PICTURE</span></td><td>Less decoration and a faster stage. It also switches on by itself when the picture is slow.</td></tr>
   <tr><td><span class="label">CALM MOTION</span></td><td>What only moves for decoration holds still. What shows the music keeps moving.</td></tr>
   <tr><td><span class="label">DEUTSCH / ENGLISH</span></td><td>The language of the whole interface. Your choice is saved.</td></tr>
@@ -201,7 +201,13 @@ At its end lie four switches:</p>
 <fig src="05-menu">The menu: the Brick's places on the left, the FM-1's pages on the right.</fig>
 
 <h2>Playing yourself: play mode</h2>
-<p>Slide the <k>FN</k> switch on the side, and the buttons become notes.</p>
+<p>Switch it on and off like this:</p>
+<ol>
+  <li><strong>On:</strong> tap <k>L2</k> (the quick bar), go to the stone <strong>PLAY MODE</strong> with <k>LEFT</k>/<k>RIGHT</k> and press <k>A</k>.</li>
+  <li><strong>Off:</strong> press <k>SELECT</k>. The buttons steer again.</li>
+</ol>
+<tip>The side <k>FN</k> switch of the Trimui Brick does not reach the program. You do not need it, and no setting of the system changes that.</tip>
+<p>While you play:</p>
 <ul>
   <li>The D-pad and <k>A</k> <k>B</k> <k>X</k> <k>Y</k> play eight tones of the Biome's scale, so nothing can sound wrong.</li>
   <li><k>R2</k> adds a chord, and <k>L1</k>/<k>R1</k> choose the track.</li>
@@ -209,7 +215,7 @@ At its end lie four switches:</p>
 </ul>
 <fig src="06-playmode">Play mode: the right side shows which button plays which tone; the stepping stones lie over the pond.</fig>
 <tip>If the POLY voice is on in the Sound Lab, you play it: eight voices with all 24 synthesis models of Plaits. Otherwise you play the chosen track.</tip>
-<p>On handhelds without the <k>FN</k> switch, switch play mode on and off from the quick bar.</p>
+<p>It is the same on the other handhelds. With a PC keyboard, <k>TAB</k> switches it too; on a touch screen the PLAY MODE key does.</p>
 
 <h2>The Sound Lab</h2>
 <p><k>F1</k> opens the <strong>Sound Lab</strong>. Here the sound itself can be bent, folded and set alight. Its modules stand in two
@@ -478,7 +484,7 @@ speaker without a crash. An empty file <span class="label">mutabledreams/usbaudi
 <fig src="60-options">The options: sleep timer, repeat speed, buttons and more.</fig>
 <h3>Playing live</h3>
 <ol>
-  <li>Switch on play mode: the <k>FN</k> switch on the Brick, or <strong>PLAY MODE</strong> in the quick bar (<k>L2</k>).</li>
+  <li>Switch on play mode: <strong>PLAY MODE</strong> in the quick bar (<k>L2</k>). <k>SELECT</k> ends it again.</li>
   <li>The D-pad and <k>A</k> <k>B</k> <k>X</k> <k>Y</k> now play the Biome's scale; <k>L1</k>/<k>R1</k> change the track.</li>
   <li>Let a sequence run with <k>START</k> and play over it; hold <k>R2</k> for chords.</li>
 </ol>
